@@ -12,7 +12,7 @@ namespace Data.Infrastructure
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        private pidevContext dataContext;
+        private PidevContext dataContext;
         private readonly IDbSet<T> dbset;
         IDatabaseFactory databaseFactory;
         public RepositoryBase(IDatabaseFactory dbFactory)
@@ -20,7 +20,7 @@ namespace Data.Infrastructure
             this.databaseFactory = dbFactory;
             dbset = DataContext.Set<T>();
         }
-        protected pidevContext DataContext
+        protected PidevContext DataContext
         {
             get { return dataContext = databaseFactory.DataContext; }
         }
