@@ -10,7 +10,7 @@ namespace Data.Infrastructure
     public class UnitOfWork : IUnitOfWork
     {
        
-         private PidevContext dataContext;
+         private pidevContext dataContext;
 
         IDatabaseFactory dbFactory;
         public UnitOfWork(IDatabaseFactory dbFactory)

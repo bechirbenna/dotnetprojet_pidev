@@ -9,12 +9,12 @@ namespace Data.Infrastructure
 {
     public class DatabaseFactory : Disposable, IDatabaseFactory
     {
-        private PidevContext dataContext;
-        public PidevContext DataContext { get { return dataContext; } }
+        private pidevContext dataContext;
+        public pidevContext DataContext { get { return dataContext; } }
 
         public DatabaseFactory()
         {
-            dataContext = new PidevContext();
+            dataContext = new pidevContext();
         }
 
         protected override void DisposeCore()

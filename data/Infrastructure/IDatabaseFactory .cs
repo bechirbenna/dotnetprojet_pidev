@@ -9,7 +9,7 @@ namespace Data.Infrastructure
 {
     public interface IDatabaseFactory : IDisposable
     {
-        PidevContext DataContext { get; }
+        pidevContext DataContext { get; }
     }
 
 }
