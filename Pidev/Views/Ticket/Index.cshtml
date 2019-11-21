@@ -1,0 +1,125 @@
+﻿@model IEnumerable<data.ticket>
+
+@{
+    ViewBag.Title = "Index";
+
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.archive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateBegin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.difficulty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.doing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.done)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estimatedHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.toDo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.toDoList)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employesTicket_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.projet_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.team_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.archive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateBegin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.difficulty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.doing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.done)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estimatedHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.toDo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.toDoList)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employesTicket_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projet_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.team_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idTicket }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idTicket }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idTicket })
+        </td>
+    </tr>
+}
+
+</table>
