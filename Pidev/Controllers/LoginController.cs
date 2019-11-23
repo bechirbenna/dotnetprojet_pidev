@@ -3,44 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using data;
 
 namespace Pidev.Controllers
 {
-    public class TicketController : Controller
+    public class LoginController : Controller
     {
-        // GET: Ticket
+        // GET: Login
         public ActionResult Index()
         {
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage responce = Client.GetAsync("api/tickets").Result;
-            if(responce.IsSuccessStatusCode)
-            {
-                ViewBag.result = responce.Content.ReadAsAsync<IEnumerable<ticket>>().Result;
-            }else
-            {
-                ViewBag.result = "erruer";
-            }
             return View();
         }
 
-        // GET: Ticket/Details/5
+        // GET: Login/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Ticket/Create
+        // GET: Login/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Ticket/Create
+        // POST: Login/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -56,13 +42,13 @@ namespace Pidev.Controllers
             }
         }
 
-        // GET: Ticket/Edit/5
+        // GET: Login/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Ticket/Edit/5
+        // POST: Login/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -78,13 +64,13 @@ namespace Pidev.Controllers
             }
         }
 
-        // GET: Ticket/Delete/5
+        // GET: Login/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Ticket/Delete/5
+        // POST: Login/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
