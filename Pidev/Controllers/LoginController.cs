@@ -16,39 +16,39 @@ namespace Pidev.Controllers
         // GET: Login
         public ActionResult Login(userModel model, string returnUrl)
         {
-            var getTokenUrl = string.Format(Token, ConfigurationManager.AppSettings["localhost:9080/pidev-web/api/athentication"]);
+            //var getTokenUrl = string.Format(Token, ConfigurationManager.AppSettings["localhost:9080/pidev-web/api/athentication"]);
                  
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpContent content = new FormUrlEncodedContent(new[]  
-                {
-                    new KeyValuePair<string, string>("username", model.Username),
-                    new KeyValuePair<string, string>("password", model.Password)
-                });
+            //using (HttpClient httpClient = new HttpClient())
+            //{
+            //    HttpContent content = new FormUrlEncodedContent(new[]  
+            //    {
+            //        new KeyValuePair<string, string>("username", model.Username),
+            //        new KeyValuePair<string, string>("password", model.Password)
+            //    });
 
-                HttpResponseMessage result = httpClient.PostAsync(getTokenUrl, content).Result;
+            //    //HttpResponseMessage result = httpClient.PostAsync(getTokenUrl, content).Result;
 
-                string resultContent = result.Content.ReadAsStringAsync().Result;
+            //    string resultContent = result.Content.ReadAsStringAsync().Result;
 
-                var token = JsonConvert.DeserializeObject<Token>(resultContent);
+            //    var token = JsonConvert.DeserializeObject<Token>(resultContent);
 
-                AuthenticationProperties options = new AuthenticationProperties();
+            //    AuthenticationProperties options = new AuthenticationProperties();
 
-                options.AllowRefresh = true;
-                options.IsPersistent = true;
-                options.ExpiresUtc = DateTime.UtcNow.AddSeconds(int.Parse(token.expires_in));
+            //    options.AllowRefresh = true;
+            //    options.IsPersistent = true;
+            //    options.ExpiresUtc = DateTime.UtcNow.AddSeconds(int.Parse(token.expires_in));
 
-                var claims = new[]
-                {
-                    new Claim(ClaimTypes.Name, model.Username),
-                    new Claim("AcessToken", string.Format("Bearer {0}", token.access_token)),
-                };
+            //    var claims = new[]
+            //    {
+            //        new Claim(ClaimTypes.Name, model.Username),
+            //        new Claim("AcessToken", string.Format("Bearer {0}", token.access_token)),
+            //    };
 
-                var identity = new ClaimsIdentity(claims, "ApplicationCookie");
+            //    var identity = new ClaimsIdentity(claims, "ApplicationCookie");
 
-                Request.GetOwinContext().Authentication.SignIn(options, identity);
+            //    Request.GetOwinContext().Authentication.SignIn(options, identity);
 
-            }
+            //}
 
             return RedirectToAction("Index", "Home");
         }

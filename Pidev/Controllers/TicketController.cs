@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using data;
+using System.Web.Script.Serialization;
+using Pidev.Models;
 
 namespace Pidev.Controllers
 {
@@ -37,23 +39,43 @@ namespace Pidev.Controllers
         // GET: Ticket/Create
         public ActionResult Create()
         {
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+            HttpResponseMessage responce = client.GetAsync("api/teams").Result;
+            
+
+            //if (responce.IsSuccessStatusCode)
+            //{
+            //    var result = responce.Content.ReadAsAsync<IEnumerable<team>>().Result;
+            //    ViewBag.PDVMobileId = new SelectList(result.ToList(), "id", "teamName");
+            //}
+            //else
+            //{
+            //    ViewBag.result = "erruer";
+            //}
+           
+
+
+            
             return View();
         }
 
         // POST: Ticket/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ticket ticket)
         {
-            try
-            {
-                // TODO: Add insert logic here
 
+            string n = String.Format("{0}", Request.Form["estimatedHour"]);
+            ticket.estimatedHours = double.Parse(n, System.Globalization.CultureInfo.InvariantCulture);
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+            // TODO: Add insert logic here
+            client.PostAsJsonAsync<ticket>("api/tickets/"+ticket.team_id, ticket).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode()); 
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            
+           
         }
 
         // GET: Ticket/Edit/5

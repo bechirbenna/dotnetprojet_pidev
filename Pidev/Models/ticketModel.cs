@@ -1,15 +1,16 @@
-namespace data
+﻿using data;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace Pidev.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-
-    [Table("pidevrh.ticket")]
-    public partial class ticket
+    public class ticketModel
     {
-
 
 
         [Key]
@@ -59,5 +60,7 @@ namespace data
         public virtual projet projet { get; set; }
 
         public virtual user user { get; set; }
+
+        public IEnumerable<SelectListItem> teams { get; set; }
     }
 }
