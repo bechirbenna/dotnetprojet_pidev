@@ -4,6 +4,7 @@ namespace data
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using Domain.Entities;
 
     public partial class PidevContext : DbContext
     {
@@ -24,6 +25,8 @@ namespace data
         public virtual DbSet<team> teams { get; set; }
         public virtual DbSet<ticket> tickets { get; set; }
         public virtual DbSet<user> users { get; set; }
+      
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

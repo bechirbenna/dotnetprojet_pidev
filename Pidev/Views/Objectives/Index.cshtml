@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutadv.cshtml";
+}
+
+
+<div class="content-wrapper">
+
+    <div class="content-heading">
+        <h2>Objectives</h2>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div align="right">
+                    <a href="~/Objectives/Create" class="btn btn-success btn-sm">Create new Objective</a>
+                </div>
+                <table class="table table-striped my-4 w-100" id="datatable2">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">id</th>
+                            <th>name</th>
+                            <th>description</th>
+                            <th>date Begin</th>
+                            <th>date End</th>
+                            <th class="sort-numeric">category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in ViewBag.result)
+                        {
+                            <tr>
+                                <td>@p.id</td>
+                                <td>@p.name</td>
+                                <td>@p.description</td>
+                                <td>@p.dateBegin</td>
+                                <td>@p.dateEnd</td>
+                                <td>@p.category</td>
+                                <td>
+                                 @*@{
+                                     ((Pidev.Controllers.ObjectivesController)this.ViewContext.Controller).Delete(@p.id);
+                                 }*@
+
+                                    <button type="button" onclick="Delete(@p.id);" class="btn btn-success btn-sm">Delete</button>
+                                    @*@Html.ActionLink("Delete", "Delete", new { id = @p.id })*@
+                                    
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function Delete(id) {
+
+        window.location.href = '@Url.Action("Delete", "objectives")/' + id;
+
+    }
+</script>

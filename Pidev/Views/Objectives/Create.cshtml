@@ -1,0 +1,55 @@
+﻿@model data.objectiveModels
+
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+<h2>Create new Objective</h2>
+
+@using (Html.BeginForm())
+{
+  
+
+    <div>
+        @Html.LabelFor(model => model.name)
+        @Html.EditorFor(model => model.name)
+        @Html.ValidationMessageFor(model => model.name)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.description)
+        @Html.EditorFor(model => model.description)
+        @Html.ValidationMessageFor(model => model.description)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.category)
+        @Html.EditorFor(model => model.category)
+        @Html.ValidationMessageFor(model => model.category)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.dateBegin)
+        @Html.EditorFor(model => model.dateBegin)
+        @Html.ValidationMessageFor(model => model.dateBegin)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.dateEnd)
+        @Html.EditorFor(model => model.dateEnd)
+        @Html.ValidationMessageFor(model => model.dateEnd)
+    </div>
+
+    <div>
+        <input type="submit" value="submit" />
+        <input type="reset" value="reset" />
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

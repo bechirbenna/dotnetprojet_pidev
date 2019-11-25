@@ -7,15 +7,10 @@ namespace data
     using System.Data.Entity.Spatial;
 
     [Table("pidevrh.objective")]
-    public partial class objective
+    public partial class objectiveModels
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public objective()
-        {
-            evaluations = new HashSet<evaluation>();
-        }
-
-        public long id { get; set; }
+       
+        
 
         [StringLength(255)]
         public string category { get; set; }
@@ -32,7 +27,7 @@ namespace data
         [StringLength(255)]
         public string name { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<evaluation> evaluations { get; set; }
+       
+     
     }
 }
