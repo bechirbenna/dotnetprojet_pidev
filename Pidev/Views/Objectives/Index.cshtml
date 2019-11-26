@@ -40,13 +40,14 @@
                                 <td>@p.dateEnd</td>
                                 <td>@p.category</td>
                                 <td>
-                                 @*@{
-                                     ((Pidev.Controllers.ObjectivesController)this.ViewContext.Controller).Delete(@p.id);
-                                 }*@
+                                    @*@{
+                                            ((Pidev.Controllers.ObjectivesController)this.ViewContext.Controller).Delete(@p.id);
+                                        }*@
+                                    <a href="@Url.Action("Edit", "objectives" ,new { id= @p.id} )" class="btn btn-warning btn-sm" ><i class="fa fa-pencil-alt"></i></a>
+                                    <button type="button" onclick="Delete(@p.id);" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
 
-                                    <button type="button" onclick="Delete(@p.id);" class="btn btn-success btn-sm">Delete</button>
                                     @*@Html.ActionLink("Delete", "Delete", new { id = @p.id })*@
-                                    
+
                                 </td>
                             </tr>
                         }
@@ -61,8 +62,10 @@
 
 <script>
     function Delete(id) {
+        alertify.confirm('web api Crud Operation', 'are you sure to delete this record ?', function () {
+            window.location.href = '@Url.Action("Delete", "objectives")/' + id;
+        }, null);
 
-        window.location.href = '@Url.Action("Delete", "objectives")/' + id;
 
     }
 </script>

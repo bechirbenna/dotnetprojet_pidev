@@ -58,25 +58,33 @@ namespace Pidev.Controllers
         }
 
         // GET: Objectives/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id=0)
         {
-            return View();
+           if(id ==0)
+            {
+                return View(new objective());
+            }
+           else
+            {
+                HttpResponseMessage response = GlobalVariables.Client.GetAsync("/pidev-web/rest/objectives/" + id.ToString()).Result;
+                return View(response.Content.ReadAsAsync<objective>().Result);
+            }
         }
 
         // POST: Objectives/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(objective obj)
         {
-            try
+            if (obj.id==0)
             {
-                // TODO: Add update logic here
+                var response = GlobalVariables.Client.PostAsJsonAsync<objective>("/pidev-web/rest/objectives", obj).Result;
+            }
+            else
+            {
+                var response1 = GlobalVariables.Client.PutAsJsonAsync<objective>("/pidev-web/rest/objectives" , obj).Result;
 
-                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("index");
         }
 
         // GET: Project/Delete/5
