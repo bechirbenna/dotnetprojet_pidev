@@ -1,0 +1,69 @@
+﻿@model IEnumerable<data.ticket>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="content-wrapper">
+    <div class="content-heading">Scrum Board</div>
+    <div>
+        <ul style="height: 100%; width: 100%; overflow: hidden; overflow-x: scroll; display: flex;">
+            @foreach (var ticket in ViewBag.result)
+            {
+                if (ticket.toDoList == true)
+                {
+                    <li style="display: inline-block; margin-left: 4px;">
+                        <div>
+                            <!-- Team Card-->
+                            <div class="card card-default">
+                                <div class="card-header">
+                                    <div class="float-right">
+                                        <div class="badge badge-success">free</div>
+                                    </div>
+                                    <div class="card-title">@ticket.title</div>
+                                </div>
+                                <div class="card-body bt">
+                                    <h4>Description</h4>
+                                    @ticket.description
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item">
+                                            <div class="badge bg-gray">@ticket.difficulty</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-center">
+                                    @*@{
+                                              ((Pidev.Controllers.ScrumBoardController)this.ViewContext.Controller).afficterTicket(@ticket);
+                                              <button class="btn btn-primary"> affecter</button>
+                                        }*@
+
+                                    <button type="button" onclick="Affecter(@ticket.idTicket);" class="btn btn-success btn-sm">Affecter a moi</button>
+                                </div>
+                            </div>
+                            <!-- end Team Card-->
+                        </div>
+                    </li>
+                  
+                }
+            }
+
+
+        </ul>
+     
+    </div>
+</div>
+<script>
+                        function Affecter(id) {
+
+                            window.location.href = '@Url.Action("afficterTicket", "ScrumBoard")/' + id;
+
+                        }
+</script>
