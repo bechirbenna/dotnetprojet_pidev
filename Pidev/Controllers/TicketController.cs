@@ -13,6 +13,8 @@ namespace Pidev.Controllers
 {
     public class TicketController : Controller
     {
+
+        private PidevContext db = new PidevContext();
         // GET: Ticket
         public ActionResult Index()
         {
@@ -43,39 +45,58 @@ namespace Pidev.Controllers
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
             HttpResponseMessage responce = client.GetAsync("api/teams").Result;
-            
 
-            //if (responce.IsSuccessStatusCode)
-            //{
-            //    var result = responce.Content.ReadAsAsync<IEnumerable<team>>().Result;
-            //    ViewBag.PDVMobileId = new SelectList(result.ToList(), "id", "teamName");
-            //}
-            //else
-            //{
-            //    ViewBag.result = "erruer";
-            //}
-           
+            ticketModel ticketModel = new ticketModel();
 
 
-            
-            return View();
+            if (responce.IsSuccessStatusCode)
+            {
+                
+                ViewBag.teams = responce.Content.ReadAsAsync<IList<team>>().Result;
+             
+            }
+            else
+            {
+                ViewBag.result = "erruer";
+            }
+
+
+
+
+            return View(ticketModel);
         }
 
         // POST: Ticket/Create
         [HttpPost]
-        public ActionResult Create(ticket ticket)
+        public ActionResult Create(ticketModel ticket,double estimatedHour)
         {
-
-            string n = String.Format("{0}", Request.Form["estimatedHour"]);
-            ticket.estimatedHours = double.Parse(n, System.Globalization.CultureInfo.InvariantCulture);
-
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
-            // TODO: Add insert logic here
-            client.PostAsJsonAsync<ticket>("api/tickets/"+ticket.team_id, ticket).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode()); 
-                return RedirectToAction("Index");
+            double n = double.Parse(Request.Form["teamName"]);
+            string diff = Request.Form["difficulity"];
             
-           
+            ticket.estimatedHours = estimatedHour;
+            ticket.difficulty = diff;
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+
+            HttpResponseMessage responce = client.GetAsync("api/teams/"+n).Result;
+
+            if (responce.IsSuccessStatusCode)
+            {
+                ticket.team = responce.Content.ReadAsAsync<team>().Result;
+            }
+            // ticket.team = responce.
+
+
+            // ticket.team = responce;
+
+            // TODO: Add insert logic here
+
+            var result = client.PostAsJsonAsync<ticketModel>("api/tickets", ticket).Result;
+            
+            return RedirectToAction("Index");
+
+
         }
 
         // GET: Ticket/Edit/5

@@ -277,6 +277,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\TeamModel.cs" />
     <Compile Include="Models\ticketModel.cs" />
     <Compile Include="Models\userModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -544,6 +545,10 @@
     <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Ticket\Edit.cshtml" />
+    <Content Include="Views\Ticket\Details.cshtml" />
+    <Content Include="Views\Ticket\Delete.cshtml" />
+    <Content Include="Views\Ticket\ScrumBoard.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -558,6 +563,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\data\data.csproj">
+      <Project>{0156dbfc-827d-4892-ad47-f39cd27bc95a}</Project>
+      <Name>data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{609943ff-4951-4773-be1a-675576a86696}</Project>
       <Name>Domain</Name>
