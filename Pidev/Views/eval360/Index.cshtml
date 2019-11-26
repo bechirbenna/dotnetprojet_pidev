@@ -1,0 +1,176 @@
+﻿@model IEnumerable<data.eval360Models>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+@{var AfterThree = Pidev.Controllers.eval360Controller.getAfterThree(); }
+@{var FirstOne = Pidev.Controllers.eval360Controller.getFirstEval(); }
+@{var SecondOne = Pidev.Controllers.eval360Controller.getSecondEval(); }
+@{var ThirdOne = Pidev.Controllers.eval360Controller.getThirdEval(); }
+@{ var pathFirst = "~/Content/images/" + @FirstOne.concernedEmployee.firstName + ".jpg";}
+@{ var pathSecond = "~/Content/images/" + @SecondOne.concernedEmployee.firstName + ".jpg";}
+@{ var pathThird = "~/Content/images/" + @ThirdOne.concernedEmployee.firstName + ".jpg";}
+
+
+<div class="content-wrapper">
+
+    <div class="content-heading">
+        <h2>List Eval360</h2>
+    </div>
+    <div class="card card-default">
+        <div class="card-header">List Eval 360</div>
+        <!-- START table-responsive-->
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover"
+                   id="table-ext-2">
+                <thead>
+
+                </thead>
+                <tbody>
+                    <!-- first one -->
+                    <tr>
+
+                        <td style="border-right : none ;">
+                            <div class="media">
+
+                                <a class="float-left" href="#">
+                                    <img class="img-thumbnail circle img-fluid thumb96"
+                                         src="@Url.Content(pathFirst)"
+                                         alt="" />
+                                </a>
+                                <div class="media-body">
+                                    <div class="float-right badge badge-info"> @FirstOne.concernedEmployee.role</div>
+                                    <h4>@FirstOne.concernedEmployee.firstName</h4>
+                                    <p>
+                                        Username: @FirstOne.concernedEmployee.userName<br /> Email
+                                        : @FirstOne.concernedEmployee.email<br /> Phone Number :
+                                        @FirstOne.concernedEmployee.phoneNumber
+                                    </p>
+                                    @FirstOne.evalDetails
+                                    <hr />
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="border-left : none ;" class="text-center">
+                            <div>
+                                <img style="margin-bottom:12%;"
+                                     class="img-thumbnail circle img-fluid thumb96"
+                                     src="~/Content/images/gold.jpg"
+                                     alt="" />
+                            </div>
+                           
+                        </td>
+                    </tr>
+
+                    <!-- second one -->
+                    <tr>
+
+                        <td style="border-right : none ;">
+                            <div class="media">
+
+                                <a class="float-left" href="#">
+                                    <img class="img-thumbnail circle img-fluid thumb96"
+                                         src="@Url.Content(pathSecond)"
+                                         alt="" />
+                                </a>
+                                <div class="media-body">
+                                    <div class="float-right badge badge-info"> @SecondOne.concernedEmployee.role</div>
+                                    <h4>@SecondOne.concernedEmployee.firstName</h4>
+                                    <p>
+                                        Username: @SecondOne.concernedEmployee.userName<br /> Email
+                                        : @SecondOne.concernedEmployee.email<br /> Phone Number :
+                                        @SecondOne.concernedEmployee.phoneNumber
+                                    </p>
+                                    @SecondOne.evalDetails
+                                    <hr />
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="border-left : none ;" class="text-center">
+                            <div>
+                                <img style="margin-bottom:12%;"
+                                     class="img-thumbnail circle img-fluid thumb96"
+                                     src="~/Content/images/silver.jpg"
+                                     alt="" />
+                            </div>
+                           
+                        </td>
+                    </tr>
+
+                    <!-- third one -->
+                    <tr>
+
+                        <td style="border-right : none ;">
+                            <div class="media">
+
+                                <a class="float-left" href="#">
+                                    <img class="img-thumbnail circle img-fluid thumb96"
+                                         src="@Url.Content(pathThird)"
+                                         alt="" />
+                                </a>
+                                <div class="media-body">
+                                    <div class="float-right badge badge-info"> @ThirdOne.concernedEmployee.role</div>
+                                    <h4>@ThirdOne.concernedEmployee.firstName</h4>
+                                    <p>
+                                        Username: @ThirdOne.concernedEmployee.userName<br /> Email
+                                        : @ThirdOne.concernedEmployee.email<br /> Phone Number :
+                                        @ThirdOne.concernedEmployee.phoneNumber
+                                    </p>
+                                    @ThirdOne.evalDetails
+                                    <hr />
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="border-left : none ;" class="text-center">
+                            <div>
+                                <img style="margin-bottom:12%;"
+                                     class="img-thumbnail circle img-fluid thumb96"
+                                     src="~/Content/images/bronze.jpg"
+                                     alt="" />
+                            </div>
+                           
+                        </td>
+                    </tr>
+
+                    <!-- After three -->
+                   @foreach (var p in AfterThree)
+                   {
+                      
+                    <tr>
+                         
+                        <td style="border-right : none ;">
+                            <div class="media">
+
+                                <a class="float-left" href="#">
+                                    <img class="img-thumbnail circle img-fluid thumb96"
+                                         src="@Url.Content("~/Content/images/" + @p.concernedEmployee.firstName + ".jpg")"
+                                         alt="" />
+                                </a>
+                                <div class="media-body">
+                                    <div class="float-right badge badge-info"> @p.concernedEmployee.role</div>
+                                    <h4>@p.concernedEmployee.firstName</h4>
+                                    <p>
+                                        Username: @p.concernedEmployee.userName<br /> Email
+                                        : @p.concernedEmployee.email<br /> Phone Number :
+                                        @p.concernedEmployee.phoneNumber
+                                    </p>
+                                    @p.evalDetails
+                                    <hr />
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="border-left : none ;" class="text-center">
+                           
+
+                        </td>
+                    </tr>
+                   }
+            </table>
+
+        </div>

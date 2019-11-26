@@ -250,7 +250,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\eval360Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\notificationController.cs" />
     <Compile Include="Controllers\ObjectivesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -258,6 +260,8 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\concernedEmployee.cs" />
+    <Compile Include="Models\eval360Models.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\objectiveModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -299,6 +303,18 @@
     <Content Include="Content\css\theme-f.css" />
     <Content Include="Content\css\theme-g.css" />
     <Content Include="Content\css\theme-h.css" />
+    <Content Include="Content\images\aatef.jpg" />
+    <Content Include="Content\images\abir.jpg" />
+    <Content Include="Content\images\anonymous.png" />
+    <Content Include="Content\images\bechir.jpg" />
+    <Content Include="Content\images\bronze.jpg" />
+    <Content Include="Content\images\fawzi.jpg" />
+    <Content Include="Content\images\gold.jpg" />
+    <Content Include="Content\images\malak.jpg" />
+    <Content Include="Content\images\malek.jpg" />
+    <Content Include="Content\images\mootaz.jpg" />
+    <Content Include="Content\images\olfa.jpg" />
+    <Content Include="Content\images\silver.jpg" />
     <Content Include="Content\img\bg1.jpg" />
     <Content Include="Content\img\bg10.jpg" />
     <Content Include="Content\img\bg2.jpg" />
@@ -542,9 +558,11 @@
     <Content Include="Views\Objectives\Create.cshtml" />
     <Content Include="Views\Objectives\Delete.cshtml" />
     <Content Include="Views\Objectives\Edit.cshtml" />
+    <Content Include="Views\eval360\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\notification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
