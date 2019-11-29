@@ -16,7 +16,7 @@ namespace ServicePattern
         #endregion Private Fields
 
         #region Constructor
-        protected Service(IUnitOfWork utwk)
+       public Service(IUnitOfWork utwk)
         {
             this.utwk = utwk;
         }

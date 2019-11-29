@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutadv.cshtml";
+}
+
+
+<div class="content-wrapper">
+
+    <div class="content-heading">
+        <h2>Mission</h2>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div align="right">
+                    <a href="~/Objectives/Create" class="btn btn-success btn-sm"></a>
+                </div>
+                <table class="table table-striped my-4 w-100" id="datatable2">
+                    <thead>
+                        <tr>
+
+                            <th data-priority="1">idmission</th>
+                            <th>datedebut</th>
+                            <th>datefin</th>
+                            <th>destination</th>
+                            <th>territoire</th>
+                            <th>objectif</th>
+                            <th>etat</th>
+
+
+
+
+                            <th>Action</th>
+
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var a in ViewBag.result)
+                        {
+                            <tr>
+                                <td>@a.idmission</td>
+                                <td>@a.datedebut</td>
+                                <td>@a.datefin</td>
+                                <td>@a.destination</td>
+                                <td>@a.territoire</td>
+                                <td>@a.objectif</td>
+                                <td>@a.etat</td>
+                                <td>
+                                    @{ int idmission = @a.idmission;}
+
+                                    <a href="@Url.Action("Delete", "Mission",new {idmission=1})" class="btn btn-danger">delete</a>
+
+                                </td>
+
+                            </tr>
+                            @*@{
+                                    ((Pidev.Controllers.PartenaireController)this.ViewContext.Controller).Delete(@a.idpartenaire);
+                                }*@
+
+                                        @*@Html.ActionLink("Delete", "Delete", new { id = @a.idpartenaire })*@
+
+
+                                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

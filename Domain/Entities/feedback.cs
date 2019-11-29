@@ -6,7 +6,7 @@ namespace data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("pidevrh.feedback")]
+    [Table("pi.feedback")]
     public partial class feedback
     {
         [Key]
@@ -22,10 +22,7 @@ namespace data
         [StringLength(255)]
         public string comment { get; set; }
 
-        [Column(TypeName = "date")]
         public DateTime? feedbackDate { get; set; }
-
-        public int mark { get; set; }
 
         public virtual eval360 eval360 { get; set; }
 

@@ -13,17 +13,15 @@ namespace data
         }
 
         public virtual DbSet<eval360> eval360 { get; set; }
-        public virtual DbSet<evaluation> evaluations { get; set; }
-        public virtual DbSet<facture> factures { get; set; }
-        public virtual DbSet<feedback> feedbacks { get; set; }
-        public virtual DbSet<mission> missions { get; set; }
-        public virtual DbSet<notification> notifications { get; set; }
-        public virtual DbSet<objective> objectives { get; set; }
-        public virtual DbSet<partenariat> partenariats { get; set; }
-        public virtual DbSet<projet> projets { get; set; }
-        public virtual DbSet<team> teams { get; set; }
-        public virtual DbSet<ticket> tickets { get; set; }
-        public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<evaluation> evaluation { get; set; }
+        public virtual DbSet<facture> facture { get; set; }
+        public virtual DbSet<feedback> feedback { get; set; }
+        public virtual DbSet<mission> mission { get; set; }
+        public virtual DbSet<objective> objective { get; set; }
+        public virtual DbSet<partenariat> partenariat { get; set; }
+        public virtual DbSet<reclamation> reclamation { get; set; }
+        public virtual DbSet<team> team { get; set; }
+        public virtual DbSet<user> user { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -32,11 +30,7 @@ namespace data
                 .IsUnicode(false);
 
             modelBuilder.Entity<eval360>()
-                .Property(e => e.status)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<eval360>()
-                .HasMany(e => e.feedbacks)
+                .HasMany(e => e.feedback)
                 .WithRequired(e => e.eval360)
                 .HasForeignKey(e => e.idEval360)
                 .WillCascadeOnDelete(false);
@@ -78,26 +72,10 @@ namespace data
                 .IsUnicode(false);
 
             modelBuilder.Entity<mission>()
-                .HasMany(e => e.factures)
+                .HasMany(e => e.facture)
                 .WithRequired(e => e.mission)
                 .HasForeignKey(e => e.mission_idmission)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<notification>()
-                .Property(e => e.Title)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<notification>()
-                .Property(e => e.description)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<notification>()
-                .Property(e => e.forUserHavingRole)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<notification>()
-                .Property(e => e.notifType)
-                .IsUnicode(false);
 
             modelBuilder.Entity<objective>()
                 .Property(e => e.category)
@@ -112,7 +90,7 @@ namespace data
                 .IsUnicode(false);
 
             modelBuilder.Entity<objective>()
-                .HasMany(e => e.evaluations)
+                .HasMany(e => e.evaluation)
                 .WithRequired(e => e.objective)
                 .HasForeignKey(e => e.idObjective)
                 .WillCascadeOnDelete(false);
@@ -134,18 +112,17 @@ namespace data
                 .IsUnicode(false);
 
             modelBuilder.Entity<partenariat>()
-                .HasMany(e => e.factures)
+                .HasMany(e => e.facture)
                 .WithOptional(e => e.partenariat)
                 .HasForeignKey(e => e.partenariat_idpartenaire);
 
-            modelBuilder.Entity<projet>()
-                .Property(e => e.name)
+            modelBuilder.Entity<reclamation>()
+                .Property(e => e.descriptif)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<projet>()
-                .HasMany(e => e.tickets)
-                .WithOptional(e => e.projet)
-                .HasForeignKey(e => e.projet_id);
+            modelBuilder.Entity<reclamation>()
+                .Property(e => e.type)
+                .IsUnicode(false);
 
             modelBuilder.Entity<team>()
                 .Property(e => e.departement)
@@ -156,25 +133,9 @@ namespace data
                 .IsUnicode(false);
 
             modelBuilder.Entity<team>()
-                .HasMany(e => e.users)
+                .HasMany(e => e.user)
                 .WithOptional(e => e.team)
                 .HasForeignKey(e => e.team_id);
-
-            modelBuilder.Entity<ticket>()
-                .Property(e => e.description)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ticket>()
-                .Property(e => e.difficulty)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ticket>()
-                .Property(e => e.status)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ticket>()
-                .Property(e => e.title)
-                .IsUnicode(false);
 
             modelBuilder.Entity<user>()
                 .Property(e => e.user_role)
@@ -201,15 +162,15 @@ namespace data
                 .IsUnicode(false);
 
             modelBuilder.Entity<user>()
+                .Property(e => e.phoneNumber)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<user>()
                 .Property(e => e.cvDetails)
                 .IsUnicode(false);
 
             modelBuilder.Entity<user>()
                 .Property(e => e.gitLink)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<user>()
-                .Property(e => e.phoneNumber)
                 .IsUnicode(false);
 
             modelBuilder.Entity<user>()
@@ -222,31 +183,26 @@ namespace data
                 .HasForeignKey(e => e.concernedEmployee_id);
 
             modelBuilder.Entity<user>()
-                .HasMany(e => e.evaluations)
+                .HasMany(e => e.evaluation)
                 .WithRequired(e => e.user)
                 .HasForeignKey(e => e.idEmploye)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<user>()
-                .HasMany(e => e.feedbacks)
+                .HasMany(e => e.feedback)
                 .WithRequired(e => e.user)
                 .HasForeignKey(e => e.idGivenByEmployee)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<user>()
-                .HasMany(e => e.missions)
+                .HasMany(e => e.mission)
                 .WithOptional(e => e.user)
                 .HasForeignKey(e => e.emp_id);
 
             modelBuilder.Entity<user>()
-                .HasMany(e => e.teams)
-                .WithOptional(e => e.user)
+                .HasMany(e => e.team1)
+                .WithOptional(e => e.user1)
                 .HasForeignKey(e => e.manager_id);
-
-            modelBuilder.Entity<user>()
-                .HasMany(e => e.tickets)
-                .WithOptional(e => e.user)
-                .HasForeignKey(e => e.employesTicket_id);
         }
     }
 }

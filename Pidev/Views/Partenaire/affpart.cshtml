@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutadv.cshtml";
+}
+
+
+<div class="content-wrapper">
+
+    <div class="content-heading">
+        <h2>Partenaire</h2>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div align="right">
+                    <a href="~/Objectives/Create" class="btn btn-success btn-sm">Create new Objective</a>
+                </div>
+                <table class="table table-striped my-4 w-100" id="datatable2">
+                    <thead>
+                        <tr>
+
+                            <th data-priority="1">id</th>
+                            <th>nompartenaire</th>
+                            <th>adressepartenaire</th>
+                            <th>emailpartenaire</th>
+                            <th>domainepartenaire</th>
+                            <th>pourcentagereduction</th>
+                            <th>numtelpartenaire</th>
+
+
+
+
+                            <th>Action</th>
+
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var a in ViewBag.result)
+                        {
+                            <tr>
+                                <td>@a.idpartenaire</td>
+                                <td>@a.nompartenaire</td>
+                                <td>@a.adressepartenaire</td>
+                                <td>@a.emailpartenaire</td>
+                                <td>@a.domainepartenaire</td>
+                                <td>@a.pourcentagereduction</td>
+                                <td>@a.numtelpartenaire</td>
+                                <td>
+                                    @{ int idpart = @a.idpartenaire;}
+
+                                    <a href="@Url.Action("Delete", "Partenaire",new {idpartenaire=1})" class="btn btn-danger">delete</a>
+
+                                </td>
+
+                            </tr>
+                                    @*@{
+                                            ((Pidev.Controllers.PartenaireController)this.ViewContext.Controller).Delete(@a.idpartenaire);
+                                        }*@
+
+                                    @*@Html.ActionLink("Delete", "Delete", new { id = @a.idpartenaire })*@
+
+
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function Delete(idpartenaire) {
+        alertify.confirm('web api Crud Operation', 'are you sure to delete this record ?', function () {
+            window.location.href = '@Url.Action("Delete", "objectives")/' + idpartenaire;
+        }, null);
+    }
+</script>

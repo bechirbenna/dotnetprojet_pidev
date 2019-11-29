@@ -6,13 +6,13 @@ namespace data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("pidevrh.partenariat")]
+    [Table("pi.partenariat")]
     public partial class partenariat
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public partenariat()
         {
-            factures = new HashSet<facture>();
+            facture = new HashSet<facture>();
         }
 
         [Key]
@@ -37,6 +37,6 @@ namespace data
         public int pourcentagereduction { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<facture> factures { get; set; }
+        public virtual ICollection<facture> facture { get; set; }
     }
 }

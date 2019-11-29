@@ -70,13 +70,10 @@
     <Compile Include="Entities\facture.cs" />
     <Compile Include="Entities\feedback.cs" />
     <Compile Include="Entities\mission.cs" />
-    <Compile Include="Entities\notification.cs" />
     <Compile Include="Entities\objective.cs" />
     <Compile Include="Entities\partenariat.cs" />
-    <Compile Include="Entities\projet.cs" />
+    <Compile Include="Entities\reclamation.cs" />
     <Compile Include="Entities\team.cs" />
-    <Compile Include="Entities\test.cs" />
-    <Compile Include="Entities\ticket.cs" />
     <Compile Include="Entities\user.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

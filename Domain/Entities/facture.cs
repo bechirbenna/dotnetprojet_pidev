@@ -6,7 +6,7 @@ namespace data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("pidevrh.facture")]
+    [Table("pi.facture")]
     public partial class facture
     {
         [Key]

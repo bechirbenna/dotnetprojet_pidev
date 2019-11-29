@@ -6,7 +6,7 @@ namespace data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("pidevrh.evaluation")]
+    [Table("pi.evaluation")]
     public partial class evaluation
     {
         [Key]
