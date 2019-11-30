@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+@{ var teams = Pidev.Controllers.objectiveToTeamController.getAllTeams();}
+@{var objectives = Pidev.Controllers.objectiveToAllEmployesController.getObjectives(); }
+
+<div class="content-wrapper">
+
+    <div class="content-heading">
+        <div>
+            Evaluation for Teams <small>
+                A showcase of different components inside
+                tables
+            </small>
+        </div>
+    </div>
+    <div class="card card-default">
+        <div class="row">
+
+
+            @foreach (var t in teams)
+            {
+                var nbEmployeinTeam = Pidev.Controllers.objectiveToTeamController.nbEmployeinTeam(t.id);
+                var date = t.creationDateTime.ToString();
+                var stringDate = date.Substring(0, 10);
+
+                <div class="col-xl-4 col-lg-4">
+                    <div class="card b text-center">
+                        <div class="card-body">
+
+                            <img src="@Url.Content("~/Content/img/" + @t.teamName + ".jpg")" class="mb-2 img-fluid rounded-circle thumb64" alt="Contact">
+
+                            <p class="h4 text-bold mb-0">@t.teamName</p>
+
+                            <div class="form-group">
+                                <div class="col-md-10" style="margin-top:5%;margin-left:7%;">
+                                    <input id="concerned_employee" name="concerned_employee" type="hidden" value="" />
+                                    <button onclick="Delete(@t.id);" class="btn btn-outline-inverse  btn-oval" id="submitEval360" type="button"> <i class="fa fa-flag"></i> Evaluate  </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body bt">
+                            <div class="row">
+                                <div class="col-6 br">
+                                    <em class="fa fa-users fa-1x fa-fw text-primary"></em><strong>
+                                        Employes : @nbEmployeinTeam
+
+                                    </strong>
+                                </div>
+                                <div class="col-6 br">
+                                    <em class="fa fa-birthday-cake fa-fw text-danger"></em><strong>
+
+                                        @stringDate
+                                    </strong>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    function Delete(idT) {
+        alertify.confirm('Evaluation Operation', 'are you sure to choose this team ?', function () {
+            window.location.href = '@Url.Action("teamChoosed", "objectiveToTeam")?idT=' + idT;
+        }, null);
+
+
+    }
+
+
+
+</script>
+<style>
+    .wizard > .content {
+  background: #fff;
+  display: block;
+  margin: 0.5em;
+  min-height: 550px;
+  overflow: hidden;
+  position: relative;
+  width: auto;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px; }
+</style>

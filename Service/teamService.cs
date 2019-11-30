@@ -1,0 +1,22 @@
+﻿using data;
+using Data.Infrastructure;
+using ServicePattern;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Service
+{
+    public class teamService : Service<team>, IServiceTeam
+    {
+        private PidevContext ctx;
+        private static IDatabaseFactory dbf = new DatabaseFactory();
+        private static IUnitOfWork unitOfWork = new UnitOfWork(dbf);
+        public teamService() : base(unitOfWork)
+        {
+
+        }
+    }
+}

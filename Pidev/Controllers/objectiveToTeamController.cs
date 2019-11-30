@@ -2,57 +2,71 @@
 using Service;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Pidev.Controllers
 {
-    public class objectiveToAllEmployesController : Controller
+    public class objectiveToTeamController : Controller
     {
-
         objectiveService serviceObjective = new objectiveService();
         userService serviceUser = new userService();
         evaluationService serviceEval = new evaluationService();
+        teamService serviceTeam = new teamService();
 
-        public static IEnumerable<objective> getObjectives()
+        public static IEnumerable<team> getAllTeams()
         {
-            HttpResponseMessage response = GlobalVariables.Client.GetAsync("/pidev-web/rest/objectives").Result;
-            var result = response.Content.ReadAsAsync<IEnumerable<objective>>().Result;
-            return result;
-           
+            teamService st = new teamService();
+            return st.GetMany().ToList();
         }
 
-        
-
-        public ActionResult evaluate(int id)
+        public static int nbEmployeinTeam(long id)
         {
-            IEnumerable<user> users = serviceUser.GetMany().ToList();
-            var obj = serviceObjective.GetById(id);
-            
+            userService su = new userService();
+            var a = su.GetMany().Where(x => x.team_id.Equals(id)).Count();
+            return a;
+        }
+
+       public ActionResult teamChoosed(int idT)
+        {
+            ViewBag.idT = idT;
+            return View();
+        }
+
+        [Route("/objectiveToTeam/evaluate/{idO?}/{idT?}")]
+        public ActionResult evaluate(int idO , int idT)
+        {
+            string i = Request.Form["idTeam"];
+            //int ii = Int32.Parse(i);
+
+            var a = idT;
+
+            IEnumerable<user> users = serviceUser.GetMany().Where(x=>x.team_id == a).ToList();
+            var userss = users;
+            var obj = serviceObjective.GetById(idO);
+
             string str = obj.dateEnd.Substring(0, 10);
             var datee = obj.dateEnd;
 
             DateTime dt2 = DateTime.ParseExact(str, "dd/MM/yyyy", null);
 
 
-            foreach ( var emp in users)
-            { 
+            foreach (var emp in users)
+            {
                 evaluation e = new evaluation();
                 user u = serviceUser.GetById(emp.id);
-                objective o = serviceObjective.GetById(id);
+                objective o = serviceObjective.GetById(idO);
                 e.idEmploye = emp.id;
-                e.idObjective = id;
+                e.idObjective = idO;
                 //e.user = u;
                 //e.objective = o;
                 //e.idEmploye = u.id;
                 //e.idObjective = o.id;
-                e.date = dt2 ;
+                e.date = dt2;
                 e.status = "pending";
                 e.description = null;
-                e.mark = 0 ;
+                e.mark = 0;
                 serviceEval.Add(e);
                 serviceEval.Commit();
             }
@@ -62,48 +76,25 @@ namespace Pidev.Controllers
 
         }
 
-        public ActionResult startEvaluations()
-        {
-            IEnumerable<evaluation> evaluations = serviceEval.GetMany().Where(x => x.status.Equals("pending")).ToList();
-            foreach (var ev in evaluations)
-            {
-                evaluation e = ev;
-                e.status = "started";
-              
-                serviceEval.Update(e);
-                serviceEval.Commit();
-
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult adminEval()
-        {
-            return View();
-        }
-
-
-        // GET: objectiveToAllEmployes
+        // GET: objectiveToTeam
         public ActionResult Index()
         {
-            
             return View();
         }
 
-        // GET: objectiveToAllEmployes/Details/5
+        // GET: objectiveToTeam/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: objectiveToAllEmployes/Create
+        // GET: objectiveToTeam/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: objectiveToAllEmployes/Create
+        // POST: objectiveToTeam/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -119,13 +110,13 @@ namespace Pidev.Controllers
             }
         }
 
-        // GET: objectiveToAllEmployes/Edit/5
+        // GET: objectiveToTeam/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: objectiveToAllEmployes/Edit/5
+        // POST: objectiveToTeam/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -141,13 +132,13 @@ namespace Pidev.Controllers
             }
         }
 
-        // GET: objectiveToAllEmployes/Delete/5
+        // GET: objectiveToTeam/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: objectiveToAllEmployes/Delete/5
+        // POST: objectiveToTeam/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -161,29 +152,6 @@ namespace Pidev.Controllers
             {
                 return View();
             }
-        }
-
-        public static string getNbTeams()
-        {
-            HttpResponseMessage response = GlobalVariables.Client.GetAsync("pidev-web/rest/employees/numberTeams").Result;
-
-            var a = response.Content.ReadAsStringAsync().Result;
-
-            return a;
-        }
-
-        public static int getNbEmployes()
-        {
-            userService sU = new userService();
-            var a = sU.GetMany().Count();
-            return a;
-        }
-
-        public static int getNbPendings()
-        {
-            evaluationService sE = new evaluationService();
-            var a = sE.GetMany().Where(x => x.status.Equals("pending")).Count();
-            return a;
         }
     }
 }

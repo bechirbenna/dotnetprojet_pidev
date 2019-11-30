@@ -256,6 +256,7 @@
     <Compile Include="Controllers\notificationController.cs" />
     <Compile Include="Controllers\ObjectivesController.cs" />
     <Compile Include="Controllers\objectiveToAllEmployesController.cs" />
+    <Compile Include="Controllers\objectiveToTeamController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -328,8 +329,10 @@
     <Content Include="Content\img\bg7.jpg" />
     <Content Include="Content\img\bg8.jpg" />
     <Content Include="Content\img\bg9.jpg" />
+    <Content Include="Content\img\DotNet Developers.jpg" />
     <Content Include="Content\img\dummy.png" />
     <Content Include="Content\img\FINANCIAL.jpg" />
+    <Content Include="Content\img\java Developers.jpg" />
     <Content Include="Content\img\lock-bg.jpg" />
     <Content Include="Content\img\logo-single.png" />
     <Content Include="Content\img\logo.png" />
@@ -337,6 +340,7 @@
     <Content Include="Content\img\mockup.png" />
     <Content Include="Content\img\PERSONAL.jpg" />
     <Content Include="Content\img\profile-bg.jpg" />
+    <Content Include="Content\img\Reacteam.jpg" />
     <Content Include="Content\img\SOCIALSKILLS.jpg" />
     <Content Include="Content\img\user\01.jpg" />
     <Content Include="Content\img\user\02.jpg" />
@@ -571,6 +575,9 @@
     <Content Include="Views\objectiveToAllEmployes\Index.cshtml" />
     <Content Include="Views\objectiveToAllEmployes\evaluate.cshtml" />
     <Content Include="Views\objectiveToAllEmployes\adminEval.cshtml" />
+    <Content Include="Views\objectiveToTeam\Index.cshtml" />
+    <Content Include="Views\objectiveToTeam\evaluate.cshtml" />
+    <Content Include="Views\objectiveToTeam\teamChoosed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
