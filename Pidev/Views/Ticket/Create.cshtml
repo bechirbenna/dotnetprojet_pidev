@@ -51,26 +51,26 @@
                     <fieldset></fieldset>
 
                     <fieldset>
-                            <legend>Ticket difficulty</legend>
-                            <div class="form-group row">
-                                <label class="col-md-2 col-form-label">Ticket difficulty:</label>
-                                <div class="col-md-10">
-                                    <select  onchange="assignHoursTo(this.value)" name="difficulity">
-                                        <option name="facile">facile</option>
-                                        <option name="difficile">difficile</option>
-                                        <option name="complexe">complexe</option>
+                        <legend>Ticket difficulty</legend>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Ticket difficulty:</label>
+                            <div class="col-md-10">
+                                <select onchange="assignHoursTo(this.value)" name="difficulity">
+                                    <option name="facile">facile</option>
+                                    <option name="difficile">difficile</option>
+                                    <option name="complexe">complexe</option>
 
-                                    </select>
+                                </select>
 
 
-                                 </div>
                             </div>
+                        </div>
 
 
 
 
-                        </fieldset>
-                        <fieldset></fieldset>
+                    </fieldset>
+                    <fieldset></fieldset>
 
                     <fieldset>
                         <legend>estimated Hours</legend>
@@ -94,49 +94,51 @@
                                 <select id="teamName" name="teamName">
                                     @foreach (var item in ViewBag.teams)
                                     {
-                                        <option>@item.id</option>
+                                        <option>
+                                            @item.nameTeam
+                                    </option>
                                     }
                                 </select>
 
-                                    
-                                </div>
-                            </div>
 
-                        </fieldset>
-                        <fieldset></fieldset>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create" class="btn btn-default" />
-                                <i class="fa fa-fw fa-plus"></i>
                             </div>
                         </div>
-                    </form>
-                    <script type="application/javascript">
 
-                        function assignHoursTo(dif){
-                            if (dif=="facile"){
+                    </fieldset>
+                    <fieldset></fieldset>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                            <i class="fa fa-fw fa-plus"></i>
+                        </div>
+                    </div>
+                </form>
+                <script type="application/javascript">
 
-                                var est = document.getElementById("estimation");
-                                est.min=0;
-                                est.max=2;
-                            }
-                            else if(dif=="difficile"){
-                                var est = document.getElementById("estimation");
-                                est.min=2;
-                                est.max=5;
-                            }else{
-                                var est = document.getElementById("estimation");
-                                est.min=5;
-                                est.max=8;
-                            }
+                    function assignHoursTo(dif){
+                        if (dif=="facile"){
+
+                            var est = document.getElementById("estimation");
+                            est.min=0;
+                            est.max=2;
                         }
+                        else if(dif=="difficile"){
+                            var est = document.getElementById("estimation");
+                            est.min=2;
+                            est.max=5;
+                        }else{
+                            var est = document.getElementById("estimation");
+                            est.min=5;
+                            est.max=8;
+                        }
+                    }
 
 
-                    </script>
-                </div>
+                </script>
             </div>
-
         </div>
+
+    </div>
 
 }
 

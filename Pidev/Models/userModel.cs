@@ -7,7 +7,15 @@ namespace Pidev.Models
 {
     public class userModel
     {
-        public String Username { get; set; }
-        public String Password { get; set; }
+
+        public int id { get; set; }
+        public String lastName { get; set; }
+        public String firstName { get; set; }
+        public String email { get; set; }
+        public String phoneNumber { get; set; }
+        public String userName { get; set; }
+        public String password { get; set; }
+
+        public String role { get; set; }
     }
 }

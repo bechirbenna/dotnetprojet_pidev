@@ -11,12 +11,24 @@ namespace Pidev
 {
     public partial class Startup
     {
+        //public void Configuration(IAppBuilder app)
+        //{
+        //    app.UseCookieAuthentication(new CookieAuthenticationOptions()
+        //    {
+        //        AuthenticationType = "ApplicationCookie",
+        //        LoginPath = new PathString("/Account/Login"),
+
+        //    });
+        //}
+
         public void Configuration(IAppBuilder app)
         {
+            //ConfigureAuth(app);
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
                 AuthenticationType = "ApplicationCookie",
-                LoginPath = new PathString("/Account/Login"),
+                //LoginPath = new PathString("/Account/Login"),
 
             });
         }

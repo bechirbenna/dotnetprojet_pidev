@@ -8,6 +8,8 @@ using System.Net.Http.Headers;
 using data;
 using System.Web.Script.Serialization;
 using Pidev.Models;
+using Service;
+using Newtonsoft.Json;
 
 namespace Pidev.Controllers
 {
@@ -18,18 +20,25 @@ namespace Pidev.Controllers
         // GET: Ticket
         public ActionResult Index()
         {
+
+            //HttpCookieCollection result = Request.Cookies;
+            string token = Request.Cookies.Get("token").Value;
             HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //var t = JsonConvert.DeserializeObject<Token>(token);
+            Client.DefaultRequestHeaders.Clear();
+            Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            //Client.DefaultRequestHeaders.Add("Content-Type", "application/json");
+            Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+           
             HttpResponseMessage responce = Client.GetAsync("api/tickets").Result;
-            if(responce.IsSuccessStatusCode)
+
+            
+            if (responce.IsSuccessStatusCode)
             {
                 ViewBag.result = responce.Content.ReadAsAsync<IEnumerable<ticket>>().Result;
-            }else
-            {
-                ViewBag.result = "erruer";
             }
-            return View();
+                return View();
         }
 
         // GET: Ticket/Details/5
@@ -41,8 +50,10 @@ namespace Pidev.Controllers
         // GET: Ticket/Create
         public ActionResult Create()
         {
-
+            string token = Request.Cookies.Get("token").Value;
             HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
             client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
             HttpResponseMessage responce = client.GetAsync("api/teams").Result;
 
@@ -70,12 +81,15 @@ namespace Pidev.Controllers
         [HttpPost]
         public ActionResult Create(ticketModel ticket,double estimatedHour)
         {
-            double n = double.Parse(Request.Form["teamName"]);
+            string token = Request.Cookies.Get("token").Value;
+            string n =Request.Form["teamName"];
             string diff = Request.Form["difficulity"];
-            
+             HttpClient client = new HttpClient();
             ticket.estimatedHours = estimatedHour;
             ticket.difficulty = diff;
-            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
 

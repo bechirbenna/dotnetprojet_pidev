@@ -4,60 +4,113 @@ using Pidev.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
+using data;
 namespace Pidev.Controllers
 {
     public class LoginController : Controller
     {
+
+        public ActionResult Index()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(string email, string password)
+        {
+            HttpCookie cookie = HttpContext.Response.Cookies["token"];
+            cookie.Value = GetToken(email, password);
+            if (cookie != null)
+            {
+                Response.Cookies.Add(cookie);
+              
+
+                
+                HttpClient Client = new HttpClient();
+                Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //var t = JsonConvert.DeserializeObject<Token>(token);
+                string token = Request.Cookies.Get("token").Value;
+                //Client.DefaultRequestHeaders.Clear();
+                //Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                //Client.DefaultRequestHeaders.Add("Content-Type", "application/json");
+                Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+                var jwtToken = new JwtSecurityToken(token);
+                var subject = jwtToken.Subject;
+
+                HttpResponseMessage responce = Client.GetAsync("api/login/"+ subject).Result;
+                if (responce.IsSuccessStatusCode)
+                {
+                    userModel user = responce.Content.ReadAsAsync<userModel>().Result;
+                    if (user.role.Equals("Admin"))
+                    {
+                        return RedirectToAction("Index", "Ticket", new { area = "" });
+                    }else if (user.role.Equals("Employee"))
+                    {
+                        return RedirectToAction("Index", "ScrumBoard", new { area = "" });
+                    }
+                       
+                }
+               
+            }
+            return View();
+
+        }
+
+
+
+
+
+
+
         // GET: Login
-        public ActionResult Login(userModel model, string returnUrl)
+        public static string GetToken(string userName, string password)
         {
-            //var getTokenUrl = string.Format(Token, ConfigurationManager.AppSettings["localhost:9080/pidev-web/api/athentication"]);
-                 
-            //using (HttpClient httpClient = new HttpClient())
-            //{
-            //    HttpContent content = new FormUrlEncodedContent(new[]  
-            //    {
-            //        new KeyValuePair<string, string>("username", model.Username),
-            //        new KeyValuePair<string, string>("password", model.Password)
-            //    });
+            var pairs = new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>( "grant_type", "password" ),
+                        new KeyValuePair<string, string>( "username", userName ),
+                        new KeyValuePair<string, string> ( "password", password )
+                    };
+            var content = new FormUrlEncodedContent(pairs);
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            using (var client = new HttpClient())
+            {
+                string url = "http://localhost:9080/pidev-web/api";
+                var response = client.PostAsync(url + "/athentication", content).Result;
 
-            //    //HttpResponseMessage result = httpClient.PostAsync(getTokenUrl, content).Result;
 
-            //    string resultContent = result.Content.ReadAsStringAsync().Result;
-
-            //    var token = JsonConvert.DeserializeObject<Token>(resultContent);
-
-            //    AuthenticationProperties options = new AuthenticationProperties();
-
-            //    options.AllowRefresh = true;
-            //    options.IsPersistent = true;
-            //    options.ExpiresUtc = DateTime.UtcNow.AddSeconds(int.Parse(token.expires_in));
-
-            //    var claims = new[]
-            //    {
-            //        new Claim(ClaimTypes.Name, model.Username),
-            //        new Claim("AcessToken", string.Format("Bearer {0}", token.access_token)),
-            //    };
-
-            //    var identity = new ClaimsIdentity(claims, "ApplicationCookie");
-
-            //    Request.GetOwinContext().Authentication.SignIn(options, identity);
-
-            //}
-
-            return RedirectToAction("Index", "Home");
+                return response.Content.ReadAsStringAsync().Result;
+            }
         }
-        public ActionResult LogOut()
+
+        public static string CallApi(string url, string token)
         {
-            Request.GetOwinContext().Authentication.SignOut("ApplicationCookie");
 
-            return RedirectToAction("Login");
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            using (var client = new HttpClient())
+            {
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    var t = JsonConvert.DeserializeObject<Token>(token);
+
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + t.access_token);
+                }
+                var response = client.GetAsync(url).Result;
+                return response.Content.ReadAsStringAsync().Result;
+            }
         }
-        
+
     }
 }

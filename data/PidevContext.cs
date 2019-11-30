@@ -11,7 +11,8 @@ namespace data
             : base("name=PidevContext")
         {
         }
-        
+
+        public virtual DbSet<calendar> calendar { get; set; }
         public virtual DbSet<eval360> eval360 { get; set; }
         public virtual DbSet<evaluation> evaluations { get; set; }
         public virtual DbSet<facture> factures { get; set; }
@@ -24,7 +25,7 @@ namespace data
         public virtual DbSet<team> teams { get; set; }
         public virtual DbSet<ticket> tickets { get; set; }
         public virtual DbSet<user> users { get; set; }
-
+            
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<eval360>()
