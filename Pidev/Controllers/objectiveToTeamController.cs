@@ -11,7 +11,7 @@ namespace Pidev.Controllers
     public class objectiveToTeamController : Controller
     {
         objectiveService serviceObjective = new objectiveService();
-        userService serviceUser = new userService();
+        UserService serviceUser = new UserService();
         evaluationService serviceEval = new evaluationService();
         teamService serviceTeam = new teamService();
 
@@ -23,7 +23,7 @@ namespace Pidev.Controllers
 
         public static int nbEmployeinTeam(long id)
         {
-            userService su = new userService();
+            UserService su = new UserService();
             var a = su.GetMany().Where(x => x.team_id.Equals(id)).Count();
             return a;
         }

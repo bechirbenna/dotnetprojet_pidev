@@ -14,7 +14,7 @@ namespace Pidev.Controllers
     {
 
         objectiveService serviceObjective = new objectiveService();
-        userService serviceUser = new userService();
+        UserService serviceUser = new UserService();
         evaluationService serviceEval = new evaluationService();
 
         public static IEnumerable<objective> getObjectives()
@@ -174,7 +174,7 @@ namespace Pidev.Controllers
 
         public static int getNbEmployes()
         {
-            userService sU = new userService();
+            UserService sU = new UserService();
             var a = sU.GetMany().Count();
             return a;
         }

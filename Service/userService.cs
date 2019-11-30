@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class userService : Service<user>, IServiceUser
+    public class UserService : Service<user>, IServiceUser
     {
-        private PidevContext ctx;
+
+        //private PidevContext ctx;
         private static IDatabaseFactory dbf = new DatabaseFactory();
         private static IUnitOfWork unitOfWork = new UnitOfWork(dbf);
-        public userService():base(unitOfWork)
-        { }
+
+        public UserService() : base(unitOfWork)
+        {
+        }
     }
 }

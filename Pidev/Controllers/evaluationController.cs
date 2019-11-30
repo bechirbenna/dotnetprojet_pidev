@@ -15,7 +15,7 @@ namespace Pidev.Controllers
     {
         static evaluationService serviceEval = new evaluationService();
         objectiveService serviceObjective = new objectiveService();
-        userService serviceUser = new userService();
+        UserService serviceUser = new UserService();
 
         public static IEnumerable<evaluation> getEvals()
         {
@@ -146,7 +146,7 @@ namespace Pidev.Controllers
 
         public static string getUserName(long id)
         {
-            userService sU= new userService();
+            UserService sU = new UserService();
             return sU.GetById(id).firstName;
         }
 
