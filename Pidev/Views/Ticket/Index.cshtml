@@ -1,0 +1,77 @@
+﻿@model IEnumerable<data.ticket>
+
+@{
+    ViewBag.Title = "Index";
+
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="content-wrapper">
+
+    <div class="content-heading">
+        <h2>Ticket</h2>
+    </div>
+
+    @*<button class="btn btn-default" onclick="PopupForm('@Url.Action("Create", "evaluation")');"><i class="fa fa-plus"></i> add new evlauation </button>*@
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-striped my-4 w-100" id="datatable2">
+                    <thead>
+                        <tr>
+
+
+                            <th>
+                                description
+                            </th>
+                            <th>
+                                difficulty
+                            </th>
+
+                            <th>
+                                estimatedHours
+                            </th>
+                            <th>
+                                status
+                            </th>
+
+
+                            <th>title</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.result)
+            {
+                            <tr>
+
+                                <td>@item.description</td>
+
+                                <td>@item.difficulty</td>
+
+                                <td>@item.estimatedHours</td>
+
+                                <td>@item.status</td>
+
+                                <td>@item.title</td>
+
+
+
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.idTicket }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.idTicket }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.idTicket })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

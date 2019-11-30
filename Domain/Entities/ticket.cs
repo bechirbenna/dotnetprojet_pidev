@@ -9,6 +9,16 @@ namespace data
     [Table("pidevrh.ticket")]
     public partial class ticket
     {
+        public enum Difficulty
+        {
+            facille,
+            difficile,
+            complexe
+          
+        }
+
+
+
         [Key]
         public int idTicket { get; set; }
 
@@ -22,8 +32,8 @@ namespace data
         [StringLength(255)]
         public string description { get; set; }
 
-        [StringLength(255)]
-        public string difficulty { get; set; }
+        public String difficulty { get; set; }
+        
 
         [Column(TypeName = "bit")]
         public bool? doing { get; set; }
@@ -51,7 +61,8 @@ namespace data
 
         public int? projet_id { get; set; }
 
-        public int? team_id { get; set; }
+        public virtual team team { get; set; }
+        public int id { get; set; }
 
         public virtual projet projet { get; set; }
 
