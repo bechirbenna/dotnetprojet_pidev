@@ -1,0 +1,84 @@
+﻿@model IEnumerable<data.evaluation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+@{var evals = Pidev.Controllers.evaluationController.getEvals(); }
+
+<div class="content-wrapper">
+
+    <div class="content-heading">
+        <h2>Evaluations</h2>
+    </div>
+
+    @*<button class="btn btn-default" onclick="PopupForm('@Url.Action("Create", "evaluation")');"><i class="fa fa-plus"></i> add new evlauation </button>*@
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div align="right">
+                    <a href="~/evaluation/Create" class="btn btn-success btn-sm">Create new evaluation</a>
+                </div>
+                
+
+
+                    <table class="table table-striped my-4 w-100" id="datatable2">
+                        <thead>
+                            <tr>
+                                <th data-priority="1">Employe</th>
+                                <th>Objective</th>
+                                <th>date</th>
+                                <th>description</th>
+                                <th>mark</th>
+                                <th class="sort-numeric">Status</th>
+                                <th >Actions </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                 var userName = Pidev.Controllers.evaluationController.getUserName(@item.idEmploye);
+                                 var objectiveName = Pidev.Controllers.evaluationController.getObjectiveName(@item.idObjective);
+                                <tr>
+                                    <td>@userName</td>
+                                    <td>@objectiveName</td>
+                                    <td>@Html.DisplayFor(modelItem => item.date)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.description)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.mark)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.status)</td>
+                                    <td>
+
+                                    </td> 
+                                </tr>
+                            }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+                    @*<script>
+                var Popup;
+
+                function PopupForm(url)
+                {
+                    var formDiv = $('<div/>');
+                    $.get(url)
+                    .done(function(response){
+                        formDiv.html(response);
+
+                        Popup = formDiv.html({
+                            autoOpen : true ,
+                            resizable : false ,
+                            title : 'Fill Employee Details',
+                            height : 500 ,
+                            width :  700 ,
+                            close : function() {
+                                Popup.dialog('destroy').remove();
+                            }
+                        });
+                    });
+                }
+            </script>*@

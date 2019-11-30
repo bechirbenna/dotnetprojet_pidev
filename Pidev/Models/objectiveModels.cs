@@ -5,6 +5,7 @@ namespace data
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
 
     [Table("pidevrh.objective")]
     public partial class objectiveModels
@@ -27,7 +28,9 @@ namespace data
         [StringLength(255)]
         public string name { get; set; }
 
-       
-     
+        
+
+
+
     }
 }

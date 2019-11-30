@@ -30,7 +30,9 @@ namespace data
         public string status { get; set; }
 
         public virtual user user { get; set; }
+        
 
         public virtual objective objective { get; set; }
+        
     }
 }

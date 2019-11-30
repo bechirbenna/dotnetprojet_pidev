@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "adminEval";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+@{ var nbTeams = Pidev.Controllers.objectiveToAllEmployesController.getNbTeams();}
+@{ var nbEmployees = Pidev.Controllers.objectiveToAllEmployesController.getNbEmployes();}
+@{ var nbPendings = Pidev.Controllers.objectiveToAllEmployesController.getNbPendings();}
+
+
+
+<div class="content-wrapper">
+    <div class="content-heading">Start Evaluation</div>
+
+
+    <!-- START row-->
+    <div class="row">
+        <div class="col-xl-4 col-lg-4">
+            <!-- START card-->
+            <div class="card bg-green border-0">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <em class="fa fa-user fa-5x"></em>
+                        </div>
+                        <div class="col-9 text-right">
+                            <div class="text-lg">@nbEmployees Employe(s)</div>
+                            <p class="m-0">Evaluate Everyone</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="card-footer bg-inverse-light bt0 clearfix btn-block d-flex"
+                        href="~/objectiveToAllEmployes/Index">
+                    <span>Evaluate</span>
+                    <span class="ml-auto">
+                        <em class="fa fa-chevron-circle-right"></em>
+                    </span>
+                </a>
+                <!-- END card-->
+            </div>
+        </div>
+
+
+        <div class="col-xl-4 col-lg-4">
+            <!-- START card-->
+            <div class="card bg-purple border-0">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <em class="fa fa-users fa-5x"></em>
+                        </div>
+                        <div class="col-9 text-right">
+                            <div class="text-lg">@nbTeams Team(s)</div>
+                            <p class="m-0"> Evaluate Team(s)</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="card-footer bg-inverse-light bt0 clearfix btn-block d-flex" 
+                        href="/pages/evaluation/selectEmployeeToEvaluate.xhtml">
+                    <span>Evaluate</span>
+                    <span class="ml-auto">
+                        <em class="fa fa-chevron-circle-right"></em>
+                    </span>
+                </a>
+                <!-- END card-->
+            </div>
+        </div>
+
+
+        <div class="col-xl-4 col-lg-4">
+            <!-- START card-->
+            <div class="card bg-gray border-0">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <em class="fa fa-globe fa-5x"></em>
+                        </div>
+                        <div class="col-9 text-right">
+                            <div class="text-lg">@nbPendings pending</div>
+                            <p class="m-0">Start Evaluation(s)</p>
+                        </div>
+                    </div>
+                </div>
+                <a id="link1" class="card-footer bg-inverse-light bt0 clearfix btn-block d-flex" onclick="return Delete();">
+
+                    <span>Start</span><span class="ml-auto">
+                        <em class="fa fa-chevron-circle-right"></em>
+                    </span>
+                </a>
+                <!-- END card-->
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<script>
+    function Delete() {
+        alertify.confirm('Start Evaluation operation', 'are you sure to Start all evaluation on pendings ?', function () {
+            window.location.href = '@Url.Action("startEvaluations", "objectiveToAllEmployes")';
+        }, null);
+
+
+    }
+
+   
+
+
+
+</script>

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<data.objective>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+@{var objectives = Pidev.Controllers.objectiveToAllEmployesController.getObjectives(); }
+
+
+<div class="content-wrapper">
+    <div class="content-heading">
+        <div>
+           Evaluation for all users <small>
+                A showcase of different components inside
+                tables
+            </small>
+        </div>
+    </div>
+    <!-- START card-->
+    <div class="card card-default">
+
+
+        <div class="row">
+
+
+
+            <div class="col-md-12 col-lg-12">
+                <!-- START table-responsive-->
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover"
+                           id="table-ext-2">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Objective</th>
+                                <th>Evaluate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var obj in objectives)
+                            {
+
+                                <tr>
+                                    <td></td>
+
+                                    <td>
+                                        <div class="media">
+
+                                            <img style="margin-bottom:3%; margin-right:5%;"
+                                                 class="img-thumbnail circle img-fluid thumb96"
+                                                 src="@Url.Content("~/Content/img/" + @obj.category + ".jpg")"
+                                                 alt="" />
+
+                                            <div class="media-body">
+
+                                                <div class="float-right badge badge-info">@obj.category</div>
+
+
+                                                <h3>@obj.name</h3>
+                                                <h4>Ends at @obj.dateEnd</h4>
+
+                                                @obj.description
+                                                <hr />
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td><button type="button" onclick="Delete(@obj.id);" class="mb-1 btn btn-outline-purple"><i class="fa fa-address-card"></i> evaluate</button></td>
+                                    
+                                    
+
+                                </tr>
+                            }
+                           
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function Delete(id) {
+        alertify.confirm('Evaluation Operation', 'are you sure to affect this objective to all employes ?', function () {
+            window.location.href = '@Url.Action("evaluate", "objectiveToAllEmployes")/' + id;
+        }, null);
+
+
+    }
+   
+
+
+</script>
