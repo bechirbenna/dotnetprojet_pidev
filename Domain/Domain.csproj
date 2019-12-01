@@ -65,14 +65,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\employer.cs" />
     <Compile Include="Entities\eval360.cs" />
     <Compile Include="Entities\evaluation.cs" />
     <Compile Include="Entities\facture.cs" />
     <Compile Include="Entities\feedback.cs" />
+    <Compile Include="Entities\formateur.cs" />
+    <Compile Include="Entities\formation.cs" />
     <Compile Include="Entities\mission.cs" />
     <Compile Include="Entities\notification.cs" />
     <Compile Include="Entities\objective.cs" />
     <Compile Include="Entities\partenariat.cs" />
+    <Compile Include="Entities\planification.cs" />
     <Compile Include="Entities\projet.cs" />
     <Compile Include="Entities\team.cs" />
     <Compile Include="Entities\test.cs" />
