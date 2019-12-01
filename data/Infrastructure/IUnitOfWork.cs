@@ -11,7 +11,9 @@ namespace Data.Infrastructure
     {
         IRepositoryBase<T> getRepository<T>() where T : class; 
         void Commit();
-       
+        void CommitAsync();
+
+
     }
 
 }

@@ -14,6 +14,7 @@ namespace Pidev.Controllers
         userService userService = new userService();
         evaluationService evalService = new evaluationService();
         objectiveService objectiveSeervice = new objectiveService();
+        notificationService notifService = new notificationService();
 
         public static objective getObjectiveByID(long id)
         {
@@ -40,12 +41,25 @@ namespace Pidev.Controllers
 
         public ActionResult evalOne(long idO, long idE)
         {
+
             evaluation eval = evalService.GetMany().Where(x => x.idEmploye == idE && x.idObjective == idO).First();
             eval.status = "autoEvaluated";
             eval.mark = 1;
 
             evalService.Update(eval);
-            evalService.Commit();
+            evalService.ComitAsynch();
+
+            user u = userService.GetById(idE);
+            objective o = objectiveSeervice.GetById(idO);
+
+            notification notif = new notification();
+            notif.Title = "New Auto Evaluation";
+            notif.description = u.firstName + " has auto evaluate him self for " + o.category;
+            notif.forUserHavingRole = "Employee";
+            notif.notifType = "AUTO_EVALUATION_FROM_EMPLOYE";
+
+            notifService.Add(notif);
+            notifService.ComitAsynch();
 
             return RedirectToAction("Index");
 
@@ -58,7 +72,19 @@ namespace Pidev.Controllers
             eval.mark = 2;
 
             evalService.Update(eval);
-            evalService.Commit();
+            evalService.ComitAsynch();
+
+            user u = userService.GetById(idE);
+            objective o = objectiveSeervice.GetById(idO);
+
+            notification notif = new notification();
+            notif.Title = "New Auto Evaluation";
+            notif.description = u.firstName + " has auto evaluate him self for " + o.category;
+            notif.forUserHavingRole = "Employee";
+            notif.notifType = "AUTO_EVALUATION_FROM_EMPLOYE";
+
+            notifService.Add(notif);
+            notifService.ComitAsynch();
 
             return RedirectToAction("Index");
 
@@ -71,7 +97,19 @@ namespace Pidev.Controllers
             eval.mark = 3;
 
             evalService.Update(eval);
-            evalService.Commit();
+            evalService.ComitAsynch();
+
+            user u = userService.GetById(idE);
+            objective o = objectiveSeervice.GetById(idO);
+
+            notification notif = new notification();
+            notif.Title = "New Auto Evaluation";
+            notif.description = u.firstName + " has auto evaluate him self for " + o.category;
+            notif.forUserHavingRole = "Employee";
+            notif.notifType = "AUTO_EVALUATION_FROM_EMPLOYE";
+
+            notifService.Add(notif);
+            notifService.ComitAsynch();
 
             return RedirectToAction("Index");
 
@@ -84,7 +122,19 @@ namespace Pidev.Controllers
             eval.mark = 4;
 
             evalService.Update(eval);
-            evalService.Commit();
+            evalService.ComitAsynch();
+
+            user u = userService.GetById(idE);
+            objective o = objectiveSeervice.GetById(idO);
+
+            notification notif = new notification();
+            notif.Title = "New Auto Evaluation";
+            notif.description = u.firstName + " has auto evaluate him self for " + o.category;
+            notif.forUserHavingRole = "Employee";
+            notif.notifType = "AUTO_EVALUATION_FROM_EMPLOYE";
+
+            notifService.Add(notif);
+            notifService.ComitAsynch();
 
             return RedirectToAction("Index");
 
@@ -97,7 +147,19 @@ namespace Pidev.Controllers
             eval.mark = 5;
 
             evalService.Update(eval);
-            evalService.Commit();
+            evalService.ComitAsynch();
+
+            user u = userService.GetById(idE);
+            objective o = objectiveSeervice.GetById(idO);
+
+            notification notif = new notification();
+            notif.Title = "New Auto Evaluation";
+            notif.description = u.firstName + " has auto evaluate him self for " + o.category;
+            notif.forUserHavingRole = "Employee";
+            notif.notifType = "AUTO_EVALUATION_FROM_EMPLOYE";
+
+            notifService.Add(notif);
+            notifService.ComitAsynch();
 
             return RedirectToAction("Index");
 

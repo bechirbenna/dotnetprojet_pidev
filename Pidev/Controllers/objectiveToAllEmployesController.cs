@@ -16,6 +16,7 @@ namespace Pidev.Controllers
         objectiveService serviceObjective = new objectiveService();
         userService serviceUser = new userService();
         evaluationService serviceEval = new evaluationService();
+        notificationService notifService = new notificationService();
 
         public static IEnumerable<objective> getObjectives()
         {
@@ -26,7 +27,6 @@ namespace Pidev.Controllers
         }
 
         
-
         public ActionResult evaluate(int id)
         {
             IEnumerable<user> users = serviceUser.GetMany().ToList();
@@ -56,6 +56,9 @@ namespace Pidev.Controllers
                 serviceEval.Commit();
             }
 
+            
+
+
             return RedirectToAction("Index");
 
 
@@ -70,9 +73,19 @@ namespace Pidev.Controllers
                 e.status = "started";
               
                 serviceEval.Update(e);
-                serviceEval.Commit();
-
+                serviceEval.ComitAsynch();
             }
+
+            notification notif = new notification();
+            notif.Title = "New Evaluation";
+            notif.description = "Evaluation has started ";
+            notif.forUserHavingRole = "Employee";
+            notif.notifType = "CREATED_EVALUATION_FROM_MANAGER";
+
+            notifService.Add(notif);
+            notifService.ComitAsynch();
+
+
 
             return RedirectToAction("Index");
         }

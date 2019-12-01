@@ -4,6 +4,9 @@
 @{string a = Pidev.Controllers.notificationController.nbNotif();}
 @{var listNotif = Pidev.Controllers.notificationController.getListNotifTypeManager(); }
 @{var eval360 = Pidev.Controllers.notificationController.getListNotifEval360(); }
+@{var EvaluationStarted = Pidev.Controllers.notificationController.getListStratedEvaluation(); }
+@{var autoEval = Pidev.Controllers.notificationController.getListAutoEvaluation(); }
+@{var warining = Pidev.Controllers.notificationController.getNbWarning(); }
 
 <html>
 <head>
@@ -70,6 +73,18 @@
                             <div class="dropdown-item">
                                 <!-- START list group-->
                                 <div class="list-group">
+                                    @if (warining > 1)
+                                    {
+                                        <div class="list-group-item list-group-item-action">
+                                            <div class="media">
+                                                <div class="align-self-start mr-2"><i class="fa fa-fw fa-fire fa-2x text-warning"></i></div>
+                                                <div class="media-body">
+                                                    <p class="m-0">warning notification</p>
+                                                    <p class="m-0 text-muted text-sm">you have more than 2 evaluation under mark : 1 </p>
+                                                </div>
+                                            </div>
+                                        </div><!-- list item-->
+                                    }
                                     @foreach (var p in listNotif)
                                     {
                                     <!-- list item-->
@@ -96,7 +111,33 @@
                                             </div>
                                         </div><!-- list item-->
                                     }
-
+                                    @foreach (var p in EvaluationStarted)
+                                    {
+                                    <!-- list item-->
+                                        <div class="list-group-item list-group-item-action">
+                                            <div class="media">
+                                                <div class="align-self-start mr-2"><i class="fa fa-fw fa-user-check fa-2x text-info"></i></div>
+                                                <div class="media-body">
+                                                    <p class="m-0">@p.Title</p>
+                                                    <p class="m-0 text-muted text-sm">@p.description</p>
+                                                </div>
+                                            </div>
+                                        </div><!-- list item-->
+                                    }
+                                    @foreach (var p in autoEval)
+                                    {
+                                    <!-- list item-->
+                                        <div class="list-group-item list-group-item-action">
+                                            <div class="media">
+                                                <div class="align-self-start mr-2"><i class="fa fa-fw fa-feather fa-2x text-info"></i></div>
+                                                <div class="media-body">
+                                                    <p class="m-0">@p.Title</p>
+                                                    <p class="m-0 text-muted text-sm">@p.description</p>
+                                                </div>
+                                            </div>
+                                        </div><!-- list item-->
+                                    }
+                                   
 
                                 </div><!-- END list group-->
                                 </dTART Search form-->

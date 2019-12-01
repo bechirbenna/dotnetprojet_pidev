@@ -47,11 +47,11 @@
                         <div class="row text-center" style="margin-left:37%;" >
                             @if (@eval.status == "started")
                             {
-                                <a onclick="return eval1(@eval.idObjective , @eval.idEmploye);" class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:100%;margin-top:10%;">1</a>
-                                <a onclick="return eval2(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:150%;margin-top:6%;">2</a>
-                                <a onclick="return eval3(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:200%;margin-top:3%;">3  </a>
-                                <a onclick="return eval4(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:250%;">4  </a>
-                                <a onclick="return eval5(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:300%;margin-top:-4%;">5  </a>
+                                <a href="javascript:eval1(@eval.idObjective , @eval.idEmploye);" class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:100%;margin-top:10%;">1</a>
+                                <a href="javascript:eval2(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:150%;margin-top:6%;">2</a>
+                                <a href="javascript:eval3(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:200%;margin-top:3%;">3  </a>
+                                <a href="javascript:eval4(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:250%;">4  </a>
+                                <a href="javascript:eval5(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:300%;margin-top:-4%;">5  </a>
                             }
                             @if (@eval.status == "autoEvaluated")
                             {

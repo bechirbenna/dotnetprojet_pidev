@@ -19,8 +19,6 @@ namespace Data.Infrastructure
             dataContext = dbFactory.DataContext;
         }
         
-
-
         public void Commit()
         {
             dataContext.SaveChanges();

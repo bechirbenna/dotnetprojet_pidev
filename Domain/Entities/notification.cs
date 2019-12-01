@@ -9,9 +9,10 @@ namespace data
     [Table("pidevrh.notification")]
     public partial class notification
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long id { get; set; }
-
+        
         [StringLength(255)]
         public string Title { get; set; }
 

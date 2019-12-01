@@ -76,11 +76,6 @@ namespace ServicePattern
         }
 
       
-
-     
-
-       
-       
         public void Commit()
         {
             
@@ -88,6 +83,13 @@ namespace ServicePattern
            
         }
 
+        public void ComitAsynch()
+        {
+            utwk.CommitAsync();
+        }
+
+
+        
        
         
     }
