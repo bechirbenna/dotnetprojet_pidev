@@ -28,7 +28,6 @@
                                 <th data-priority="1">Employe</th>
                                 <th>Objective</th>
                                 <th>date</th>
-                                <th>description</th>
                                 <th>mark</th>
                                 <th class="sort-numeric">Status</th>
                                 <th >Actions </th>
@@ -37,13 +36,13 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                 var userName = Pidev.Controllers.evaluationController.getUserName(@item.idEmploye);
-                                 var objectiveName = Pidev.Controllers.evaluationController.getObjectiveName(@item.idObjective);
+                                var userName = Pidev.Controllers.evaluationController.getUserName(@item.idEmploye);
+                                var objectiveName = Pidev.Controllers.evaluationController.getObjectiveName(@item.idObjective);
+                               
                                 <tr>
                                     <td>@userName</td>
                                     <td>@objectiveName</td>
                                     <td>@Html.DisplayFor(modelItem => item.date)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.description)</td>
                                     <td>@Html.DisplayFor(modelItem => item.mark)</td>
                                     <td>@Html.DisplayFor(modelItem => item.status)</td>
                                     <td>

@@ -97,10 +97,16 @@ namespace Pidev.Controllers
             return a ;
         }
 
-        public static IEnumerable<notification> getListNotif()
+        public static IEnumerable<notification> getListNotifTypeManager()
         {
              HttpResponseMessage response = GlobalVariables.Client.GetAsync("/pidev-web/rest/notifications/Type/Manager").Result;
              return response.Content.ReadAsAsync<IEnumerable<notification>>().Result;
+        }
+
+        public static IEnumerable<notification> getListNotifEval360()
+        {
+            HttpResponseMessage response = GlobalVariables.Client.GetAsync("/pidev-web/rest/notifications/FeedBack").Result;
+            return response.Content.ReadAsAsync<IEnumerable<notification>>().Result;
         }
 
     }

@@ -9,17 +9,14 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class userService : Service<user>, IServiceUser
+    public class notificationService : Service<notification>, IServiceNotification
     {
         private PidevContext ctx;
         private static IDatabaseFactory dbf = new DatabaseFactory();
         private static IUnitOfWork unitOfWork = new UnitOfWork(dbf);
-        public userService():base(unitOfWork)
-        { }
-
-        public user getUserByEmail(string email)
+        public notificationService() : base(unitOfWork)
         {
-            return this.GetMany().Where(x => x.email.Equals(email)).First();
+
         }
     }
 }

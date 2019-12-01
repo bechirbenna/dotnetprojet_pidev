@@ -19,8 +19,10 @@ namespace data
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long idObjective { get; set; }
 
+        
         public DateTime? date { get; set; }
 
+        
         [StringLength(255)]
         public string description { get; set; }
 

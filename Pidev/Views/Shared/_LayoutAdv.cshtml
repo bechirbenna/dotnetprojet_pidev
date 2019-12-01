@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 
 @{string a = Pidev.Controllers.notificationController.nbNotif();}
-@{var listNotif = Pidev.Controllers.notificationController.getListNotif(); }
+@{var listNotif = Pidev.Controllers.notificationController.getListNotifTypeManager(); }
+@{var eval360 = Pidev.Controllers.notificationController.getListNotifEval360(); }
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -73,7 +75,7 @@
                                     <!-- list item-->
                                         <div class="list-group-item list-group-item-action">
                                             <div class="media">
-                                                <div class="align-self-start mr-2"><i class="fa fa-fw fa-edit fa-2x text-danger"></i></div>
+                                                <div class="align-self-start mr-2"><i class="fa fa-fw fa-edit fa-2x text-info"></i></div>
                                                 <div class="media-body">
                                                     <p class="m-0">@p.Title</p>
                                                     <p class="m-0 text-muted text-sm">@p.description</p>
@@ -81,6 +83,20 @@
                                             </div>
                                         </div><!-- list item-->
                                     }
+                                    @foreach (var p in eval360)
+                                    {
+                                    <!-- list item-->
+                                        <div class="list-group-item list-group-item-action">
+                                            <div class="media">
+                                                <div class="align-self-start mr-2"><i class="fa fa-fw fa-address-card fa-2x text-info"></i></div>
+                                                <div class="media-body">
+                                                    <p class="m-0">@p.Title</p>
+                                                    <p class="m-0 text-muted text-sm">@p.description</p>
+                                                </div>
+                                            </div>
+                                        </div><!-- list item-->
+                                    }
+
 
                                 </div><!-- END list group-->
                                 </dTART Search form-->
@@ -123,8 +139,8 @@
                                 <li class=" "><a href="~/Objectives/Index" title="Objectives"><span>Objectives</span></a></li>
                                 <li class=" "><a href="~/eval360/Index" title="Dashboard v2"><span>List Eval360</span></a></li>
                                 <li class=" "><a href="~/evaluation/Index" title="Dashboard v3"><span>Evaluation</span></a></li>
-                                <li class=" "><a href="~/objectiveToAllEmployes/Index" title="Dashboard v3"><span>Evaluate all employes</span></a></li>
                                 <li class=" "><a href="~/objectiveToAllEmployes/adminEval" title="Dashboard v3"><span>admin Evaluation</span></a></li>
+                                <li class=" "><a href="~/autoEvaluateEmploye/Index" title="Dashboard v3"><span>employee autoevaluation</span></a></li>
                             </ul>
                         </li>
                     </ul><!-- END sidebar nav-->

@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <div class="content-heading">Auto Evaluation</div><!-- START row-->
+    <div class="row">
+        @foreach (var eval in ViewBag.evals)
+            {
+                var objective = Pidev.Controllers.autoEvaluateEmployeController.getObjectiveByID(@eval.idObjective);
+                string dateBegin = @objective.dateBegin.Substring(0, 10);
+                string dateEnd = @objective.dateEnd.Substring(0, 10);
+
+            <div class="col-xl-4">
+
+
+                <!-- START card-->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-right text-muted"><em class="fa fa-user-check fa-2x"></em></div>
+                        <h3 class="mt-0">@objective.name</h3>
+                        <p class="text-muted">@objective.description</p>
+                        <div class="progress progress-xs mb-3">
+                            <div class="progress-bar progress-bar-striped bg-green" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"><span class="sr-only">80% Complete</span></div>
+                        </div>
+                    </div>
+                </div><!-- END card-->
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 text-center"><img class="circle thumb96" src="@Url.Content("~/Content/img/" + @objective.category + ".jpg")" alt="Image"></div>
+                            <div class="col-6">
+                                <h3 class="mt-0">@eval.status</h3>
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-1"><em class="fas fa-calendar-alt fa-fw"></em> @dateBegin</li>
+                                    <li class="mb-1"><em class="fas fa-calendar-times fa-fw"></em> @dateEnd</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body bg-inverse">
+                        <div class="row text-center" style="margin-left:37%;" >
+                            @if (@eval.status == "started")
+                            {
+                                <a onclick="return eval1(@eval.idObjective , @eval.idEmploye);" class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:100%;margin-top:10%;">1</a>
+                                <a onclick="return eval2(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:150%;margin-top:6%;">2</a>
+                                <a onclick="return eval3(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:200%;margin-top:3%;">3  </a>
+                                <a onclick="return eval4(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:250%;">4  </a>
+                                <a onclick="return eval5(@eval.idObjective , @eval.idEmploye);"  class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:300%;margin-top:-4%;">5  </a>
+                            }
+                            @if (@eval.status == "autoEvaluated")
+                            {
+                                <h5 style="margin-right:20%;margin-left:-37%;color:red;" class="mt-0">You have Already Evaluate your self for this objective </h5>
+                            }
+                        </div>
+                    </div>
+                </div><!-- END card-->
+
+            </div>
+        }
+
+
+
+    </div>
+
+</div>
+
+<script>
+
+    function eval1(idO, idE) {
+        alertify.confirm('Auto Evaluation operation', 'are you sure to Evaluate your self for this objective : 1 ?', function () {
+            window.location.href = '@Url.Action("evalOne", "autoEvaluateEmploye")?idO=' + idO + '&idE=' + idE;
+        }, null);
+    }
+
+    function eval2(idO, idE) {
+        alertify.confirm('Auto Evaluation operation', 'are you sure to Evaluate your self for this objective : 2 ?', function () {
+            window.location.href = '@Url.Action("evalTwo", "autoEvaluateEmploye")?idO=' + idO + '&idE=' + idE;
+        }, null);
+    }
+
+    function eval3(idO, idE) {
+        alertify.confirm('Auto Evaluation operation', 'are you sure to Evaluate your self for this objective : 3 ?', function () {
+            window.location.href = '@Url.Action("evalThree", "autoEvaluateEmploye")?idO=' + idO + '&idE=' + idE;
+        }, null);
+    }
+
+    function eval4(idO, idE) {
+        alertify.confirm('Auto Evaluation operation', 'are you sure to Evaluate your self for this objective : 4 ?', function () {
+            window.location.href = '@Url.Action("evalFour", "autoEvaluateEmploye")?idO=' + idO + '&idE=' + idE;
+        }, null);
+    }
+
+    function eval5(idO, idE) {
+        alertify.confirm('Auto Evaluation operation', 'are you sure to Evaluate your self for this objective : 5 ?', function () {
+            window.location.href = '@Url.Action("evalFive", "autoEvaluateEmploye")?idO=' + idO + '&idE=' + idE;
+        }, null);
+    }
+
+
+</script>
+<style>
+    .bg-inverse {
+    background-color: #131e26;
+    color: #fff !important;
+    height : 80px ;
+}
+</style>

@@ -37,7 +37,6 @@ namespace Pidev.Controllers
 
             DateTime dt2 = DateTime.ParseExact(str, "dd/MM/yyyy", null);
 
-
             foreach ( var emp in users)
             { 
                 evaluation e = new evaluation();
