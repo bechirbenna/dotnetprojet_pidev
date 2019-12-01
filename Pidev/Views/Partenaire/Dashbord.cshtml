@@ -1,0 +1,241 @@
+﻿<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/Chart.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+
+<div class="row">
+    <div id="chart_container">
+
+        <canvas id="myChart" width="400" height="400"></canvas>
+
+
+    </div>
+
+    <div id="chart">
+
+        <canvas id="price" width="400" height="400"></canvas>
+
+
+    </div>
+    <script>
+
+
+
+
+
+
+
+
+
+
+
+
+    var nomarray = @Html.Raw(Json.Encode(ViewBag.REP));
+    var nbres = @Html.Raw(Json.Encode(ViewBag.NBRES));
+
+
+
+
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: nomarray ,
+            datasets: [{
+                label: 'OfferName + Rating',
+                data:nbres ,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+
+
+    var ctx = document.getElementById('price').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+            labels: [10, 20, 30, 40, 50, 60, 70] ,
+            datasets: [{
+                label: 'OfferName + price',
+                data:[10, 20, 30, 40, 50, 60, 70] ,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+    <script>
+
+
+
+
+
+
+
+
+    var dtToday = new Date();
+
+
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+
+    var hours= dtToday.getHours().toString();
+    var minutes= dtToday.getMinutes().toString();
+    var seconds= dtToday.getSeconds().toString();
+
+    if (month < 10)
+        month = '0' + month.toString();
+    if (day < 10)
+        day = '0' + day.toString();
+    var maxDate = day  + '-' + month + '-' + year+'-'+hours+':'+minutes+':'+seconds;;
+    function getPDF(){
+        var HTML_Width = $("#myChart").width();
+        var HTML_Height = $("#myChart").height()+50;
+        var top_left_margin = 15;
+        var PDF_Width = HTML_Width+(top_left_margin*2);
+        var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+        var canvas_image_width = HTML_Width;
+        var canvas_image_height = HTML_Height;
+
+        var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+
+
+        html2canvas($("#myChart")[0],{allowTaint:true}).then(function(canvas) {
+            canvas.getContext('2d');
+
+            console.log(canvas.height+"  "+canvas.width);
+
+
+            var imgData = canvas.toDataURL("image/jpeg", 1.0);
+            var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
+            pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+
+
+            for (var i = 1; i <= totalPDFPages; i++) {
+                pdf.addPage(PDF_Width, PDF_Height);
+                pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+            }
+
+
+            pdf.save("Rating-"+maxDate+".pdf");
+        });
+    };
+
+
+
+    function getPDF2(){
+        var HTML_Width = $("#price").width();
+        var HTML_Height = $("#price").height()+50;
+        var top_left_margin = 15;
+        var PDF_Width = HTML_Width+(top_left_margin*2);
+        var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+        var canvas_image_width = HTML_Width;
+        var canvas_image_height = HTML_Height;
+
+        var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+
+
+        html2canvas($("#price")[0],{allowTaint:true}).then(function(canvas) {
+            canvas.getContext('2d');
+
+            console.log(canvas.height+"  "+canvas.width);
+
+
+            var imgData = canvas.toDataURL("image/jpeg", 1.0);
+            var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
+            pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+
+
+            for (var i = 1; i <= totalPDFPages; i++) {
+                pdf.addPage(PDF_Width, PDF_Height);
+                pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+            }
+
+
+            pdf.save("PriceOffer-"+maxDate+".pdf");
+        });
+    };
+
+
+    </script>
+
+</div>
+<div class="row">
+
+
+    <input type="submit" onclick="getPDF()" class="btn btn-primary btn-rounded" value="PDF_Bar" />
+    <input type="submit" onclick="getPDF2()" class="btn btn-primary btn-rounded" value="PDF_Polar" />
+
+    @Html.ActionLink("Back to List", "Index_shop", new { }, new { @class = "btn btn-primary btn-rounded" })
+
+</div>
+

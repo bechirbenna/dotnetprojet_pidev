@@ -51,7 +51,8 @@
                                 <td>
                                     @{ int idmission = @a.idmission;}
 
-                                    <a href="@Url.Action("Delete", "Mission",new {idmission=1})" class="btn btn-danger">delete</a>
+                                    <a href="@Url.Action("Delete", "Mission",new {idmission=@a.idmission})" class="btn btn-danger">delete</a>
+
 
                                 </td>
 

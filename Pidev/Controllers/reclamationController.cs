@@ -106,7 +106,38 @@ namespace Pidev.Controllers
             }
         }
 
+        public ActionResult Dashbord()
+        {
+
+            List<reclamation> appo = new List<reclamation>();
+            IUnitOfWork Uok = new UnitOfWork(Factory);
+            IService<reclamation> jbService = new Service<reclamation>(Uok);
+
+            appo = jbService.GetMany().ToList();
+            List<int> repart = new List<int>();
+            var types = appo.Select(x => x.type.Distinct());
+            foreach (var item in types)
+            {
+
+
+                // offers = offers.Where(s => s.OfferName.Contains(ratingoffer(0))
+                // && s.StartDate == date1);
+                repart.Add(appo.Count(x => x.type == item));
+            }
+                var rep = repart;
+                ViewBag.TYPES = types;
+                ViewBag.REP = repart.ToList();
+            return View();
+
+
+
+        }
+
+
+           
+
+        }
+
 
     }
-}
 
