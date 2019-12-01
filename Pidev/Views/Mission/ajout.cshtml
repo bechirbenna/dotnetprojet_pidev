@@ -1,10 +1,10 @@
-﻿@model data.mission
+﻿@model Pidev.Models.missionModels
 
 @{
-    ViewBag.Title = "ajoutmission";
+    ViewBag.Title = "ajout";
 }
 
-<h2>ajoutmission</h2>
+<h2>ajout</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>mission</h4>
+        <h4>missionModels</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -64,9 +64,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.emp_id, "emp_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.emp_id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("emp_id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.EditorFor(model => model.emp_id, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.emp_id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,6 +83,3 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

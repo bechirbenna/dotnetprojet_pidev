@@ -1,46 +1,62 @@
 ﻿@model IEnumerable<data.reclamation>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layoutadv.cshtml";
-}
+<div class="content-wrapper">
 
-<h2>Index</h2>
+    <div class="content-heading">
+        <h2>Partenaire</h2>
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.descriptif)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idemp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.type)
-        </th>
-        <th></th>
-    </tr>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div align="right">
+                    <a href="~/Objectives/Create" class="btn btn-success btn-sm">Create new Objective</a>
+                </div>
+                <table class="table table-striped my-4 w-100" id="datatable2">
+                    <thead>
+                        <tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.descriptif)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idemp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.type)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idreclamation }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idreclamation }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idreclamation })
-        </td>
-    </tr>
-}
+                            <th data-priority="1">id</th>
+                            <th>type</th>
+                            <th>Description</th>
+                            <th>Id employe</th>
+                           
 
-</table>
+
+
+                            <th>Action</th>
+                        
+
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.idreclamation)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.descriptif)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.idemp)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.type)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.idreclamation }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.idreclamation }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.idreclamation })
+                                </td>
+                            </tr>
+                        }
+                        
+                    </tbody>
+                    
+
+                </table>

@@ -31,5 +31,7 @@ namespace Pidev.Models
         }
 
         public System.Data.Entity.DbSet<Pidev.Models.partenaire> partenariats { get; set; }
+
+        public System.Data.Entity.DbSet<Pidev.Models.missionModels> missionModels { get; set; }
     }
 }

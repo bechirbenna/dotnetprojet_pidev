@@ -18,18 +18,18 @@ namespace Pidev.Controllers
         IDatabaseFactory Factory = new DatabaseFactory();
         [HttpGet]
 
-        public ActionResult Create()
+        public ActionResult ajoutpart()
         {
-            return View("Create");
+            return View("ajoutpart");
         }
 
         [HttpPost]
-        public ActionResult Create(data.partenariat p)
+        public ActionResult ajoutpart(partenaire p)
         {
             HttpClient client = new HttpClient();
 
-            client.PostAsJsonAsync<data.partenariat>("http://localhost:9080/pidev-web/api/partenaire/add", p).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
-            return RedirectToAction("Create");
+            client.PostAsJsonAsync<partenaire>("http://localhost:9080/pidev-web/api/partenaire", p).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
+            return RedirectToAction("ajoutpart");
 
 
 

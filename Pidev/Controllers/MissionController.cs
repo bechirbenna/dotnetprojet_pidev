@@ -1,4 +1,5 @@
 ﻿using data;
+using Pidev.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,18 +35,18 @@ namespace Pidev.Controllers
 
         [HttpGet]
 
-        public ActionResult ajoutmission()
+        public ActionResult ajout()
         {
-            return View("ajoutmission");
+            return View("ajout");
         }
 
         [HttpPost]
-        public ActionResult ajoutmission(mission m)
+        public ActionResult ajout(missionModels m)
         {
             HttpClient client = new HttpClient();
 
-            client.PostAsJsonAsync<mission>("http://localhost:9080/pidev-web/api/mission/add", m).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
-            return RedirectToAction("ajoutmission");
+            client.PostAsJsonAsync<missionModels>("http://localhost:9080/pidev-web/api/mission/add", m).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
+            return RedirectToAction("ajout");
 
 
 

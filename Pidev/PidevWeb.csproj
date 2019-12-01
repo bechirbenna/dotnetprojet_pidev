@@ -265,7 +265,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\facture.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\mission.cs" />
+    <Compile Include="Models\missionModels.cs" />
     <Compile Include="Models\partenaire.cs" />
     <Compile Include="Models\reclamation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -535,18 +535,18 @@
     <Content Include="Views\Evaluation\Objectives.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Details.cshtml" />
-    <Content Include="Views\Partenaire\Create.cshtml" />
     <Content Include="Views\reclamation\creatrec.cshtml" />
     <Content Include="Views\Partenaire\affpart.cshtml" />
     <Content Include="Views\reclamation\Index.cshtml" />
     <Content Include="Views\reclamation\Delete.cshtml" />
     <Content Include="Views\reclamation\Edit.cshtml" />
-    <Content Include="Views\Mission\ajoutmission.cshtml" />
     <Content Include="Views\Mission\affmission.cshtml" />
     <Content Include="Views\Facture\afffacture.cshtml" />
     <Content Include="Views\reclamation\Dashbord.cshtml" />
     <Content Include="Views\Partenaire\Dashbord.cshtml" />
     <Content Include="Views\Partenaire\Edit.cshtml" />
+    <Content Include="Views\Partenaire\ajoutpart.cshtml" />
+    <Content Include="Views\Mission\ajout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

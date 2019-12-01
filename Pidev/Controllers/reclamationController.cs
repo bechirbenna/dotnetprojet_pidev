@@ -4,6 +4,8 @@ using ServicePattern;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,16 +15,16 @@ namespace Pidev.Controllers
     {
         IDatabaseFactory Factory = new DatabaseFactory();
         // GET: Reclamation/Create
-        public ActionResult Create()
+        public ActionResult creatrec()
         {
-            return View("Create");
+            return View("creatrec");
         }
 
         // POST: Reclamation/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Create(reclamation r)
+        public ActionResult creatrec(reclamation r)
         {
             IUnitOfWork Uok = new UnitOfWork(Factory);
             IService<reclamation> jbService = new Service<reclamation>(Uok);
@@ -30,7 +32,28 @@ namespace Pidev.Controllers
             // TODO: Add insert logic here
             jbService.Add(r);
             jbService.Commit();
-            return RedirectToAction("Create");
+            var senderEmail = new MailAddress("alihachem.tahar@esprit.tn", "ADMIN");
+            var receiverEmail = new MailAddress("alihachem.tahar@esprit.tn", "ADMIN");
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(senderEmail.Address, "hachem1234")
+            };
+            using (var mess = new MailMessage(senderEmail, receiverEmail)
+            {
+                Subject = "Traitement des reclamaions",
+                Body = "Vous avez une nouvelle reclamation à traiter " 
+            })
+            {
+                smtp.Send(mess);
+            }
+
+            return RedirectToAction("creatrec");
         }
 
         public ActionResult Index()
