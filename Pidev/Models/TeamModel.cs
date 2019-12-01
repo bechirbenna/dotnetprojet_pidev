@@ -10,7 +10,10 @@ namespace Pidev.Models
         public int id { get; set; }
 
         public string nameTeam { get; set; }
+      
 
         public string departement { get; set; }
+
+        public String dateCreation { get; set; }
     }
 }

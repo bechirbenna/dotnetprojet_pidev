@@ -18,8 +18,8 @@ namespace Pidev.Models
 
         [StringLength(255)]
         public string description { get; set; }
-        public  team team { get; set; }
-       
+        public  TeamModel team { get; set; }
+        public userModel user { get; set; }
 
         public String difficulty { get; set; }
 

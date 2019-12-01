@@ -291,6 +291,7 @@
     <Compile Include="Controllers\EvaluationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ScrumBoardController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -575,6 +576,7 @@
     <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\Calendar\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutEmploye -.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -97,7 +97,7 @@ namespace Pidev.Controllers
 
             if (responce.IsSuccessStatusCode)
             {
-                ticket.team = responce.Content.ReadAsAsync<team>().Result;
+                ticket.team = responce.Content.ReadAsAsync<TeamModel>().Result;
             }
             // ticket.team = responce.
 

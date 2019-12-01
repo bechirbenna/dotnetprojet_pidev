@@ -2,6 +2,7 @@
 using Pidev.Models;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -44,9 +45,16 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            var jwtToken = new JwtSecurityToken(token);
+            var subject = jwtToken.Subject;
 
-            var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-affect/" + idTicket+"/3", null).Result;
-
+            HttpResponseMessage responce = Client.GetAsync("api/login/" + subject).Result;
+            if (responce.IsSuccessStatusCode)
+            {
+                userModel user = responce.Content.ReadAsAsync<userModel>().Result;
+            
+                var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-affect/" + idTicket+"/"+ user.id, null).Result;
+            }
             return RedirectToAction("Index"); 
         }
 
@@ -60,9 +68,15 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            var jwtToken = new JwtSecurityToken(token);
+            var subject = jwtToken.Subject;
 
-            var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-begin/" + idTicket + "/3", null).Result;
-
+            HttpResponseMessage responce = Client.GetAsync("api/login/" + subject).Result;
+            if (responce.IsSuccessStatusCode)
+            {
+                userModel user = responce.Content.ReadAsAsync<userModel>().Result;
+                var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-begin/" + idTicket + "/" + user.id, null).Result;
+            }
             return RedirectToAction("Index");
         }
 
@@ -77,9 +91,15 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            var jwtToken = new JwtSecurityToken(token);
+            var subject = jwtToken.Subject;
 
-            var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-end/" + idTicket + "/3", null).Result;
-
+            HttpResponseMessage responce = Client.GetAsync("api/login/" + subject).Result;
+            if (responce.IsSuccessStatusCode)
+            {
+                userModel user = responce.Content.ReadAsAsync<userModel>().Result;
+                var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-end/" + idTicket + "/"+user.id, null).Result;
+            }
             return RedirectToAction("Index");
         }
 
@@ -93,9 +113,15 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            var jwtToken = new JwtSecurityToken(token);
+            var subject = jwtToken.Subject;
 
-            var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-archive/" + idTicket + "/3", null).Result;
-
+            HttpResponseMessage responce = Client.GetAsync("api/login/" + subject).Result;
+            if (responce.IsSuccessStatusCode)
+            {
+                userModel user = responce.Content.ReadAsAsync<userModel>().Result;
+                var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-archive/" + idTicket + "/"+user.id, null).Result;
+            }
             return RedirectToAction("Index");
         }
 
@@ -110,10 +136,10 @@ namespace Pidev.Controllers
         }
 
 
-        public  static Boolean disabled(int id)
+        public   Boolean disabled(int id)
         {
-            ScrumBoardController scr = new ScrumBoardController();
-            string token = scr.Request.Cookies.Get("token").Value;
+           
+            string token = Request.Cookies.Get("token").Value;
 
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");

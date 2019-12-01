@@ -15,7 +15,7 @@ namespace Pidev.Models
         public String phoneNumber { get; set; }
         public String userName { get; set; }
         public String password { get; set; }
-
+        public TeamModel team { get; set; }
         public String role { get; set; }
     }
 }

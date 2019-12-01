@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Team</th>
+            <th>Employes</th>
+            <th>Week 1</th>
+            <th>Week 2</th>
+            <th>Week 3</th>
+            <th>Week 4</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in ViewBag.teams)
+        {
+
+
+
+            <tr>
+                <td rowspan="@Pidev.Controllers.ReportController.nbr(item.id)">@item.nameTeam</td>
+            </tr>
+
+            foreach (var emp in Pidev.Controllers.ReportController.getEmployeesByTeamID(item.id))
+            {
+                <tr>
+                    <td>@emp.userName</td>
+                    <td>@Pidev.Controllers.ReportController.getNumberOfTicketHoursInFirstWeek(@emp.id)</td>
+                    <td>@Pidev.Controllers.ReportController.getNumberOfTicketHoursInSecondWeek(@emp.id)</td>
+                    <td>@Pidev.Controllers.ReportController.getNumberOfTicketHoursInThirdWeek(@emp.id)</td>
+                    <td>@Pidev.Controllers.ReportController.getNumberOfTicketHoursInFourthWeek(@emp.id)</td>
+                </tr>
+            }
+
+
+
+        }
+
+        
+
+
+
+    </tbody>
+</table>
