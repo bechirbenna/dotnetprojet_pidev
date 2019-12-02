@@ -601,6 +601,7 @@
     <Content Include="Views\objectiveToTeam\teamChoosed.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\autoEvaluateEmploye\Index.cshtml" />
+    <Content Include="Views\autoEvaluateEmploye\statEvalObj.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

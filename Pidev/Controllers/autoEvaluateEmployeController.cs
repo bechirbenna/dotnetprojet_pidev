@@ -20,7 +20,6 @@ namespace Pidev.Controllers
         {
             objectiveService objectiveSeervice = new objectiveService();
             return objectiveSeervice.GetById(id);
-
         }
 
         // GET: autoEvaluateEmploye
@@ -163,6 +162,123 @@ namespace Pidev.Controllers
 
             return RedirectToAction("Index");
 
+        }
+
+        public ActionResult statEvalObj()
+        {
+            var evals = evalService.GetMany().Where(x => x.status.Equals("autoEvaluated")).ToList();
+            var users = new List<user>();
+
+            foreach (var eval in evals)
+            {
+                if  (!users.Contains(eval.user))
+                users.Add(eval.user);
+            }
+
+            ViewBag.users = users;
+
+            return View();
+        }
+
+        public static int pourcentageObj(long id)
+        {
+            evaluationService evalService = new evaluationService();
+            var evals = evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("autoEvaluated")).ToList();
+            int a = 0;
+            foreach(var e in evals)
+            {
+                a = a + (int)e.mark;
+            }
+
+            int p = (a * 100) / (evals.Count() * 5);
+
+            int pourc = 0; 
+            if (p >= 1 && p <= 4)
+            {
+                pourc = 0;
+            }
+            else if (p >= 5 && p <= 9)
+            {
+                pourc = 5;
+            }
+            else if (p >= 10 && p <= 14)
+            {
+                pourc = 10;
+            }
+            else if (p >= 15 && p <= 19)
+            {
+                pourc = 15;
+            }
+            else if (p >= 20 && p <= 24)
+            {
+                pourc = 20;
+            }
+            else if (p >= 25 && p <= 29)
+            {
+                pourc = 25;
+            }
+            else if (p >= 30 && p <= 34)
+            {
+                pourc = 30;
+            }
+            else if (p >= 35 && p <= 39)
+            {
+                pourc = 35;
+            }
+            else if (p >= 40 && p <= 44)
+            {
+                pourc = 40;
+            }
+            else if (p >= 45 && p <= 49)
+            {
+                pourc = 45;
+            }
+            else if (p >= 50 && p <= 54)
+            {
+                pourc = 50;
+            }
+            else if (p >= 55 && p <= 59)
+            {
+                pourc = 55;
+            }
+            else if (p >= 60 && p <= 64)
+            {
+                pourc = 60;
+            }
+            else if (p >= 65 && p <= 69)
+            {
+                pourc = 65;
+            }
+            else if (p >= 70 && p <= 74)
+            {
+                pourc = 70;
+            }
+            else if (p >= 75 && p <= 79)
+            {
+                pourc = 75;
+            }
+            else if (p >= 80 && p <= 84)
+            {
+                pourc = 80; 
+            }
+            else if (p >= 85 && p <= 89)
+            {
+                pourc = 85;
+            }
+            else if (p >= 90 && p <= 94)
+            {
+                pourc = 90;
+            }
+            else if (p >= 95 && p <= 99)
+            {
+                pourc = 95;
+            }
+            else if (p == 100)
+            {
+                pourc = 100;
+            }
+
+            return pourc;
         }
 
         // GET: autoEvaluateEmploye/Details/5
