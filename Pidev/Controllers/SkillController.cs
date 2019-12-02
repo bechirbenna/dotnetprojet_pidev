@@ -30,5 +30,49 @@ namespace Pidev.Controllers
             }
             return View();
         }
+        // POST: Skill/Create
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View("Create");
+        }
+        [HttpPost]
+        public ActionResult Create(SkillModel skill)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+            //client.PostAsJsonAsync<skill>("api/skill", skill).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
+            var response = client.PostAsJsonAsync<SkillModel>("api/skill",skill).Result;
+            return RedirectToAction("Index");
+        }
+        // POST: Skill/Update
+        public ActionResult Edit(int id)
+        {
+            return View("Edit");
+        }
+        [HttpPost]
+        public ActionResult Edit(SkillModel skill)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+            var response = client.PostAsJsonAsync<SkillModel>("api/skill", skill).Result;
+            return RedirectToAction("Index");
+        }
+        public ActionResult Delete(int id)
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.DeleteAsync("http://localhost:9080/pidev-web/api/skill/" + id.ToString()).Result;
+
+            return RedirectToAction("Index");
+        }
+        // POST: Skill/Delete
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+
+            return View();
+
+        }
     }
+
 }

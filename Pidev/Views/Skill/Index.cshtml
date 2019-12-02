@@ -1,4 +1,4 @@
-﻿@model IEnumerable<data.ticket>
+﻿@model IEnumerable<data.skill>
 
 @{
     ViewBag.Title = "Index";
@@ -27,32 +27,30 @@
                             <th>
                                 Id
                             </th>
-
                             <th>
                                 Name
                             </th>
                             <th>
                                 Description
                             </th>
+                            <th></th>
                         </tr>
                     </thead>
-                    @foreach (var item in ViewBag.result)
-            {
+                    @foreach (var item in ViewBag.result){
                         <tr>
-
-                             <td>@item.skillId</td>
-
-
+                            <td>@item.skillId</td>
                             <td>@item.skillName</td>
-
                             <td>@item.skillDesc</td>
-
-
-
-                            
+                            <td>
+                                @{ long skillId = @item.skillId;}
+                                <a href="@Url.Action("Edit", "Skill",new {id=@item.skillId})" class="btn btn-danger">Edit</a>
+                            </td>
+                            @*<td>
+                                @{ long skillId = @item.skillId;}
+                                <a href="@Url.Action("Delete", "Skill",new {id=@item.skillId})" class="btn btn-danger">Delete</a>
+                            </td>*@
                         </tr>
                     }
-
                 </table>
             </div>
         </div>
