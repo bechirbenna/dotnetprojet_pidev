@@ -1,1 +1,122 @@
 ﻿
+@{ 
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+@{ var nbTeams = Pidev.Controllers.objectiveToAllEmployesController.getNbTeams();}
+@{ var nbEmployees = Pidev.Controllers.objectiveToAllEmployesController.getNbEmployes();}
+
+<div class="content-wrapper">
+    <div class="content-heading">
+        <div>
+            Dashboard<small data-localize="dashboard.WELCOME"></small>
+        </div>
+        <!-- START Language list-->
+        <!-- END Language list-->
+    </div>
+    <!-- START cards box-->
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <!-- START card-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+                <div class="col-4 d-flex align-items-center bg-primary-dark justify-content-center rounded-left">
+                    <em class="fa fa-fw fa-user fa-3x"></em>
+                </div>
+                <div class="col-8 py-3 bg-primary rounded-right">
+                    <div class="h2 mt-0">@nbEmployees</div>
+                    <div class="text-uppercase">Users</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <!-- START card-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+                <div class="col-4 d-flex align-items-center bg-purple-dark justify-content-center rounded-left">
+                    <em class="fa fa-fw fa-users fa-3x"></em>
+                </div>
+                <div class="col-8 py-3 bg-purple rounded-right">
+                    <div class="h2 mt-0">
+                        @nbTeams
+                    </div>
+                    <div class="text-uppercase">Teams</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START card-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+                <div class="col-4 d-flex align-items-center bg-green-dark justify-content-center rounded-left">
+                    <em class="fa fa-fw fa-comments-o fa-3x"></em>
+                </div>
+                <div class="col-8 py-3 bg-green rounded-right">
+                    <div class="h2 mt-0">#{feedBackBeans.getNbAllFeedBacks()}</div>
+                    <div class="text-uppercase">FeedBacks</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START date widget-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+                <div class="col-4 d-flex align-items-center bg-green justify-content-center rounded-left">
+                    <div class="text-center">
+                        <!-- See formats: https://docs.angularjs.org/api/ng/filter/date-->
+                        <div class="text-sm" data-now="" data-format="MMMM"></div>
+                        <br></br>
+                        <div class="h2 mt-0" data-now="" data-format="D"></div>
+                    </div>
+                </div>
+                <div class="col-8 py-3 rounded-right">
+                    <div class="text-uppercase" data-now="" data-format="dddd"></div>
+                    <br />
+                    <div class="h2 mt-0" data-now="" data-format="h:mm"></div>
+                    <div class="text-muted text-sm" data-now="" data-format="a"></div>
+                </div>
+            </div>
+            <!-- END date widget-->
+        </div>
+    </div>
+
+    <div class="unwrap my-3">
+        <!-- START chart-->
+        <div class="card" id="cardChart9">
+            <div class="card-header">
+                <!-- START button group-->
+                <div class="float-right btn-group">
+                    <button class="dropdown-toggle dropdown-toggle-nocaret btn btn-secondary btn-sm" type="button" data-toggle="dropdown">All time</button>
+                    <div class="dropdown-menu dropdown-menu-right-forced fadeInLeft animated" role="menu">
+                        <a class="dropdown-item" href="#">Daily</a><a class="dropdown-item" href="#">Monthly</a>
+                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">All time</a>
+                    </div>
+                </div><!-- END button group-->
+                <div class="card-title">this is static chart (for .NET phase)</div>
+            </div>
+            <div class="card-wrapper">
+                <div class="card-body">
+                    <div class="chart-splinev2 flot-chart"></div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 col-6 text-center">
+                            <p>Projects</p>
+                            <div class="h1">25</div>
+                        </div>
+                        <div class="col-md-3 col-6 text-center">
+                            <p>Teammates</p>
+                            <div class="h1">85</div>
+                        </div>
+                        <div class="col-md-3 col-6 text-center">
+                            <p>Hours</p>
+                            <div class="h1">380</div>
+                        </div>
+                        <div class="col-md-3 col-6 text-center">
+                            <p>Budget</p>
+                            <div class="h1 text-truncate">$ 10,000.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- END chart-->
+    </div><!-- START radial charts-->
+    <!-- END cards box-->
+</div>

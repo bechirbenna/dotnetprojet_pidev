@@ -54,11 +54,12 @@ namespace Pidev.Controllers
                 if (responce.IsSuccessStatusCode)
                 {
                     userModel user = responce.Content.ReadAsAsync<userModel>().Result;
-                    if (user.role.Equals("Admin"))
+                    var role = user.role;
+                    if (role.Equals("Admin"))
                     {
                         return RedirectToAction("adminEval", "objectiveToAllEmployes", new { area = "" });
                     }
-                    else if (user.role.Equals("Employee"))
+                    else if (role.Equals("Employee"))
                     {
                         return RedirectToAction("Index", "autoEvaluateEmploye", new { area = "" });
                     }

@@ -16,7 +16,13 @@
                 @foreach (var emp in ViewBag.users)
                 {
                     string Color = "";
+                    string rank = "";
                     var pourc = @Pidev.Controllers.autoEvaluateEmployeController.pourcentageObj(emp.id);
+                    var marks = @Pidev.Controllers.autoEvaluateEmployeController.getMarksByidEmp(emp.id);
+                    var nbEvals = @Pidev.Controllers.autoEvaluateEmployeController.nbrEvalByIdEmp(emp.id);
+                    var teamName = Pidev.Controllers.autoEvaluateEmployeController.teamNamebyId(emp.id);
+
+
                     if (pourc <= 25)
                         Color = "danger";
                     else if (pourc <= 50 && pourc > 25)
@@ -27,52 +33,59 @@
                         Color = "success";
 
 
+                    if (pourc <= 25)
+                        rank = "frown";
+                    else if (pourc <= 50 && pourc > 25)
+                        rank = "meh";
+                    else if (pourc <= 75 && pourc > 50)
+                        rank = "smile";
+                    else if (pourc <= 100 && pourc > 75)
+                        rank = "heart";
+
+
+
                     <div class="col-lg-4">
 
                         <div class="radial-bar radial-bar-@pourc radial-bar radial-bar-@Color">
                             <span style="color:black;font:bold;"> @pourc%</span><img src="@Url.Content("~/Content/images/" + @emp.firstName + ".jpg")" alt="Image">
-
                         </div>
 
+
+                        <!-- START card-->
+                        <div class="card border-0">
+                            <div class="card-body bg-@Color">
+                                <div class="h4 mt-0">@emp.firstName stats</div><!-- Line chart-->
+                                <div data-sparkline="" data-values="0,@marks" data-type="line" data-height="80" data-width="100%" data-line-width="2" data-line-color="#dddddd" data-spot-color="#bbbbbb" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="3" data-resize="true"></div><!-- Bar chart-->
+                                <div class="text-center">
+                                    <div data-sparkline="" data-bar-color="#fff" data-height="50" data-bar-width="10" data-bar-spacing="9" data-values="0,@marks"></div>
+                                </div>
+                            </div>
+                            <div class="card-body bg-inverse">
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <p class="m-0 h3">@nbEvals</p>
+                                        <p class="m-0 text-muted">Objectives</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="m-0 h4">@teamName</p>
+                                        <p class="m-0 text-muted">Team name</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="m-0 h3"><em class="fa fa-@rank fa-2x text-@Color"></em></p>
+                                        <p class="m-0 text-muted"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- END card-->
                     </div>
+
                 }
 
             </div>
         </div>
     </div><!-- END card-->
 
-    <div class="row">
 
-        <div class="col-xl-4">
-            <!-- START card-->
-            <div class="card border-0">
-                <div class="card-body bg-success">
-                    <div class="h5 mt-0">Received all time</div><!-- Line chart-->
-                    <div data-sparkline="" data-values="1,3,4,7,5,9,4,4,7,5,9,6,4" data-type="line" data-height="80" data-width="100%" data-line-width="2" data-line-color="#dddddd" data-spot-color="#bbbbbb" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="3" data-resize="true"></div><!-- Bar chart-->
-                    <div class="text-center">
-                        <div data-sparkline="" data-bar-color="#fff" data-height="50" data-bar-width="6" data-bar-spacing="6" data-values="1,3,4,7,5,9,4,4,7,5,9,6,4"></div>
-                    </div>
-                </div>
-                <div class="card-body bg-inverse">
-                    <div class="row text-center">
-                        <div class="col-4">
-                            <p class="m-0 h3">15080</p>
-                            <p class="m-0 text-muted">Shots</p>
-                        </div>
-                        <div class="col-4">
-                            <p class="m-0 h3">12000</p>
-                            <p class="m-0 text-muted">Likes</p>
-                        </div>
-                        <div class="col-4">
-                            <p class="m-0 h3">5100</p>
-                            <p class="m-0 text-muted">Comments</p>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- END card-->
-        </div>
-
-    </div>
 
 
 </div>

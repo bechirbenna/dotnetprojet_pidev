@@ -87,7 +87,7 @@ namespace Pidev.Controllers
 
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("adminEval", "objectiveToAllEmployes", new { area = "" });
         }
 
         public ActionResult adminEval()
@@ -187,14 +187,14 @@ namespace Pidev.Controllers
         public static int getNbEmployes()
         {
             userService sU = new userService();
-            var a = sU.GetMany().Count();
+            var a = sU.GetMany().ToList().Count();
             return a;
         }
 
         public static int getNbPendings()
         {
             evaluationService sE = new evaluationService();
-            var a = sE.GetMany().Where(x => x.status.Equals("pending")).Count();
+            var a = sE.GetMany().Where(x => x.status.Equals("pending")).ToList().Count();
             return a;
         }
     }

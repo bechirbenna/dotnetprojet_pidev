@@ -38,6 +38,7 @@ namespace Pidev.Controllers
             return View();
         }
 
+
         public ActionResult evalOne(long idO, long idE)
         {
 
@@ -180,6 +181,39 @@ namespace Pidev.Controllers
             return View();
         }
 
+        public static string getMarksByidEmp(long id)
+        {
+            evaluationService evalService = new evaluationService();
+            var evals = evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("autoEvaluated")).ToList();
+
+            var Marks = "";
+
+            foreach (var eval in evals)
+            {
+                Marks = Marks + (int)eval.mark + ",";
+            }
+
+            var str = Marks.Substring(0, Marks.Length - 1);
+
+            return str;
+
+        }
+
+        public static int nbrEvalByIdEmp(long id)
+        {
+            evaluationService evalService = new evaluationService();
+            var evals = evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("autoEvaluated")).ToList();
+            return evals.Count();
+        }
+
+        public static string teamNamebyId(long id)
+        {
+            userService userService = new userService();
+            user u = userService.GetById(id);
+            teamService teamService = new teamService();
+            string name = teamService.GetById((long)u.team_id).teamName;
+            return name;
+        }
         public static int pourcentageObj(long id)
         {
             evaluationService evalService = new evaluationService();
