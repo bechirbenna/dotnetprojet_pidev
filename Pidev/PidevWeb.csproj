@@ -296,8 +296,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\alertifyjs\alertify.css" />
     <Content Include="Content\alertifyjs\alertify.js" />
+    <Content Include="Content\alertifyjs\alertify.min.css" />
     <Content Include="Content\alertifyjs\alertify.min.js" />
+    <Content Include="Content\alertifyjs\alertify.rtl.css" />
+    <Content Include="Content\alertifyjs\alertify.rtl.min.css" />
     <Content Include="Content\alertifyjs\css\alertify.css" />
     <Content Include="Content\alertifyjs\css\alertify.min.css" />
     <Content Include="Content\alertifyjs\css\alertify.rtl.css" />
@@ -314,6 +318,18 @@
     <Content Include="Content\alertifyjs\css\themes\semantic.min.css" />
     <Content Include="Content\alertifyjs\css\themes\semantic.rtl.css" />
     <Content Include="Content\alertifyjs\css\themes\semantic.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.min.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\default.css" />
+    <Content Include="Content\alertifyjs\themes\default.min.css" />
+    <Content Include="Content\alertifyjs\themes\default.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\default.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.min.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.rtl.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\app-rtl.css" />
@@ -340,6 +356,8 @@
     <Content Include="Content\images\mootaz.jpg" />
     <Content Include="Content\images\olfa.jpg" />
     <Content Include="Content\images\silver.jpg" />
+    <Content Include="Content\img\ANDROID.jpg" />
+    <Content Include="Content\img\ANGULAR.jpg" />
     <Content Include="Content\img\bg1.jpg" />
     <Content Include="Content\img\bg10.jpg" />
     <Content Include="Content\img\bg2.jpg" />
@@ -351,9 +369,12 @@
     <Content Include="Content\img\bg8.jpg" />
     <Content Include="Content\img\bg9.jpg" />
     <Content Include="Content\img\DotNet Developers.jpg" />
+    <Content Include="Content\img\DOTNET.jpg" />
     <Content Include="Content\img\dummy.png" />
     <Content Include="Content\img\FINANCIAL.jpg" />
+    <Content Include="Content\img\IONIC.jpg" />
     <Content Include="Content\img\java Developers.jpg" />
+    <Content Include="Content\img\JAVA.jpg" />
     <Content Include="Content\img\lock-bg.jpg" />
     <Content Include="Content\img\logo-single.png" />
     <Content Include="Content\img\logo.png" />
@@ -361,6 +382,7 @@
     <Content Include="Content\img\mockup.png" />
     <Content Include="Content\img\PERSONAL.jpg" />
     <Content Include="Content\img\profile-bg.jpg" />
+    <Content Include="Content\img\REACT.jpg" />
     <Content Include="Content\img\Reacteam.jpg" />
     <Content Include="Content\img\SOCIALSKILLS.jpg" />
     <Content Include="Content\img\user\01.jpg" />
@@ -510,6 +532,8 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\alertify.js" />
+    <Content Include="Scripts\alertify.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />

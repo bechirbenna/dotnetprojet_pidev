@@ -53,7 +53,8 @@ namespace Pidev.Controllers
 
             var aa = obj;
             var response = GlobalVariables.Client.PostAsJsonAsync<objectiveModels>("/pidev-web/rest/objectives", obj).Result;
-            
+
+            TempData["SuccessMessage"] = "Saved Successfully";
             return RedirectToAction("Index");
         }
 
@@ -91,6 +92,7 @@ namespace Pidev.Controllers
         public ActionResult Delete(int id)
         {
             HttpResponseMessage response = GlobalVariables.Client.DeleteAsync("/pidev-web/rest/objectives/" + id.ToString()).Result;
+            TempData["SuccessMessage"] = "Deleted Successfully";
 
             return RedirectToAction("Index");
         }

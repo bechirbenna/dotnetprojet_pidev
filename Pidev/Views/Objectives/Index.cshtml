@@ -60,12 +60,21 @@
 </div>
 
 
+<script language="JavaScript" type="text/javascript" src="~/Scripts/alertify.min.js">
+    $(function () {
+        var successMessage = "ajout avec succées"
+            alertify.success(successMessage);
+    });
+
+   
+   
+
+</script>
 <script>
     function Delete(id) {
         alertify.confirm('Objective operation', 'are you sure to delete this Objective ?', function () {
             window.location.href = '@Url.Action("Delete", "Objectives")/' + id;
         }, null);
-
-
     }
+
 </script>

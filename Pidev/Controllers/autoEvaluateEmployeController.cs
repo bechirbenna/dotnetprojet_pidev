@@ -171,8 +171,8 @@ namespace Pidev.Controllers
 
             foreach (var eval in evals)
             {
-                if  (!users.Contains(eval.user))
-                users.Add(eval.user);
+                if (!users.Contains(eval.user))
+                    users.Add(eval.user);
             }
 
             ViewBag.users = users;
@@ -185,14 +185,14 @@ namespace Pidev.Controllers
             evaluationService evalService = new evaluationService();
             var evals = evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("autoEvaluated")).ToList();
             int a = 0;
-            foreach(var e in evals)
+            foreach (var e in evals)
             {
                 a = a + (int)e.mark;
             }
 
             int p = (a * 100) / (evals.Count() * 5);
 
-            int pourc = 0; 
+            int pourc = 0;
             if (p >= 1 && p <= 4)
             {
                 pourc = 0;
@@ -259,7 +259,7 @@ namespace Pidev.Controllers
             }
             else if (p >= 80 && p <= 84)
             {
-                pourc = 80; 
+                pourc = 80;
             }
             else if (p >= 85 && p <= 89)
             {
@@ -280,6 +280,22 @@ namespace Pidev.Controllers
 
             return pourc;
         }
+
+        public static int pourcAutoEval(long id)
+        {
+            evaluationService evalService = new evaluationService();
+            int evalObj = evalService.GetMany().Where(x => x.idObjective == id && x.mark != 0).ToList().Count();
+            int p = 0;
+
+            if (evalObj != 0)
+            {
+                 p = 100 / evalObj;
+            }
+
+            return p;
+        }
+
+
 
         // GET: autoEvaluateEmploye/Details/5
         public ActionResult Details(int id)

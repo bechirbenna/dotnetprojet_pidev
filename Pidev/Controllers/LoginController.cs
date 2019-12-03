@@ -15,6 +15,8 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using data;
+using Service;
+
 namespace Pidev.Controllers
 {
     public class LoginController : Controller
@@ -54,7 +56,7 @@ namespace Pidev.Controllers
                     userModel user = responce.Content.ReadAsAsync<userModel>().Result;
                     if (user.role.Equals("Admin"))
                     {
-                        return RedirectToAction("Index", "Ticket", new { area = "" });
+                        return RedirectToAction("adminEval", "objectiveToAllEmployes", new { area = "" });
                     }
                     else if (user.role.Equals("Employee"))
                     {
@@ -67,11 +69,6 @@ namespace Pidev.Controllers
             return View();
 
         }
-
-
-
-
-
 
 
         // GET: Login
@@ -111,6 +108,18 @@ namespace Pidev.Controllers
                 var response = client.GetAsync(url).Result;
                 return response.Content.ReadAsStringAsync().Result;
             }
+        }
+
+        public static user getUserConnected()
+        {
+            userService us = new userService();
+
+            string token = System.Web.HttpContext.Current.Request.Cookies.Get("token").Value;
+            var jwtToken = new JwtSecurityToken(token);
+            var subject = jwtToken.Subject;
+            user user = us.getUserByEmail(subject);
+
+            return user;
         }
 
     }

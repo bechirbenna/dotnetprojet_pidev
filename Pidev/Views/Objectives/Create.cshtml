@@ -53,3 +53,13 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+
+<script>
+
+    $(function () {
+        var successMessage = '@TempData["SuccessMessage"]'
+        if (successMessage != '')
+            alertify.success(successMessage);
+    });
+
+</script>
