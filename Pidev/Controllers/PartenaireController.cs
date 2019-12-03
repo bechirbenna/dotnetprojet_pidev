@@ -57,7 +57,7 @@ namespace Pidev.Controllers
             return View();
         }
 
-        public  ActionResult Delete(int idpartenaire)
+        public ActionResult Delete(int idpartenaire)
         {
             HttpClient client = new HttpClient();
             HttpResponseMessage response = client.DeleteAsync("http://localhost:9080/pidev-web/api/partenaire/" + idpartenaire.ToString()).Result;
@@ -79,7 +79,7 @@ namespace Pidev.Controllers
             List<data.partenariat> appo = new List<data.partenariat>();
             IUnitOfWork Uok = new UnitOfWork(Factory);
             IService<data.partenariat> jbService = new Service<data.partenariat>(Uok);
-           
+
 
             appo = jbService.GetMany().ToList();
             List<int> repart = new List<int>();
@@ -96,39 +96,37 @@ namespace Pidev.Controllers
 
 
         }
-
-        // GET: Objectives/Edit/5
         public ActionResult Edit(int idpartenaire = 0)
         {
-
-            HttpClient client = new HttpClient();
+            HttpClient Client = new HttpClient();
             if (idpartenaire == 0)
             {
-                return View(new data.partenariat());
+                return View(new partenaire());
             }
             else
             {
-                HttpResponseMessage response = client.GetAsync("http://localhost:9080/pidev-web/api/partenaire/" + idpartenaire.ToString()).Result;
-                return View(response.Content.ReadAsAsync<data.partenariat>().Result);
+                HttpResponseMessage response = Client.GetAsync("http://localhost:9080/pidev-web/api/partenaire/" + idpartenaire.ToString()).Result;
+                return View(response.Content.ReadAsAsync<partenariat>().Result);
             }
         }
 
         // POST: Objectives/Edit/5
         [HttpPost]
-        public ActionResult Edit(data.partenariat p)
+        public ActionResult Edit(partenaire p)
         {
-            HttpClient client = new HttpClient();
+            HttpClient Client = new HttpClient();
             if (p.idpartenaire == 0)
             {
-                var response = client.PostAsJsonAsync<data.partenariat>("http://localhost:9080/pidev-web/api/partenaire/", p).Result;
+                var response = Client.PostAsJsonAsync<partenaire>("http://localhost:9080/pidev-web/api/partenaire", p).Result;
             }
             else
             {
-                var response1 = client.PutAsJsonAsync<data.partenariat>("http://localhost:9080/pidev-web/api/partenaire/", p).Result;
+                var response1 = Client.PutAsJsonAsync<partenaire>("http://localhost:9080/pidev-web/api/partenaire/", p).Result;
 
             }
             return RedirectToAction("affpart");
         }
-
     }
 }
+
+    

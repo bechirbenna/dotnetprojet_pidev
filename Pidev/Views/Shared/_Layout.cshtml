@@ -1,41 +1,170 @@
-﻿<!DOCTYPE html>
+﻿!DOCTYPE html>
+
+
 <html>
 <head>
-    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <!-- include the RTL css files-->
+    <link rel="stylesheet" href="~/Content/alertifyjs/css/alertify.rtl.css">
+    <link rel="stylesheet" href="~/Content/alertifyjs/css/themes/default.rtl.css">
+    <!-- include alertify.css -->
+    <link rel="stylesheet" href="~/Content/alertifyjs/css/alertify.css">
+    <!-- include semantic ui theme  -->
+    <link rel="stylesheet" href="~/Content/alertifyjs/css/themes/semantic.css">
+
+    @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/brands.css")
+    @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/regular.css")
+    @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/solid.css")
+    @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/fontawesome.css")
+    @Styles.Render("~/Content/vendor/simple-line-icons/css/simple-line-icons.css")
+    @Styles.Render("~/Content/vendor/animate.css/animate.css")
+    @Styles.Render("~/Content/vendor/whirl/dist/whirl.css")
+    @Styles.Render("~/Content/css/bootstrap.css")
+    @Styles.Render("~/Content/css/app.css")
+
+    <!-- Datatables-->
+    @Styles.Render("~/Content/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css")
+    @Styles.Render("~/Content/vendor/datatables.net-keytable-bs/css/keyTable.bootstrap.css")
+    @Styles.Render("~/Content/vendor/datatables.net-responsive-bs/css/responsive.bootstrap.css")<!-- =============== BOOTSTRAP STYLES ===============-->
+    @*<script>
+            @RenderSection("scripts" , required:false)
+        </script>*@
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+
+    <div class="wrapper">
+        <!-- top navbar-->
+        <header class="topnavbar-wrapper">
+            <!-- START Top Navbar-->
+            <nav class="navbar topnavbar">
+                <!-- START navbar header-->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#/">
+                        <div class="brand-logo"><img class="img-fluid" src="~/Content/img/logo.png" alt="App Logo"></div>
+                        <div class="brand-logo-collapsed"><img class="img-fluid" src="~/Content/img/logo-single.png" alt="App Logo"></div>
+                    </a>
+                </div><!-- END navbar header-->
+                <!-- START Left navbar-->
+                <ul class="navbar-nav mr-auto flex-row">
+                    <li class="nav-item">
+                        <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops--><a class="nav-link d-none d-md-block d-lg-block d-xl-block" href="#" data-trigger-resize="" data-toggle-state="aside-collapsed"><em class="fas fa-bars"></em></a><!-- Button to show/hide the sidebar on mobile. Visible on mobile only.--><a class="nav-link sidebar-toggle d-md-none" href="#" data-toggle-state="aside-toggled" data-no-persist="true"><em class="fas fa-bars"></em></a>
+                    </li><!-- START User avatar toggle-->
+                    <li class="nav-item d-none d-md-block">
+                        <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops--><a class="nav-link" id="user-block-toggle" href="#user-block" data-toggle="collapse"><em class="icon-user"></em></a>
+                    </li><!-- END User avatar toggle-->
+                    <!-- START lock screen-->
+                    <li class="nav-item d-none d-md-block"><a class="nav-link" href="lock.html" title="Lock screen"><em class="icon-lock"></em></a></li><!-- END lock screen-->
+                </ul><!-- END Left navbar-->
+                <!-- START Right Navbar-->
+                <ul class="navbar-nav flex-row">
+                    <!-- Search icon-->
+                    <li class="nav-item"><a class="nav-link" href="#" data-search-open=""><em class="icon-magnifier"></em></a></li><!-- Fullscreen (only desktops)-->
+                    <li class="nav-item d-none d-md-block"><a class="nav-link" href="#" data-toggle-fullscreen=""><em class="fas fa-expand"></em></a></li><!-- START Alert menu-->
+                    <li class="nav-item dropdown dropdown-list">
+
+                        <div class="dropdown-menu dropdown-menu-right animated flipInX">
+                            <div class="dropdown-item">
+                                <!-- START list group-->
+                                <div class="list-group">
+
+
+                                </div><!-- END list group-->
+                                </dTART Search form-->
+                                <form class="navbar-form" role="search" action="search.html">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" placeholder="Type and hit enter ...">
+                                        <div class="fas fa-times navbar-form-close" data-search-dismiss=""></div>
+                                    </div><button class="d-none" type="submit">Submit</button>
+                                </form><!-- END Search form-->
+            </nav><!-- END Top Navbar-->
+        </header><!-- sidebar-->
+        <aside class="aside-container">
+            <!-- START Sidebar (left)-->
+            <div class="aside-inner">
+                <nav class="sidebar" data-sidebar-anyclick-close="">
+                    <!-- START sidebar nav-->
+                    <ul class="sidebar-nav">
+                        <!-- START user info-->
+                        <li class="has-user-block">
+                            <div class="collapse" id="user-block">
+                                <div class="item user-block">
+                                    <!-- User picture-->
+                                    <div class="user-block-picture">
+                                        <div class="user-block-status">
+                                            <img class="img-thumbnail rounded-circle" src="img/user/02.jpg" alt="Avatar" width="60" height="60">
+                                            <div class="circle bg-success circle-lg"></div>
+                                        </div>
+                                    </div><!-- Name and Job-->
+                                    <div class="user-block-info"><span class="user-block-name">Hello, Mike</span><span class="user-block-role">Designer</span></div>
+                                </div>
+                            </div>
+                        </li><!-- END user info-->
+                        <!-- Iterates over all sidebar items-->
+                        <li class="nav-heading "><span data-localize="sidebar.heading.HEADER">Main Navigation</span></li>
+                        <li class=" "><a href="#dashboard" title="Dashboard" data-toggle="collapse">
+                            <div class="float-right badge badge-success">3</div><em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+                            </a>
+                            <ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
+                                <li class="sidebar-subnav-header">Dashboard</li>
+                           
+                                <li class=" "><a href="~/reclamation/creatrec" title="Dashboard v2"><span>Faire une reclamation</span></a></li>
+                                
+                                <li class=" "><a href="~/Mission/ajoutmission" title="Dashboard v2"><span>Ajouter une mission</span></a></li>
+                              
+                               
+                            </ul>
+                        </li>
+                    </ul><!-- END sidebar nav-->
+            </div><!-- END Dropdown menu-->
+            </li><!-- END Alert menu-->
+            <!-- START Offsidebar button-->
+            <li class="nav-item"><a class="nav-link" href="#" data-toggle-state="offsidebar-open" data-no-persist="true"><em class="icon-notebook"></em></a></li><!-- END Offsidebar menu-->
+            </ul><!-- END Right Navbar-->
+            <!-- S
+                </nav>
+            </div><!-- END Sidebar (left)-->
+        </aside>
+        <section class="section-container">
+            @RenderBody()
+        </section>
+
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+    <script src="/Content/vendor/modernizr/modernizr.custom.js"></script><!-- STORAGE API-->
+    <script src="/Content/vendor/js-storage/js.storage.js"></script><!-- SCREENFULL-->
+    <script src="/Content/vendor/screenfull/dist/screenfull.js"></script><!-- i18next-->
+    <script src="/Content/vendor/i18next/i18next.js"></script>
+    <script src="/Content/vendor/i18next-xhr-backend/i18nextXHRBackend.js"></script>
+    <script src="/Content/vendor/jquery/dist/jquery.js"></script>
+    <script src="/Content/vendor/popper.js/dist/umd/popper.js"></script>
+    <script src="/Content/vendor/bootstrap/dist/js/bootstrap.js"></script><!-- =============== PAGE VENDOR SCRIPTS ===============-->
+    <!-- Datatables-->
+    <script src="/Content/vendor/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="/Content/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="/Content/vendor/datatables.net-buttons/js/dataTables.buttons.js"></script>
+    <script src="/Content/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.js"></script>
+    <script src="/Content/vendor/datatables.net-buttons/js/buttons.colVis.js"></script>
+    <script src="/Content/vendor/datatables.net-buttons/js/buttons.flash.js"></script>
+    <script src="/Content/vendor/datatables.net-buttons/js/buttons.html5.js"></script>
+    <script src="/Content/vendor/datatables.net-buttons/js/buttons.print.js"></script>
+    <script src="/Content/vendor/datatables.net-keytable/js/dataTables.keyTable.js"></script>
+    <script src="/Content/vendor/datatables.net-responsive/js/dataTables.responsive.js"></script>
+    <script src="/Content/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="/Content/vendor/jszip/dist/jszip.js"></script>
+    <script src="/Content/vendor/pdfmake/build/pdfmake.js"></script>
+    <script src="/Content/vendor/pdfmake/build/vfs_fonts.js"></script><!-- =============== APP SCRIPTS ===============-->
+    <script src="/Content/js/app.js"></script>
+
+    <!-- include alertify script -->
+    <script src="~/Content/alertifyjs/alertify.js"></script>
+
+
+
+
 </body>
+<footer class="footer-container">
+    <span>&copy; 2019 - advyTeam</span>
+</footer>
+
 </html>

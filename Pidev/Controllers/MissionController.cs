@@ -1,12 +1,15 @@
 ﻿using data;
+using Newtonsoft.Json;
 using Pidev.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace Pidev.Controllers
 {
@@ -35,18 +38,19 @@ namespace Pidev.Controllers
 
         [HttpGet]
 
-        public ActionResult ajout()
+        public ActionResult ajoutmission()
         {
-            return View("ajout");
+            return View("ajoutmission");
         }
 
         [HttpPost]
-        public ActionResult ajout(missionModels m)
+        public ActionResult ajoutmission(missionModels m)
         {
             HttpClient client = new HttpClient();
+           
 
-            client.PostAsJsonAsync<missionModels>("http://localhost:9080/pidev-web/api/mission/add", m).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
-            return RedirectToAction("ajout");
+            client.PostAsJsonAsync<missionModels>("http://localhost:9080/pidev-web/api/mission", m).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
+            return RedirectToAction("ajoutmission");
 
 
 
@@ -68,5 +72,38 @@ namespace Pidev.Controllers
             return View();
 
         }
+
+
+        public ActionResult Edit(int idmission = 0)
+        {
+            HttpClient Client = new HttpClient();
+            if (idmission == 0)
+            {
+                return View(new mission ());
+            }
+            else
+            {
+                HttpResponseMessage response = Client.GetAsync("http://localhost:9080/pidev-web/api/mission/" + idmission.ToString()).Result;
+                return View(response.Content.ReadAsAsync<mission>().Result);
+            }
+        }
+
+        // POST: Objectives/Edit/5
+        [HttpPost]
+        public ActionResult Edit(missionModels m)
+        {
+            HttpClient Client = new HttpClient();
+            if (m.idmission == 0)
+            {
+                var response = Client.PostAsJsonAsync<missionModels>("http://localhost:9080/pidev-web/api/mission", m).Result;
+            }
+            else
+            {
+                var response1 = Client.PutAsJsonAsync<missionModels>("http://localhost:9080/pidev-web/api/mission/", m).Result;
+
+            }
+            return RedirectToAction("affmission");
+        }
     }
-    }
+}
+   

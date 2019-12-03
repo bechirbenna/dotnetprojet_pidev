@@ -52,7 +52,7 @@
                                     @{ int idpart = @a.idpartenaire;}
 
                                     <a href="@Url.Action("Delete", "Partenaire",new {idpartenaire=@a.idpartenaire})" class="btn btn-danger">Delete</a>
-                                    <a href="@Url.Action("Edit", "Partenaire",new {idpartenaire=@a.idpartenaire})" class="btn btn-danger">Edit</a>
+                                    <a href="@Url.Action("Edit", "Partenaire" ,new { idpartenaire= @a.idpartenaire} )" class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></a>
                                 </td>
 
                             </tr>

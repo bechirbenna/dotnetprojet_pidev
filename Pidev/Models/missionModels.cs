@@ -14,10 +14,10 @@ namespace Pidev.Models
         [Key]
         public int idmission { get; set; }
 
-        [DisplayFormat(DataFormatString = "{dd/MM/yyyy,hh:mm:ss}")]
+     
         public DateTime? datedebut { get; set; }
 
-        [DisplayFormat(DataFormatString = "{dd/MM/yyyy,hh:mm:ss}")]
+        
         public DateTime? datefin { get; set; }
 
        
@@ -33,10 +33,6 @@ namespace Pidev.Models
         public string territoire { get; set; }
 
 
-        [JsonIgnore]
-        public long? emp_id { get; set; }
-
-       
-        public virtual user user { get; set; }
+    
     }
 }

@@ -52,6 +52,7 @@
                                     @{ int idmission = @a.idmission;}
 
                                     <a href="@Url.Action("Delete", "Mission",new {idmission=@a.idmission})" class="btn btn-danger">delete</a>
+                                    <a href="@Url.Action("Edit", "Mission" ,new { idmission= @a.idmission} )" class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></a>
 
 
                                 </td>
