@@ -45,7 +45,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
-                    <table class="table  my-4 w-100 table-hover" id="datatable1">
+                    <table class="table table-hover  my-4 w-100 " id="datatable1">
                         <thead>
 
                             <tr>
@@ -74,30 +74,45 @@
                                 {
 
                                     <tr onclick="window.location.href = '/Report/Details?id='+@emp.id;" style="">
-                                       
+                                        @* First Column *@
+                                        @{double NumberOfRealizedTicketHoursInFirstWeek = @Pidev.Controllers.ReportController.getNumberOfRealizedTicketHoursInFirstWeek(@emp.id); }
+                                        @{double NumberOfEstimatedTicketHoursInFirstWeek = @Pidev.Controllers.ReportController.getNumberOfEstimatedTicketHoursInFirstWeek(@emp.id); }
+                                        @* Second Column *@
+                                        @{double NumberOfTicketHoursEstimatedInSecondWeek = @Pidev.Controllers.ReportController.getNumberOfTicketHoursEstimatedInSecondWeek(@emp.id); }
+                                        @{double NumberOfTicketHoursRealizedInSecondWeek = @Pidev.Controllers.ReportController.getNumberOfTicketHoursRealizedInSecondWeek(@emp.id); }
+                                        @* Third Column *@
+                                        @{double NumberOfTicketHoursEstimatedInThirdWeek = @Pidev.Controllers.ReportController.getNumberOfTicketHoursEstimatedInThirdWeek(@emp.id); }
+                                        @{double NumberOfTicketHoursRealizedInThirdWeek = @Pidev.Controllers.ReportController.getNumberOfTicketHoursRealizedInThirdWeek(@emp.id); }
+                                        @* Fourth Column *@
+                                        @{double NumberOfTicketHoursEstimatedInFourthWeek = @Pidev.Controllers.ReportController.getNumberOfTicketHoursEstimatedInFourthWeek(@emp.id); }
+                                        @{double NumberOfTicketHoursRealizedInFourthWeek = @Pidev.Controllers.ReportController.getNumberOfTicketHoursRealizedInFourthWeek(@emp.id); }
 
-                                        @{ double ligneOne = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInFirstWeek(@emp.id);}
-                                        @{ double ligneTwo = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInSecondWeek(@emp.id);}
-                                        @{ double ligneThird = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInThirdWeek(@emp.id);}
-                                        @{ double ligneFourth = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInFourthWeek(@emp.id);}
+                                        @{ double avrage = @Pidev.Controllers.ReportController.getAvrageofTicketDurationByEmploye(@emp.id); }
+                                        @{ double avrageEstimatedHours = @Pidev.Controllers.ReportController.getAvrageofTicketEstimatedHoursByEmploye(@emp.id); }
+
+
+                                        @{ double estimatedDreal = @Pidev.Controllers.ReportController.getestimatedDreal(@emp.id);}
+                                        @{double ligneOne = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInFirstWeek(@emp.id);}
+                                        @{ double ligneTwo = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInSecondtWeek(@emp.id); }
+                                        @{ double ligneThird = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInThirdtWeek(@emp.id);}
+                                        @{ double ligneFourth = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInFourthtWeek(@emp.id);}
+
+
                                         <td>
-                                        @{ string path = "~/Content/iamges/" + @emp.gitLink;}
+                                            @{ string path = "~/Content/iamges/" + @emp.gitLink;}
 
-                                        <img src="@Url.Content(path)" width="50" height="50" class="round" />
-                                        
-                                        
-                                        @emp.userName
-                                        
+                                            <img src="@Url.Content(path)" width="30" height="30" class="rounded-circle" />
+
+
+                                            @emp.userName
+
                                         </td>
-
-
-
-
-
-
-                                        @if (ligneOne != 0)
+                                        @if (NumberOfEstimatedTicketHoursInFirstWeek != 0)
                                         {
-                                            <td>
+                                            <td style='background-color:@(estimatedDreal > 100 ? "#dffab4" : estimatedDreal <100 && estimatedDreal >70 ? "#a6dff5" : estimatedDreal <70 ? "#ffc9c9" : "")'>
+                                                <small>
+                                                    <p>Realized Hours : @NumberOfRealizedTicketHoursInFirstWeek</p>
+                                                </small>
                                                 <div data-toggle="tooltip"
                                                      data-title="Progress of asigned tasks">
                                                     <div class="progress progress-xs m-0">
@@ -106,18 +121,38 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @if (ligneOne > 100)
+                                                {
+                                                    <small>
+                                                        <p>100%</p>
+                                                    </small>
+                                                }
+                                                else
+                                                {
+                                                  
+                                                        <small>
+                                                            <p>@ligneOne %</p>
+                                                        </small>
+                                                    
+
+                                                }
                                                 <small>
-                                                    <p>@ligneOne %</p>
+                                                    <p>Estimated Hours : @NumberOfEstimatedTicketHoursInFirstWeek</p>
                                                 </small>
                                             </td>
-                                        }@if(ligneOne == 0)
+                                        }@if (NumberOfEstimatedTicketHoursInFirstWeek == 0)
                                         {
                                             <td>.</td>
                                         }
 
-                                        @if (ligneTwo != 0)
+                                        @if (NumberOfTicketHoursRealizedInSecondWeek != 0)
                                         {
-                                            <td>
+
+
+                                            <td style='background-color:@(estimatedDreal > 100 ? "#dffab4" : estimatedDreal <100 && estimatedDreal >70 ? "#a6dff5" : estimatedDreal <70 && estimatedDreal > 0 ? "#ffc9c9" : "")'>
+                                                <small>
+                                                    <p>Realized Hours : @NumberOfTicketHoursRealizedInSecondWeek</p>
+                                                </small>
                                                 <div data-toggle="tooltip"
                                                      data-title="Progress of asigned tasks">
                                                     <div class="progress progress-xs m-0  ">
@@ -126,17 +161,33 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @if (ligneOne > 100)
+                                                {
+                                                    <small>
+                                                        <p>100%</p>
+                                                    </small>
+                                                }
+                                                else
+                                                {
+                                                    <small>
+                                                        <p>@ligneTwo %</p>
+                                                    </small>
+                                                }
                                                 <small>
-                                                    <p>@ligneTwo %</p>
+                                                    <p>Estimated Hours : @NumberOfTicketHoursEstimatedInSecondWeek</p>
                                                 </small>
                                             </td>
-                                        }@if (ligneTwo == 0)
+                                        }@if (NumberOfTicketHoursRealizedInSecondWeek == 0)
                                         {
                                             <td>.</td>
                                         }
-                                        @if (ligneThird != 0)
+                                        @if (NumberOfTicketHoursRealizedInThirdWeek != 0)
                                         {
-                                            <td>
+
+                                            <td style='background-color:@(estimatedDreal > 100 ? "#dffab4" : estimatedDreal <100 && estimatedDreal >70 ? "#a6dff5" : estimatedDreal <70 && estimatedDreal > 0 ? "#ffc9c9" : "")'>
+                                                <small>
+                                                    <p>Realized Hours : @NumberOfTicketHoursRealizedInSecondWeek</p>
+                                                </small>
                                                 <div data-toggle="tooltip"
                                                      data-title="Progress of asigned tasks">
                                                     <div class="progress progress-xs m-0">
@@ -145,17 +196,33 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @if (ligneThird > 100)
+                                                {
+                                                    <small>
+                                                        <p>100%</p>
+                                                    </small>
+                                                }
+                                                else
+                                                {
+                                                    <small>
+                                                        <p>@ligneThird %</p>
+                                                    </small>
+                                                }
                                                 <small>
-                                                    <p>@ligneThird %</p>
+                                                    <p>Estimated Hours : @NumberOfTicketHoursEstimatedInSecondWeek</p>
                                                 </small>
                                             </td>
-                                        }@if (ligneThird == 0)
+                                        }@if (NumberOfTicketHoursRealizedInThirdWeek == 0)
                                         {
                                             <td>.</td>
                                         }
-                                        @if (ligneFourth != 0)
+                                        @if (NumberOfTicketHoursRealizedInFourthWeek != 0)
                                         {
-                                            <td>
+                                            <td style='background-color:@(estimatedDreal > 100 ? "#dffab4" : estimatedDreal <100 && estimatedDreal >70 ? "#a6dff5" : estimatedDreal <70 && estimatedDreal > 0 ? "#ffc9c9" : "")'>
+                                                <small>
+                                                    <p>Realized Hours : @NumberOfTicketHoursRealizedInFourthWeek</p>
+                                                </small>
+
                                                 <div data-toggle="tooltip"
                                                      data-title="Progress of asigned tasks">
                                                     <div class="progress progress-xs m-0">
@@ -164,24 +231,43 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @if (ligneFourth > 100)
+                                                {
+                                                    <small>
+                                                        <p>100%</p>
+                                                    </small>
+                                                }
+                                                else
+                                                {
+                                                    <small>
+                                                        <p>@ligneFourth %</p>
+                                                    </small>
+                                                }
                                                 <small>
-                                                    <p>@ligneFourth %</p>
+                                                    <p>Estimated Hours : @NumberOfTicketHoursEstimatedInFourthWeek</p>
                                                 </small>
                                             </td>
-                                        }@if (ligneFourth == 0)
+                                        }@if (NumberOfTicketHoursRealizedInFourthWeek == 0)
                                         {
                                             <td>.</td>
                                         }
-                                        <td>@Pidev.Controllers.ReportController.getAvrageofTicketDurationByEmploye(@emp.id)</td>
+                                        <td style='background-color:@(estimatedDreal > 100 ? "#dffab4" : estimatedDreal <100 && estimatedDreal >70 ? "#a6dff5" : estimatedDreal <70 && estimatedDreal > 0 ? "#ffc9c9" : "")'>
 
-                                        @*</a>*@
+                                            <p> Estimated Hours :<small> @avrageEstimatedHours</small></p>
+                                            <br />
+                                            <p> Realized Hours : <small>@avrage</small></p>
+
+
+                                        </td>
+
+
 
                                     </tr>
-                                }
+                                                    }
 
 
 
-                            }
+                                                }
 
 
 
@@ -194,4 +280,4 @@
         </div>
     </div>
 
-}
+                                                }

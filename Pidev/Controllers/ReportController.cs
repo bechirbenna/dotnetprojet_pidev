@@ -38,7 +38,7 @@ namespace Pidev.Controllers
             return getNameEmployeByTeam(id).Count;
         }
 
-        public  String Month(String mounth)
+        public String Month(String mounth)
         {
             //String mounth = System.Web.HttpContext.Current.Request["mounth"];
             return mounth;
@@ -118,52 +118,102 @@ namespace Pidev.Controllers
         }
 
         /////////////////////////////ticket Report
-        public static double getNumberOfTicketHoursInFirstWeek(long id)
+        public static double getNumberOfRealizedTicketHoursInFirstWeek(long id)
         {
-
-           
             ServiceTicket serviceTicket = new ServiceTicket();
-            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            var dateNow = (30 - DateTime.Now.Day);
             IList<ticket> ticket = serviceTicket.GetMany()
             .Where(t => (t.employesTicket_id == id)).ToList();
             try
             {
                 var numberOfFirstWeek =
                               ticket.Where(n =>
-                              (DateTime.Now - n.dateEnd.Value).TotalDays < 7)
+                              (30 - n.dateEnd.Value.Day) > 23)
                               .Select(x => x.duration).Average();
-                var EstimatedHoursFirstWeek =
-                             ticket.Where(n =>
-                             (DateTime.Now - n.dateEnd.Value).TotalDays < 7)
-                             .Select(x => x.estimatedHours).Average();
-                return (EstimatedHoursFirstWeek/numberOfFirstWeek)*100;
+
+                return numberOfFirstWeek;
             }
-            catch (InvalidOperationException e)
+            catch 
             {
                 return 0;
             }
 
         }
-        public static double getAvrageofTicketDurationByEmploye(long id)
+
+        public static double getNumberOfEstimatedTicketHoursInFirstWeek(long id)
+        {
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (30 - DateTime.Now.Day);
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+            try
+            {
+                var EstimatedHoursFirstWeek =
+                             ticket.Where(n =>
+                            (30 - n.dateEnd.Value.Day) > 23)
+                             .Select(x => x.estimatedHours).Average();
+                return EstimatedHoursFirstWeek ;
+            }
+            catch 
+            {
+                return 0;
+            }
+
+        }
+
+        public static double getNumberOfTicketHoursInFirstWeek(long id)
         {
             
             try
             {
-                var avrage = (getNumberOfTicketHoursInFirstWeek(id)
-                              + getNumberOfTicketHoursInSecondWeek(id)
-                              + getNumberOfTicketHoursInThirdWeek(id)
-                              + getNumberOfTicketHoursInFourthWeek(id)) / 400;
-                return avrage;
+               return (getNumberOfEstimatedTicketHoursInFirstWeek(id)/ getNumberOfRealizedTicketHoursInFirstWeek(id))*100;
             }
-             catch (InvalidOperationException e)
+            catch 
             {
                 return 0;
             }
-           
+
         }
-        public static double getNumberOfTicketHoursInSecondWeek(long id)
+
+
+        /// <summary>
+        /// /////////////////////////////////////
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+
+
+
+        public static double getNumberOfTicketHoursEstimatedInSecondWeek(long id)
         {
-         
+
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+            try
+            {
+                var EstimatedHoursSecondWeek =
+                                     ticket.Where(n => (
+                              ((30 - n.dateEnd.Value.Day) > 16)
+                              &&
+                              ((30 - n.dateEnd.Value.Day) < 23)))
+                         .Select(x => x.estimatedHours).Average();
+
+
+
+                return EstimatedHoursSecondWeek ;
+
+            }
+            catch 
+            {
+                return 0;
+            }
+        }
+        public static double getNumberOfTicketHoursRealizedInSecondWeek(long id)
+        {
+
             ServiceTicket serviceTicket = new ServiceTicket();
             var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
             IList<ticket> ticket = serviceTicket.GetMany()
@@ -171,79 +221,249 @@ namespace Pidev.Controllers
             try
             {
                 var numberOfSecondtWeek =
-                              ticket.Where(n =>(
-                              ((DateTime.Now - n.dateEnd.Value).TotalDays > 7)
-                              && 
-                              (DateTime.Now - n.dateEnd.Value).TotalDays < 14))    
+                              ticket.Where(n => (
+                              ((30 - n.dateEnd.Value.Day) > 16)
+                              &&
+                              ((30 - n.dateEnd.Value.Day) < 23)))
                               .Select(x => x.duration).Average();
-                var EstimatedHoursSecondWeek =
-                         ticket.Where(n =>
-                         (DateTime.Now - n.dateEnd.Value).TotalDays < 7)
-                         .Select(x => x.estimatedHours).Average();
-                return (EstimatedHoursSecondWeek / numberOfSecondtWeek) * 100;
 
 
 
-
+                return numberOfSecondtWeek;
 
             }
-            catch (InvalidOperationException e)
+            catch 
             {
                 return 0;
             }
         }
-        public static double getNumberOfTicketHoursInThirdWeek(long id)
+
+
+        public static double getNumberOfTicketHoursInSecondtWeek(long id)
+        {
+
+            try
+            {
+                return (getNumberOfTicketHoursEstimatedInSecondWeek(id) / getNumberOfTicketHoursRealizedInSecondWeek(id)) * 100;
+            }
+            catch 
+            {
+                return 0;
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// /////////////////////////////////
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+
+
+
+
+
+
+
+
+
+
+        public static double getNumberOfTicketHoursEstimatedInThirdWeek(long id)
+        {
+
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+            try
+            {
+        
+                var EstimatedHoursThirdWeek =
+                        ticket.Where(n =>(
+                          ((30 - n.dateEnd.Value.Day) > 9)
+                              &&
+                              ((30 - n.dateEnd.Value.Day) < 16)))
+                        .Select(x => x.estimatedHours).Average();
+                return EstimatedHoursThirdWeek  ;
+            }
+            catch 
+            {
+                return 0;
+            }
+
+        }
+        public static double getNumberOfTicketHoursRealizedInThirdWeek(long id)
+        {
+
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+            try
+            {
+                var numberOfthirdWeek =
+                              ticket.Where(n => (
+                                ((30 - n.dateEnd.Value.Day) > 9)
+                              &&
+                              ((30 - n.dateEnd.Value.Day) < 16)))
+                              .Select(x => x.duration).Average();
+
+                return  numberOfthirdWeek;
+            }
+            catch 
+            {
+                return 0;
+            }
+
+        }
+
+        public static double getNumberOfTicketHoursInThirdtWeek(long id)
+        {
+
+            try
+            {
+                return (getNumberOfTicketHoursEstimatedInThirdWeek(id) / getNumberOfTicketHoursRealizedInThirdWeek(id)) * 100;
+            }
+            catch 
+            {
+                return 0;
+            }
+
+        }
+
+
+
+
+        /// <summary>
+        /// Ticket in Second Weeek
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static double getNumberOfTicketHoursEstimatedInFourthWeek(long id)
+        {
+
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+            try
+            {
+                var EstimatedHoursFourthWeek =
+                       ticket.Where(n =>(
+                      ((30 - n.dateEnd.Value.Day) > 0)
+                              &&
+                              ((30 - n.dateEnd.Value.Day) < 9)))
+                       .Select(x => x.estimatedHours).Average();
+                return EstimatedHoursFourthWeek ;
+            }
+            catch 
+            {
+                return 0;
+            }
+        }
+        public static double getNumberOfTicketHoursRealizedInFourthWeek(long id)
+        {
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+            try
+            {
+                var numberOfthirdWeek =
+                              ticket.Where(n => (
+                               ((30 - n.dateEnd.Value.Day) > 0)
+                              &&
+                              ((30 - n.dateEnd.Value.Day) < 9)))
+                              .Select(x => x.duration).Average();
+
+                return numberOfthirdWeek;
+            }
+            catch 
+            {
+                return 0;
+            }
+        }
+
+
+        public static double getNumberOfTicketHoursInFourthtWeek(long id)
+        {
+
+            try
+            {
+                return (getNumberOfTicketHoursEstimatedInFourthWeek(id) / getNumberOfTicketHoursRealizedInFourthWeek(id)) * 100;
+            }
+            catch 
+            {
+                return 0;
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static double getAvrageofTicketDurationByEmploye(long id)
+        {
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+
+            try
+            {
+                var EstimatedHoursFirstWeek =
+                            ticket
+                            .Select(x => x.duration).Sum();
+                return EstimatedHoursFirstWeek;
+            }
+            catch 
+            {
+                return 0;
+            }
+
+        }
+
+
+        public static double getAvrageofTicketEstimatedHoursByEmploye(long id)
+        {
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+
+            try
+            {
+                var EstimatedHoursFirstWeek =
+                            ticket
+                            .Select(x => x.estimatedHours).Sum();
+                return EstimatedHoursFirstWeek;
+            }
+            catch 
+            {
+                return 0;
+            }
+
+        }
+
+        public static double getestimatedDreal(long id)
         {
            
-            ServiceTicket serviceTicket = new ServiceTicket();
-            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
-            IList<ticket> ticket = serviceTicket.GetMany()
-            .Where(t => (t.employesTicket_id == id)).ToList();
+
             try
             {
-                var numberOfthirdWeek =
-                              ticket.Where(n => (
-                              ((DateTime.Now - n.dateEnd.Value).TotalDays > 14)
-                              &&
-                              (DateTime.Now - n.dateEnd.Value).TotalDays < 21))
-                              .Select(x => x.duration).Average();
-                var EstimatedHoursThirdWeek =
-                        ticket.Where(n =>
-                        (DateTime.Now - n.dateEnd.Value).TotalDays < 7)
-                        .Select(x => x.estimatedHours).Average();
-                return (EstimatedHoursThirdWeek / numberOfthirdWeek) * 100;
+               
+                return (getAvrageofTicketEstimatedHoursByEmploye(id)/ getAvrageofTicketDurationByEmploye(id))*100;
             }
-            catch (InvalidOperationException e)
+            catch 
             {
                 return 0;
             }
 
-        }
-        public static double getNumberOfTicketHoursInFourthWeek(long id)
-        {
-         
-            ServiceTicket serviceTicket = new ServiceTicket();
-            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
-            IList<ticket> ticket = serviceTicket.GetMany()
-            .Where(t => (t.employesTicket_id == id)).ToList();
-            try
-            {
-                var numberOfthirdWeek =
-                              ticket.Where(n => (
-                              ((DateTime.Now - n.dateEnd.Value).TotalDays > 21)
-                              &&
-                              (DateTime.Now - n.dateEnd.Value).TotalDays < 28))
-                              .Select(x => x.duration).Average();
-                var EstimatedHoursFourthWeek =
-                       ticket.Where(n =>
-                       (DateTime.Now - n.dateEnd.Value).TotalDays < 7)
-                       .Select(x => x.estimatedHours).Average();
-                return (EstimatedHoursFourthWeek / numberOfthirdWeek) * 100;
-            }
-            catch (InvalidOperationException e)
-            {
-                return 0;
-            }
         }
 
 
