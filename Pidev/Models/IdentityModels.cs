@@ -29,5 +29,7 @@ namespace Pidev.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<data.centres> centres { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Service;
+﻿using data;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,20 +32,20 @@ namespace Pidev.Controllers
 
         // POST: Centers/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+        public ActionResult Create(centres centre)
+        { try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
+                serviceCentres.Add(centre);
+                serviceCentres.Commit();
+                return RedirectToAction("Index"); } 
             catch
-            {
-                return View();
-            }
-        }
+                {
+                    return View();
+                }
 
+            }
+        
         // GET: Centers/Edit/5
         public ActionResult Edit(int id)
         {
