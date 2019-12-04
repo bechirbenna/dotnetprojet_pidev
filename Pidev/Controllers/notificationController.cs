@@ -133,7 +133,7 @@ namespace Pidev.Controllers
 
 
             evaluationService evalService = new evaluationService();
-            IEnumerable<evaluation> evals = evalService.GetMany().Where(x => x.idEmploye == user.id && x.mark < 3).ToList();
+            IEnumerable<evaluation> evals = evalService.GetMany().Where(x => x.idEmploye == user.id && x.mark < 3 && x.status.Equals("claimed")).ToList();
 
             int warning = evals.Count();
 

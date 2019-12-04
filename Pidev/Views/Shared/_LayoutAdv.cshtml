@@ -79,14 +79,14 @@
                             <div class="dropdown-item">
                                 <!-- START list group-->
                                 <div class="list-group">
-                                    @if (warining > 1)
+                                    @if (warining > 2)
                                     {
                                         <div class="list-group-item list-group-item-action">
                                             <div class="media">
                                                 <div class="align-self-start mr-2"><i class="fa fa-fw fa-fire fa-2x text-warning"></i></div>
                                                 <div class="media-body">
                                                     <p class="m-0">warning notification</p>
-                                                    <p class="m-0 text-muted text-sm">you have more than 2 evaluation under mark : 1 </p>
+                                                    <p class="m-0 text-muted text-sm">Be careful : you have more than 2 evaluations under mark : 3 </p>
                                                 </div>
                                             </div>
                                         </div><!-- list item-->
@@ -283,10 +283,14 @@
     <script src="~/Content/vendor/easy-pie-chart/dist/jquery.easypiechart.js"></script><!-- MOMENT JS-->
     <script src="~/Content/vendor/moment/min/moment-with-locales.js"></script><!-- =============== APP SCRIPTS ===============-->
 
-
-
-
-
+    <style>
+        .wrapper {
+            position: inherit;
+            width: 100%;
+            height: auto;
+            min-height: 100%;
+            overflow-x: hidden; }
+    </style>
 
 </body>
 <footer class="footer-container">

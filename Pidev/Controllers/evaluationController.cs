@@ -8,6 +8,8 @@ using Service;
 using Pidev.Models;
 using System.Collections;
 using System.Data.SqlClient;
+using System.Net.Mail;
+using System.Net;
 
 namespace Pidev.Controllers
 {
@@ -151,7 +153,6 @@ namespace Pidev.Controllers
 
         public ActionResult evalOne(long idO, long idE)
         {
-
             evaluation eval = serviceEval.GetMany().Where(x => x.idEmploye == idE && x.idObjective == idO).First();
             eval.status = "claimed";
             eval.mark = 1;
@@ -161,6 +162,36 @@ namespace Pidev.Controllers
 
             user u = serviceUser.GetById(idE);
             objective o = serviceObjective.GetById(idO);
+
+            var verifyurl = "/Signup/VerifiyAccount/";
+            var link = Request.Url.AbsolutePath.Replace(Request.Url.PathAndQuery, verifyurl);
+
+            var fromEmail = new MailAddress("manager.esprit@gmail.com", "Your Manager");
+            var toEmail = new MailAddress(u.email);
+
+            var FromEmailPassword = "98274765";
+
+            string subject = "Information on Your Euto Evaluation";
+
+            string body = "your manager has confirm your evaluation for the objective " +o.category+ " with mark : " +eval.mark;
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, FromEmailPassword),
+                Timeout = 20000
+            };
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+
+            }) smtp.Send(message);
 
 
             return RedirectToAction("Index");

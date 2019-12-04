@@ -68,7 +68,7 @@ namespace Pidev.Controllers
                 e.description = null;
                 e.mark = 0;
                 serviceEval.Add(e);
-                serviceEval.Commit();
+                serviceEval.ComitAsynch();
             }
 
             return RedirectToAction("adminEval", "objectiveToAllEmployes", new { area = "" });
