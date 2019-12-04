@@ -31,5 +31,9 @@ namespace Pidev.Models
         }
 
         public System.Data.Entity.DbSet<data.centres> centres { get; set; }
+
+        public System.Data.Entity.DbSet<Pidev.Models.FormateurModel> FormateurModels { get; set; }
+
+        public System.Data.Entity.DbSet<Pidev.Models.FormationModel> FormationModels { get; set; }
     }
 }

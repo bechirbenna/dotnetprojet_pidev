@@ -42,34 +42,50 @@ namespace Pidev.Controllers
 
         // POST: Formation/Create
         [HttpPost]
-        public ActionResult Create(FormateurModel form)
+        public ActionResult Create(FormateurModel formateur)
         {
-            try
-            {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+              var response = client.PostAsJsonAsync<FormateurModel>("rest/GestFORM", formateur).Result;
+            return RedirectToAction("Index");
+        }
 
-                HttpClient Client = new HttpClient();
-                HttpResponseMessage response = Client.PostAsJsonAsync<FormateurModel>("http://localhost:9080/pidev-web/", form).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode()).Result;
 
-                if (response.IsSuccessStatusCode)
-                    return RedirectToAction("Index");
-                else
-                    return View();
-            }
-            catch
+
+        // GET: Formation/Edit/5
+        public ActionResult Edit(int id)
+        {
+            FormateurModel form = null;
+
+            HttpClient Client = new HttpClient();
+            Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("http://localhost:9080/pidev-web/rest/GestFORM" + id).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                form = response.Content.ReadAsAsync<Models.FormateurModel>().Result;
+               
+
             }
+
+            else
+            {
+                ViewBag.result = "error";
+            }
+
+
+
+            return View(form);
         }
 
 
         public ActionResult Delete(int id)
         {
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = client.DeleteAsync("http://localhost:9080/pidev-web/api/skill/" + id.ToString()).Result;
+            HttpResponseMessage response = client.DeleteAsync("http://localhost:9080/pidev-web/rest/GestFORM/" + id.ToString()).Result;
 
             return RedirectToAction("Index");
         }
-        // POST: Skill/Delete
+        // POST: Formateur/Delete
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -78,4 +94,8 @@ namespace Pidev.Controllers
 
         }
     }
+
+
+
 }
+

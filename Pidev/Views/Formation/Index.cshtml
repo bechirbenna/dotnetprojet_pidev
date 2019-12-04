@@ -1,23 +1,19 @@
-﻿@model IEnumerable<data.formateur>
+﻿@model IEnumerable<data.formation>
 
 @{
     ViewBag.Title = "Index";
-
     Layout = "~/Views/Shared/_LayoutAdv.cshtml";
 }
 
-<h2>Index</h2>
-
-
 <div class="content-wrapper">
     <div class="content-heading">
-        <div>Data Tables<small>Tables, one step forward.</small></div>
+        <div>Data Tables<small></small></div>
     </div>
     <div class="container-fluid">
         <!-- DATATABLE DEMO 1-->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">Export Buttons</div>
+                <div class="card-title"></div>
                 <div class="text-sm"></div>
             </div>
             <div class="card-body">
@@ -28,18 +24,22 @@
                                 Id
                             </th>
                             <th>
-                                Name
+                               Training_name
+                            </th>
+
+                            <th>
+                               type
                             </th>
                             <th>
-                               number
+                               description
                             </th>
                             </th>
                             <th>
-                               speciality
+                                duration
                             </th>
-                            </th>
+                           
                             <th>
-                               availability
+                               Available Places
                             </th>
 
                         </tr>
@@ -48,18 +48,19 @@
                     {
                         <tr>
                             <td>@item.id</td>
-                            <td>@item.name</td>
-                            <td>@item.number</td>
-                            <td>@item.specialite</td>
-                            <td>@item.disponibilite</td>
+                            <td>@item.type</td>
+                            <td>@item.description</td>
 
-
+                            <td>@item.description</td>
+                            <td>@item.duration</td>
+                            <td>@item.nbPlaceDispo</td>
 
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
                                 @{ int id = @item.id;}
-                                <a href="@Url.Action("Delete", "Formateur", new {id=@item.id})" class="btn btn-danger">Delete</a>
-                           </td>
+                                <a href="@Url.Action("Delete", "Formation", new {id=@item.id})" class="btn btn-danger">Delete</a>
+                            </td>
+                          
 
                         </tr>
                     }
