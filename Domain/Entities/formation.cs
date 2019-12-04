@@ -9,10 +9,8 @@ namespace data
     [Table("pidev.formation")]
     public partial class formation
     {
-        public int id { get; set; }
 
-        [StringLength(255)]
-        public string Type { get; set; }
+        public int id { get; set; }
 
         [StringLength(255)]
         public string description { get; set; }
@@ -24,5 +22,8 @@ namespace data
 
         [StringLength(255)]
         public string nomFormation { get; set; }
+
+        [StringLength(255)]
+        public string type { get; set; }
     }
 }

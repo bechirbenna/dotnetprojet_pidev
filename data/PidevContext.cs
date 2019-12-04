@@ -23,7 +23,7 @@ namespace data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<formation>()
-                .Property(e => e.Type)
+                .Property(e => e.type)
                 .IsUnicode(false);
 
             modelBuilder.Entity<formation>()

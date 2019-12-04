@@ -1,0 +1,27 @@
+﻿@model data.recommendation
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <div class="content-heading">
+        <div>
+            Delete a recommendation<small></small>
+        </div>
+    </div>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" /><br /><br />
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</div>

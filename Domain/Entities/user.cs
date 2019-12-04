@@ -9,11 +9,6 @@ namespace data
     [Table("pidev.user")]
     public partial class user
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
-        {
-            skillmatrices = new HashSet<skillmatrix>();
-        }
 
         [Required]
         [StringLength(31)]
@@ -63,5 +58,6 @@ namespace data
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<skillmatrix> skillmatrices { get; set; }
+        
     }
 }

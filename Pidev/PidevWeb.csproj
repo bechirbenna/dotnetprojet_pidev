@@ -537,6 +537,9 @@
     <Content Include="Views\Skill\Create.cshtml" />
     <Content Include="Views\Skill\Edit.cshtml" />
     <Content Include="Views\Skill\Index.cshtml" />
+    <Content Include="Views\Recommendation\Delete.cshtml" />
+    <Content Include="Views\Recommendation\Create.cshtml" />
+    <Content Include="Views\Recommendation\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

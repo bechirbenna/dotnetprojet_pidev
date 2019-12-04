@@ -11,12 +11,11 @@ namespace data
     {
         [Key]
         public long recId { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime recDate { get; set; }
 
-        [Required]
         [StringLength(255)]
         public string recDesc { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime recDate { get; set; }
     }
 }

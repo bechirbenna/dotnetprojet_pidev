@@ -10,6 +10,6 @@ namespace Pidev.Models
         public int skillId { get; set; }
         public string skillDesc { get; set; }
         public string skillName { get; set; }
-        //public DateTime skillDate { get; set; }
+        public DateTime skillDate { get; set; }
     }
 }

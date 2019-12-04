@@ -1,4 +1,5 @@
-﻿using Service;
+﻿using data;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,12 @@ namespace Pidev.Controllers
 
         // POST: Recommendation/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(recommendation r)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                serviceRecommendation.Add(r);
+                serviceRecommendation.Commit();
                 return RedirectToAction("Index");
             }
             catch
@@ -53,12 +54,15 @@ namespace Pidev.Controllers
 
         // POST: Recommendation/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, recommendation r)
         {
             try
             {
-                // TODO: Add update logic here
-
+                var rr = serviceRecommendation.GetById(id);
+                rr.recDesc = r.recDesc;
+                rr.recDate = r.recDate;
+                serviceRecommendation.Update(rr);
+                serviceRecommendation.Commit();
                 return RedirectToAction("Index");
             }
             catch
@@ -79,8 +83,9 @@ namespace Pidev.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                var r = serviceRecommendation.GetById(id);
+                serviceRecommendation.Delete(r);
+                serviceRecommendation.Commit();
                 return RedirectToAction("Index");
             }
             catch
