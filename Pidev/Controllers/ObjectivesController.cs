@@ -50,8 +50,35 @@ namespace Pidev.Controllers
         [HttpPost]
         public ActionResult Create(objectiveModels obj)
         {
+            if (string.IsNullOrWhiteSpace(obj.name)  )
+            {
+                ViewBag.nameErreur = "This name field is required ";
+                return View(obj);
+            }
+            
+            if (string.IsNullOrWhiteSpace(obj.description))
+            {
+                ViewBag.descriptionErreur = "This description field is required ";
+                return View(obj);
+            }
+            if (string.IsNullOrWhiteSpace(obj.category))
+            {
+                ViewBag.categoryErreur = "This category field is required ";
+                return View(obj);
+            }
+            if (string.IsNullOrWhiteSpace(obj.dateBegin))
+            {
+                ViewBag.dateBeginErreur = "This dateBegin field is required ";
+                return View(obj);
+            }
+            if (string.IsNullOrWhiteSpace(obj.dateEnd))
+            {
+                ViewBag.dateEndErreur = "This dateEnd field is required ";
+                return View(obj);
+            }
 
-            var aa = obj;
+            var n = Request.Form["category"];
+            obj.category = n;
             var response = GlobalVariables.Client.PostAsJsonAsync<objectiveModels>("/pidev-web/rest/objectives", obj).Result;
 
             TempData["SuccessMessage"] = "Saved Successfully";
@@ -76,6 +103,32 @@ namespace Pidev.Controllers
         [HttpPost]
         public ActionResult Edit(objective obj)
         {
+            if (string.IsNullOrWhiteSpace(obj.name))
+            {
+                ViewBag.nameErreur = "This name field is required ";
+                return View(obj);
+            }
+
+            if (string.IsNullOrWhiteSpace(obj.description))
+            {
+                ViewBag.descriptionErreur = "This description field is required ";
+                return View(obj);
+            }
+            if (string.IsNullOrWhiteSpace(obj.category))
+            {
+                ViewBag.categoryErreur = "This category field is required ";
+                return View(obj);
+            }
+            if (string.IsNullOrWhiteSpace(obj.dateBegin))
+            {
+                ViewBag.dateBeginErreur = "This dateBegin field is required ";
+                return View(obj);
+            }
+            if (string.IsNullOrWhiteSpace(obj.dateEnd))
+            {
+                ViewBag.dateEndErreur = "This dateEnd field is required ";
+                return View(obj);
+            }
             if (obj.id==0)
             {
                 var response = GlobalVariables.Client.PostAsJsonAsync<objective>("/pidev-web/rest/objectives", obj).Result;

@@ -6,60 +6,113 @@
     Layout = "~/Views/Shared/_LayoutAdv.cshtml";
 }
 
-<h2>Create new Objective</h2>
 
 @using (Html.BeginForm())
 {
-  
 
-    <div>
-        @Html.LabelFor(model => model.name)
-        @Html.EditorFor(model => model.name)
-        @Html.ValidationMessageFor(model => model.name)
+    @Html.AntiForgeryToken()
+
+    <div class="content-wrapper">
+        <div class="content-heading"><h4>Create new Objective</h4></div>
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="form-horizontal" style="padding-left:30px;">
+
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                                <div class="col-md-10">
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                    </div>
+                                    <span style="color:red">@ViewBag.nameErreur</span>
+                                </div>
+                            </div>
+
+
+                           
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                                <div class="col-md-10">
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                                    </div>
+                                    <span style="color:red">@ViewBag.descriptionErreur</span>
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label">Category :</label>
+                                <div class="col-md-10">
+                                    <div class="col-md-4">
+                                        <select name="category" class="custom-select custom-select-sm">
+                                            <option value="">--Please choose a Category--</option>
+                                            <option value=PERSONAL>PERSONAL</option>
+                                            <option value=SOCIALSKILLS>SOCIALSKILLS</option>
+                                            <option value=FINANCIAL>FINANCIAL</option>
+                                            <option value=TIME_MANAGEMENT>TIME_MANAGEMENT</option>
+                                            <option value=JAVA>JAVA</option>
+                                            <option value=DOTNET>DOTNET</option>
+                                            <option value=REACT>REACT</option>
+                                            <option value=ANGULAR>ANGULAR</option>
+                                            <option value=IONIC>IONIC</option>
+                                            <option value=ANDROID>ANDROID</option>
+                                        </select>
+                                    </div>
+                                    <span style="color:red">@ViewBag.categoryErreur</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.dateBegin, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                                <div class="col-md-10">
+                                    <div class="col-md-4">
+                                        <input type="date" value=@Html.TextBoxFor(model => model.dateBegin, htmlAttributes: new { @class = "form-control form-control-rounded" })
+                                               @Html.ValidationMessageFor(model => model.dateBegin, "", new { @class = "text-danger" })
+                                    </div>
+                                    <span style="color:red">@ViewBag.dateBeginErreur</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.dateEnd, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                                <div class="col-md-10">
+                                    <div class="col-md-4">
+                                        <input type="date" value=@Html.TextBoxFor(model => model.dateEnd, htmlAttributes: new { @class = "form-control form-control-rounded" })
+                                               @Html.ValidationMessageFor(model => model.dateEnd, "", new { @class = "text-danger" })
+                                    </div>
+                                    <span style="color:red">@ViewBag.dateEndErreur</span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group row">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                    <a href="@Url.Action("Index", "Objectives", null)" class="btn btn-default">Back</a>
+                                    <input type="reset" value="Reset" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div>
-        @Html.LabelFor(model => model.description)
-        @Html.EditorFor(model => model.description)
-        @Html.ValidationMessageFor(model => model.description)
-    </div>
 
-    <div>
-        @Html.LabelFor(model => model.category)
-        @Html.EditorFor(model => model.category)
-        @Html.ValidationMessageFor(model => model.category)
-    </div>
-
-    <div>
-        @Html.LabelFor(model => model.dateBegin)
-        @Html.EditorFor(model => model.dateBegin)
-        @Html.ValidationMessageFor(model => model.dateBegin)
-    </div>
-
-    <div>
-        @Html.LabelFor(model => model.dateEnd)
-        @Html.EditorFor(model => model.dateEnd)
-        @Html.ValidationMessageFor(model => model.dateEnd)
-    </div>
-
-    <div>
-        <input type="submit" value="submit" />
-        <input type="reset" value="reset" />
-    </div>
 
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 
-<script>
 
-    $(function () {
-        var successMessage = '@TempData["SuccessMessage"]'
-        if (successMessage != '')
-            alertify.success(successMessage);
-    });
-
-</script>

@@ -43,8 +43,8 @@
                                     @*@{
                                             ((Pidev.Controllers.ObjectivesController)this.ViewContext.Controller).Delete(@p.id);
                                         }*@
-                                    <a href="@Url.Action("Edit", "objectives" ,new { id= @p.id} )" class="btn btn-warning btn-sm" ><i class="fa fa-pencil-alt"></i></a>
-                                    <button type="button" onclick="Delete(@p.id);" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                    <a href="@Url.Action("Edit", "objectives" ,new { id= @p.id} )" class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></a>
+                                    <button type="button" onclick="Delete(@p.id);" data-notify="" data-message="succes deelete" class="btn btn-danger btn-sm" data-options="{&quot;status&quot;:&quot;success&quot;}"><i class="fa fa-trash"></i></button>
 
                                     @*@Html.ActionLink("Delete", "Delete", new { id = @p.id })*@
 
@@ -61,13 +61,12 @@
 
 
 <script language="JavaScript" type="text/javascript" src="~/Scripts/alertify.min.js">
-    $(function () {
+
+    $(document).ready(function () {
         var successMessage = "ajout avec succées"
-            alertify.success(successMessage);
+        alertify.success(successMessage);
     });
 
-   
-   
 
 </script>
 <script>

@@ -24,7 +24,6 @@ namespace Pidev.Controllers
 
         public ActionResult Index()
         {
-
             return View();
         }
 
@@ -36,8 +35,6 @@ namespace Pidev.Controllers
             if (cookie != null)
             {
                 Response.Cookies.Add(cookie);
-
-
 
                 HttpClient Client = new HttpClient();
                 Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -69,6 +66,12 @@ namespace Pidev.Controllers
             }
             return View();
 
+        }
+
+        public ActionResult LogOut()
+        {
+            Response.Cookies["token"].Expires = DateTime.Now.AddDays(-1);
+            return RedirectToAction("Index");
         }
 
 

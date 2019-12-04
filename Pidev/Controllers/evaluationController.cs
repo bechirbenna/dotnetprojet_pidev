@@ -91,10 +91,14 @@ namespace Pidev.Controllers
 
             //ev.idEmploye = 8;
 
+           
+
             var n = Request.Form["statuss"];
             ev.status = n;
             serviceEval.Add(ev);
             serviceEval.Commit();
+
+
 
             return RedirectToAction("Index");
 
