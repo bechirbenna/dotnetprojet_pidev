@@ -6,22 +6,23 @@ namespace data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("pidevrh.notification")]
-    public partial class notification
+    [Table("pidev.formation")]
+    public partial class formation
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long id { get; set; }
+        public int id { get; set; }
 
         [StringLength(255)]
-        public string Title { get; set; }
+        public string Type { get; set; }
 
         [StringLength(255)]
         public string description { get; set; }
 
         [StringLength(255)]
-        public string forUserHavingRole { get; set; }
+        public string duration { get; set; }
+
+        public int nbPlaceDispo { get; set; }
 
         [StringLength(255)]
-        public string notifType { get; set; }
+        public string nomFormation { get; set; }
     }
 }

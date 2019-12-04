@@ -12,7 +12,9 @@ namespace data
         {
         }
 
+        public virtual DbSet<formation> formations { get; set; }
         public virtual DbSet<job> jobs { get; set; }
+        public virtual DbSet<recommendation> recommendations { get; set; }
         public virtual DbSet<skill> skills { get; set; }
         public virtual DbSet<skilljob> skilljobs { get; set; }
         public virtual DbSet<skillmatrix> skillmatrices { get; set; }
@@ -20,6 +22,22 @@ namespace data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<formation>()
+                .Property(e => e.Type)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<formation>()
+                .Property(e => e.description)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<formation>()
+                .Property(e => e.duration)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<formation>()
+                .Property(e => e.nomFormation)
+                .IsUnicode(false);
+
             modelBuilder.Entity<job>()
                 .Property(e => e.jobDesc)
                 .IsUnicode(false);
@@ -37,6 +55,10 @@ namespace data
                 .HasMany(e => e.skilljobs)
                 .WithOptional(e => e.job)
                 .HasForeignKey(e => e.job_jobId);
+
+            modelBuilder.Entity<recommendation>()
+                .Property(e => e.recDesc)
+                .IsUnicode(false);
 
             modelBuilder.Entity<skill>()
                 .Property(e => e.skillDesc)

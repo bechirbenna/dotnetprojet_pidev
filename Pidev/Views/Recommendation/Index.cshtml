@@ -1,0 +1,40 @@
+﻿@model IEnumerable<data.recommendation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.recDesc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.recDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in ViewBag.result) {
+    <tr>
+        <td>
+            @item.recId
+        </td>
+        <td>
+            @item.recDesc
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.recId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.recId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.recId })
+        </td>
+    </tr>
+}
+
+</table>
