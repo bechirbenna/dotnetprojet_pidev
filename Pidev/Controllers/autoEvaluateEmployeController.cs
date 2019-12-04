@@ -31,7 +31,7 @@ namespace Pidev.Controllers
 
 
             user u1 = userService.getUserByEmail(subject);
-            var evals = evalService.GetMany().Where(x => x.idEmploye == u1.id && (x.status.Equals("started") || x.status.Equals("autoEvaluated"))).ToList();
+            var evals = evalService.GetMany().Where(x => x.idEmploye == u1.id && (x.status.Equals("started") || x.status.Equals("autoEvaluated") || x.status.Equals("claimed"))).ToList();
 
             ViewBag.evals = evals;
             ViewBag.user = u1;
@@ -168,6 +168,7 @@ namespace Pidev.Controllers
         public ActionResult statEvalObj()
         {
             var evals = evalService.GetMany().Where(x => x.status.Equals("autoEvaluated")).ToList();
+            evals.AddRange(evalService.GetMany().Where(x => x.status.Equals("claimed")).ToList());
             var users = new List<user>();
 
             foreach (var eval in evals)
@@ -185,6 +186,7 @@ namespace Pidev.Controllers
         {
             evaluationService evalService = new evaluationService();
             var evals = evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("autoEvaluated")).ToList();
+            evals.AddRange(evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("claimed")).ToList());
 
             var Marks = "";
 
@@ -203,6 +205,7 @@ namespace Pidev.Controllers
         {
             evaluationService evalService = new evaluationService();
             var evals = evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("autoEvaluated")).ToList();
+            evals.AddRange(evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("claimed")).ToList());
             return evals.Count();
         }
 
@@ -217,14 +220,19 @@ namespace Pidev.Controllers
         public static int pourcentageObj(long id)
         {
             evaluationService evalService = new evaluationService();
-            var evals = evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("autoEvaluated")).ToList();
+            var evals = evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("claimed") && x.mark != 0).ToList();
+            evals.AddRange(evalService.GetMany().Where(x => x.idEmploye == id && x.status.Equals("autoEvaluated") && x.mark != 0).ToList());
             int a = 0;
+            int p = 0;
             foreach (var e in evals)
             {
                 a = a + (int)e.mark;
             }
 
-            int p = (a * 100) / (evals.Count() * 5);
+
+            p = (a * 100) / (evals.Count() * 5);
+
+
 
             int pourc = 0;
             if (p >= 1 && p <= 4)
@@ -323,7 +331,7 @@ namespace Pidev.Controllers
 
             if (evalObj != 0)
             {
-                 p = 100 / evalObj;
+                p = 100 / evalObj;
             }
 
             return p;

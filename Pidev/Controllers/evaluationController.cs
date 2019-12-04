@@ -13,12 +13,13 @@ namespace Pidev.Controllers
 {
     public class evaluationController : Controller
     {
-        static evaluationService serviceEval = new evaluationService();
+        evaluationService serviceEval = new evaluationService();
         objectiveService serviceObjective = new objectiveService();
         userService serviceUser = new userService();
 
         public static IEnumerable<evaluation> getEvals()
         {
+            evaluationService serviceEval = new evaluationService();
             IEnumerable<evaluation> evals = serviceEval.GetMany();
             return serviceEval.GetMany();
         }
@@ -146,6 +147,91 @@ namespace Pidev.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult evalOne(long idO, long idE)
+        {
+
+            evaluation eval = serviceEval.GetMany().Where(x => x.idEmploye == idE && x.idObjective == idO).First();
+            eval.status = "claimed";
+            eval.mark = 1;
+
+            serviceEval.Update(eval);
+            serviceEval.ComitAsynch();
+
+            user u = serviceUser.GetById(idE);
+            objective o = serviceObjective.GetById(idO);
+
+
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult evalTwo(long idO, long idE)
+        {
+            evaluation eval = serviceEval.GetMany().Where(x => x.idEmploye == idE && x.idObjective == idO).First();
+            eval.status = "claimed";
+            eval.mark = 2;
+
+            serviceEval.Update(eval);
+            serviceEval.ComitAsynch();
+
+            user u = serviceUser.GetById(idE);
+            objective o = serviceObjective.GetById(idO);
+
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult evalThree(long idO, long idE)
+        {
+            evaluation eval = serviceEval.GetMany().Where(x => x.idEmploye == idE && x.idObjective == idO).First();
+            eval.status = "claimed";
+            eval.mark = 3;
+
+            serviceEval.Update(eval);
+            serviceEval.ComitAsynch();
+
+            user u = serviceUser.GetById(idE);
+            objective o = serviceObjective.GetById(idO);
+
+
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult evalFour(long idO, long idE)
+        {
+            evaluation eval = serviceEval.GetMany().Where(x => x.idEmploye == idE && x.idObjective == idO).First();
+            eval.status = "claimed";
+            eval.mark = 4;
+
+            serviceEval.Update(eval);
+            serviceEval.ComitAsynch();
+
+            user u = serviceUser.GetById(idE);
+            objective o = serviceObjective.GetById(idO);
+
+
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult evalFive(long idO, long idE)
+        {
+            evaluation eval = serviceEval.GetMany().Where(x => x.idEmploye == idE && x.idObjective == idO).First();
+            eval.status = "claimed";
+            eval.mark = 5;
+
+            serviceEval.Update(eval);
+            serviceEval.ComitAsynch();
+
+            user u = serviceUser.GetById(idE);
+            objective o = serviceObjective.GetById(idO);
+
+
+            return RedirectToAction("Index");
+
         }
 
         public static string getUserName(long id)

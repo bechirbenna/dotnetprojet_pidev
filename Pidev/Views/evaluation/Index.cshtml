@@ -12,12 +12,12 @@
         <h2>Evaluations</h2>
     </div>
 
-    @*<button class="btn btn-default" onclick="PopupForm('@Url.Action("Create", "evaluation")');"><i class="fa fa-plus"></i> add new evlauation </button>*@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
                 <div align="right">
                     <a href="~/evaluation/Create" class="btn btn-success btn-sm">Create new evaluation</a>
+
                 </div>
 
                 <table class="table table-striped my-4 w-100" id="datatable2">
@@ -47,45 +47,72 @@
                                 </td>
                                 <td>@objectiveName</td>
                                 <td>@dateBegin</td>
-                                <td>@Html.DisplayFor(modelItem => item.mark)</td>
                                 <td>@Html.DisplayFor(modelItem => item.status)</td>
-                                <td></td>
+                                <td contenteditable="true">@Html.DisplayFor(modelItem => item.mark)</td>
+
+                                <td>
+                                    @if (@item.status == "autoEvaluated")
+                                    { <div class="alert alert-dark" role="alert" style="text-align:center;">
+                                        <a href="javascript:eval1(@item.idObjective , @item.idEmploye);" class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:100%;margin-top:9.6%;">1</a>
+                                        <a href="javascript:eval2(@item.idObjective , @item.idEmploye);" class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:150%;margin-top:6%;">2</a>
+                                        <a href="javascript:eval3(@item.idObjective , @item.idEmploye);" class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:200%;margin-top:3%;">3  </a>
+                                        <a href="javascript:eval4(@item.idObjective , @item.idEmploye);" class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:250%;">4  </a>
+                                        <a href="javascript:eval5(@item.idObjective , @item.idEmploye);" class="text text-primary" style="text-decoration:underline;margin-right:3%;font-size:300%;margin-top:-4%;">5  </a>
+                                       </div>
+                                     }
+                                        @if (@item.status == "claimed")
+                                        {
+                                            <div class="alert alert-success" role="alert">
+                                                <strong>this evaluation is claimed</strong>
+                                            </div>
+                                        }
+                                        @if (@item.status == "started")
+                                        {
+                                            <div class="alert alert-info" role="alert">
+                                                <strong> Waiting for auto evaluation from  @userName</strong>
+                                            </div>
+                                        }
+</td>
                             </tr>
                         }
-
                 </table>
-
-                
             </div>
         </div>
     </div>
 </div>
 
+<script>
+
+    function eval1(idO, idE) {
+        alertify.confirm('claim Evaluation operation', 'are you sure to Evaluate this user for this objective : 1 ?', function () {
+            window.location.href = '@Url.Action("evalOne", "evaluation")?idO=' + idO + '&idE=' + idE;
+        }, null);
+    }
+
+    function eval2(idO, idE) {
+        alertify.confirm('Auto Evaluation operation', 'are you sure to Evaluate this user for this objective : 2 ?', function () {
+            window.location.href = '@Url.Action("evalTwo", "evaluation")?idO=' + idO + '&idE=' + idE;
+        }, null);
+    }
+
+    function eval3(idO, idE) {
+        alertify.confirm('Auto Evaluation operation', 'are you sure to Evaluate this user for this objective : 3 ?', function () {
+            window.location.href = '@Url.Action("evalThree", "evaluation")?idO=' + idO + '&idE=' + idE;
+        }, null);
+    }
+
+    function eval4(idO, idE) {
+        alertify.confirm('Auto Evaluation operation', 'are you sure to Evaluate this user for this objective : 4 ?', function () {
+            window.location.href = '@Url.Action("evalFour", "evaluation")?idO=' + idO + '&idE=' + idE;
+        }, null);
+    }
+
+    function eval5(idO, idE) {
+        alertify.confirm('Auto Evaluation operation', 'are you sure to Evaluate this user for this objective : 5 ?', function () {
+            window.location.href = '@Url.Action("evalFive", "evaluation")?idO=' + idO + '&idE=' + idE;
+        }, null);
+    }
+
+</script>
 
 
-
-
-
-@*<script>
-        var Popup;
-
-        function PopupForm(url)
-        {
-            var formDiv = $('<div/>');
-            $.get(url)
-            .done(function(response){
-                formDiv.html(response);
-
-                Popup = formDiv.html({
-                    autoOpen : true ,
-                    resizable : false ,
-                    title : 'Fill Employee Details',
-                    height : 500 ,
-                    width :  700 ,
-                    close : function() {
-                        Popup.dialog('destroy').remove();
-                    }
-                });
-            });
-        }
-    </script>*@

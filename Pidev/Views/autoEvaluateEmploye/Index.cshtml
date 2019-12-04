@@ -58,6 +58,10 @@
                             {
                                 <h5 style="margin-right:20%;margin-left:-37%;color:red;" class="mt-0">You have Already Evaluate your self for this objective </h5>
                             }
+                            @if (@eval.status == "claimed")
+                            {
+                                <h5 style="margin-right:20%;margin-left:-37%;color:red;" class="mt-0"> This evaluation is claimed by the manager with final mark : @eval.mark </h5>
+                            }
                         </div>
                     </div>
                 </div><!-- END card-->
