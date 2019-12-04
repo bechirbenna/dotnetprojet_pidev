@@ -28,9 +28,6 @@ namespace data
         [StringLength(255)]
         public string specialite { get; set; }
 
-        [Column("formateur", TypeName = "tinyblob")]
-        public byte[] formateur1 { get; set; }
-
         [Column(TypeName = "tinyblob")]
         public byte[] formateurs { get; set; }
 

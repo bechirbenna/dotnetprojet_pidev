@@ -8,15 +8,19 @@ namespace data
     public partial class PidevContext : DbContext
     {
         public PidevContext()
-            : base("name=PidevContext1")
+            : base("name=PidevContext")
         {
         }
 
+        public virtual DbSet<centres> centress { get; set; }
         public virtual DbSet<employer> employers { get; set; }
+        public virtual DbSet<evaluation> evaluations { get; set; }
         public virtual DbSet<formateur> formateurs { get; set; }
         public virtual DbSet<formation> formations { get; set; }
+        public virtual DbSet<job> jobs { get; set; }
         public virtual DbSet<planification> planifications { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<empfor> empfors { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -38,7 +42,7 @@ namespace data
                 .HasForeignKey(e => e.idFormateur);
 
             modelBuilder.Entity<formation>()
-                .Property(e => e.Type)
+                .Property(e => e.type)
                 .IsUnicode(false);
 
             modelBuilder.Entity<formation>()
@@ -57,6 +61,19 @@ namespace data
                 .HasMany(e => e.planifications)
                 .WithOptional(e => e.formation)
                 .HasForeignKey(e => e.idFormation);
+
+            modelBuilder.Entity<job>()
+                .Property(e => e.jobDesc)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<job>()
+                .Property(e => e.jobName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<job>()
+                .HasMany(e => e.users)
+                .WithOptional(e => e.job)
+                .HasForeignKey(e => e.job_jobId);
 
             modelBuilder.Entity<user>()
                 .Property(e => e.user_role)

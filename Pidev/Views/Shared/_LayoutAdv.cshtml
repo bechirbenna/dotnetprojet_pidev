@@ -4,16 +4,26 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/brands.css")
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/regular.css")
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/solid.css")
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/fontawesome.css")
+     @Styles.Render("~/Content/vendor/fortawesome/fontawesome-free/css/brands.css")
+     @Styles.Render("~/Content/vendor/fortawesome/fontawesome-free/css/regular.css")
+     @Styles.Render("~/Content/vendor/fortawesome/fontawesome-free/css/solid.css")
+     @Styles.Render("~/Content/vendor/fortawesome/fontawesome-free/css/fontawesome.css")
      @Styles.Render("~/Content/vendor/simple-line-icons/css/simple-line-icons.css")
      @Styles.Render("~/Content/vendor/animate.css/animate.css")
      @Styles.Render("~/Content/vendor/whirl/dist/whirl.css")
     
-     @Styles.Render("~/Content/css/bootstrap.css" )
-     @Styles.Render("~/Content/css/app.css" )
+    <!-- Datatables-->
+    <link rel="stylesheet" href="~/Content/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="~/Content/vendor/datatables.net-keytable-bs/css/keyTable.bootstrap.css">
+    <link rel="stylesheet" href="~/Content/vendor/datatables.net-responsive-bs/css/responsive.bootstrap.css"><!-- =============== BOOTSTRAP STYLES ===============-->
+    <link rel="stylesheet" href="~/Content/css/bootstrap.css" id="bscss"><!-- =============== APP STYLES ===============-->
+
+    @Styles.Render("~/Content/css/bootstrap.css")
+    @Styles.Render("~/Content/css/app.css")
+
+
+
+
 </head>
 <body>
     
@@ -125,7 +135,7 @@
                             <ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
                                 <li class="sidebar-subnav-header">Dashboard</li>
                                 <li class=" "><a href="~/Evaluation/Objectives" title="Objectives"><span>Objectives</span></a></li>
-                                <li class=" "><a href="dashboard_v2.html" title="Dashboard v2"><span>Dashboard v2</span></a></li>
+                                <li class=" "><a href="~/Ticket/Index.cshtml" title="Ticket List"><span>Dashboard v2</span></a></li>
                                 <li class=" "><a href="dashboard_v3.html" title="Dashboard v3"><span>Dashboard v3</span></a></li>
                             </ul>
                         </li>
@@ -147,6 +157,34 @@
             @Scripts.Render("~/Content/vendor/popper.js/dist/umd/popper.js")
             @Scripts.Render("~/Content/vendor/bootstrap/dist/js/bootstrap.js")<!-- =============== PAGE VENDOR SCRIPTS ===============-->
             <!-- =============== APP SCRIPTS ===============-->
+     @Scripts.Render("~/Content/vendor/modernizr/modernizr.custom.js")<!-- STORAGE API-->
+     @Scripts.Render("~/Content/vendor/js-storage/js.storage.js")<!-- SCREENFULL-->
+     @Scripts.Render("~/Content/vendor/screenfull/dist/screenfull.js")<!-- i18next-->
+     @Scripts.Render("~/Content/vendor/i18next/i18next.js")
+     @Scripts.Render("~/Content/vendor/i18next-xhr-backend/i18nextXHRBackend.js")
+     @Scripts.Render("~/Content/vendor/jquery/dist/jquery.js")
+     @Scripts.Render("~/Content/vendor/popper.js/dist/umd/popper.js")
+     @Scripts.Render("~/Content/vendor/bootstrap/dist/js/bootstrap.js")<!-- =============== PAGE VENDOR SCRIPTS ===============-->
+
+
+    <!-- Datatables-->
+     @Scripts.Render("~/Content/vendor/datatables.net/js/jquery.dataTables.js")
+     @Scripts.Render("~/Content/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js")
+     @Scripts.Render("~/Content/vendor/datatables.net-buttons/js/dataTables.buttons.js")
+     @Scripts.Render("~/Content/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.js")
+     @Scripts.Render("~/Content/vendor/datatables.net-buttons/js/buttons.colVis.js")
+     @Scripts.Render("~/Content/vendor/datatables.net-buttons/js/buttons.flash.js")
+     @Scripts.Render("~/Content/vendor/datatables.net-buttons/js/buttons.html5.js")
+     @Scripts.Render("~/Content/vendor/datatables.net-buttons/js/buttons.print.js")
+     @Scripts.Render("~/Content/vendor/datatables.net-keytable/js/dataTables.keyTable.js")
+     @Scripts.Render("~/Content/vendor/datatables.net-responsive/js/dataTables.responsive.js")
+     @Scripts.Render("~/Content/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js")
+     @Scripts.Render("~/Content/vendor/jszip/dist/jszip.js")
+     @Scripts.Render("~/Content/vendor/pdfmake/build/pdfmake.js")
+     @Scripts.Render("~/Content/vendor/pdfmake/build/vfs_fonts.js")<!-- =============== APP SCRIPTS ===============-->
+
+
+
             @Scripts.Render("~/Content/js/app.js")
 </body>
 <footer class="footer-container">

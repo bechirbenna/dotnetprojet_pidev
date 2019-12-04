@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,36 +7,35 @@ using System.Web.Mvc;
 
 namespace Pidev.Controllers
 {
-    public class TestController : Controller
+    public class CentersController : Controller
     {
-        //instance du service
-        // GET: Test
+        ServiceCentres serviceCentres = new ServiceCentres();
+        // GET: Centers
         public ActionResult Index()
         {
-            //List<Test> tests = getall
+            ViewBag.result = serviceCentres.GetMany();
             return View();
         }
 
-        // GET: Test/Details/5
+        // GET: Centers/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Test/Create
+        // GET: Centers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Test/Create
+        // POST: Centers/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
             try
             {
                 // TODO: Add insert logic here
-
 
                 return RedirectToAction("Index");
             }
@@ -45,13 +45,13 @@ namespace Pidev.Controllers
             }
         }
 
-        // GET: Test/Edit/5
+        // GET: Centers/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Test/Edit/5
+        // POST: Centers/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -67,13 +67,13 @@ namespace Pidev.Controllers
             }
         }
 
-        // GET: Test/Delete/5
+        // GET: Centers/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Test/Delete/5
+        // POST: Centers/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

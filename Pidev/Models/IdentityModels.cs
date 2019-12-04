@@ -29,7 +29,5 @@ namespace Pidev.Models
         {
             return new ApplicationDbContext();
         }
-
-        public System.Data.Entity.DbSet<Pidev.Models.FormateurModel> FormateurModels { get; set; }
     }
 }

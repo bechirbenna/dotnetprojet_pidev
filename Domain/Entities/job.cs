@@ -6,30 +6,27 @@ namespace data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("pidevrh.team")]
-    public partial class team
+    [Table("pidev.job")]
+    public partial class job
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public team()
+        public job()
         {
             users = new HashSet<user>();
         }
 
-        public long id { get; set; }
+        public long jobId { get; set; }
 
-        public DateTime? creationDateTime { get; set; }
-
-        [StringLength(255)]
-        public string departement { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? jobDate { get; set; }
 
         [StringLength(255)]
-        public string teamName { get; set; }
+        public string jobDesc { get; set; }
 
-        public long? manager_id { get; set; }
+        [StringLength(255)]
+        public string jobName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user> users { get; set; }
-
-        public virtual user user { get; set; }
     }
 }

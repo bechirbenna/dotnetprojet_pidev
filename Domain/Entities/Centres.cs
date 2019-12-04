@@ -6,11 +6,15 @@ namespace data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("pidev.evaluation")]
-    public partial class evaluation
+    [Table("pidev.centres")]
+    public partial class centres
     {
+        [Key]
         public int id { get; set; }
 
-        public int? Eval { get; set; }
+        [StringLength(255)]
+        public string adresse { get; set; }
+
+        public int number { get; set; }
     }
 }

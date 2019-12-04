@@ -18,7 +18,7 @@ namespace data
         public int id { get; set; }
 
         [StringLength(255)]
-        public string Type { get; set; }
+        public string type { get; set; }
 
         [StringLength(255)]
         public string description { get; set; }

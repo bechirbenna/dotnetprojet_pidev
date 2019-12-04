@@ -52,5 +52,7 @@ namespace data
         public string cin { get; set; }
 
         public long? job_jobId { get; set; }
+
+        public virtual job job { get; set; }
     }
 }

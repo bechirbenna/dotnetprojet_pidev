@@ -1,4 +1,5 @@
 ﻿using data;
+using Pidev.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,5 +34,49 @@ namespace Pidev.Controllers
             return View(ViewBag.result);
         }
 
+        // GET: Formation/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Formation/Create
+        [HttpPost]
+        public ActionResult Create(FormateurModel form)
+        {
+            try
+            {
+
+                HttpClient Client = new HttpClient();
+                HttpResponseMessage response = Client.PostAsJsonAsync<FormateurModel>("http://localhost:9080/pidev-web/", form).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode()).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return RedirectToAction("Index");
+                else
+                    return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        public ActionResult Delete(int id)
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.DeleteAsync("http://localhost:9080/pidev-web/api/skill/" + id.ToString()).Result;
+
+            return RedirectToAction("Index");
+        }
+        // POST: Skill/Delete
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+
+            return View();
+
+        }
     }
+}
 }
