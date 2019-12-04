@@ -1,0 +1,50 @@
+﻿@model IEnumerable<data.formateur>
+
+@{
+    ViewBag.Title = "Index";
+
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+<h2>Index</h2>
+
+
+<div class="content-wrapper">
+    <div class="content-heading">
+        <div>Data Tables<small>Tables, one step forward.</small></div>
+    </div>
+    <div class="container-fluid">
+        <!-- DATATABLE DEMO 1-->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Export Buttons</div>
+                <div class="text-sm">When displaying data in a DataTable, it can often be useful to your end users for them to have the ability to obtain the data from the DataTable, extracting it into a file for them to use locally. This can be done with either HTML5 based buttons or Flash buttons.</div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped my-4 w-100" id="datatable2">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in ViewBag.result)
+                    {
+                        <tr>
+                            <td>@item.id</td>
+                            <td>@item.disponibilite</td>
+                            <td>@item.name</td>
+                        </tr>
+                                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
