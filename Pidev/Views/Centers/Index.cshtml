@@ -21,20 +21,21 @@
         <th></th>
     </tr>
 
-@foreach (var item in ViewBag.result) {
-    <tr>
-        <td>
-            @item.adresse
-        </td>
-        <td>
-            @item.number
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in ViewBag.result)
+    {
+        <tr>
+            <td>
+                @item.adresse
+            </td>
+            <td>
+                @item.number
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -45,21 +45,23 @@ namespace Pidev.Controllers
                 }
 
             }
-        
+
         // GET: Centers/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
-
-        // POST: Centers/Edit/5
+        //GET : Center/Edit
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, centres centre)
         {
             try
             {
-                // TODO: Add update logic here
-
+                var c = serviceCentres.GetById(id);
+                c.adresse = centre.adresse;
+                c.number = centre.number;
+                serviceCentres.Update(c);
+                serviceCentres.Commit();
                 return RedirectToAction("Index");
             }
             catch
@@ -76,17 +78,18 @@ namespace Pidev.Controllers
 
         // POST: Centers/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, centres centre)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                var c = serviceCentres.GetById(id);
+                serviceCentres.Delete(c);
+                serviceCentres.Commit();
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View("");
             }
         }
     }

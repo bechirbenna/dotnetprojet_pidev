@@ -538,6 +538,8 @@
     <Content Include="Views\Formateur\Edit.cshtml" />
     <Content Include="Views\Formateur\Index.cshtml" />
     <Content Include="Views\Centers\Create.cshtml" />
+    <Content Include="Views\Centers\Edit.cshtml" />
+    <Content Include="Views\Centers\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
