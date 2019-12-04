@@ -48,15 +48,29 @@ namespace Pidev.Controllers
         // POST: Skill/Update
         public ActionResult Edit(int id)
         {
-            return View("Edit");
+            //HttpClient Client = new HttpClient();
+            //Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            //HttpResponseMessage response = Client.GetAsync("http://localhost:9080/pidev-web/api/skill/"+id.ToString()).Result;
+            //SkillModel s = response.Content.ReadAsAsync<SkillModel>().Result;
+            //return View(s);
+            //Client.DefaultRequestHeaders.Clear();
+            //Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //HttpResponseMessage response = Client.GetAsync("http://localhost:9080/pidev-web/api/skill/" + id.ToString()).Result;
+            //return View(response.Content.ReadAsAsync<SkillModel>().Result);
+
+            return View();
         }
         [HttpPost]
-        public ActionResult Edit(SkillModel skill)
+        public ActionResult Edit(int id, SkillModel skill)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
-            var response = client.PostAsJsonAsync<SkillModel>("api/skill", skill).Result;
-            return RedirectToAction("Index");
+            HttpClient Client = new HttpClient();
+            skill.skillId = id;
+            var response1 = Client.PutAsJsonAsync<SkillModel>("http://localhost:9080/pidev-web/api/skill/", skill).Result;
+            return RedirectToAction("index");
+            //HttpClient client = new HttpClient();
+            //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            //HttpResponseMessage response = client.PutAsJsonAsync("http://localhost:9080/pidev-web/api/skill/", skill).Result;
+            //return RedirectToAction("Index");
         }
         public ActionResult Delete(int id)
         {

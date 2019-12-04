@@ -6,20 +6,11 @@
     Layout = "~/Views/Shared/_LayoutAdv.cshtml";
 }
 
-<h2>Index</h2>
-
 
 <div class="content-wrapper">
-    <div class="content-heading">
-        <div>Data Tables<small>Tables, one step forward.</small></div>
-    </div>
     <div class="container-fluid">
         <!-- DATATABLE DEMO 1-->
         <div class="card">
-            <div class="card-header">
-                <div class="card-title">Export Buttons</div>
-                <div class="text-sm">When displaying data in a DataTable, it can often be useful to your end users for them to have the ability to obtain the data from the DataTable, extracting it into a file for them to use locally. This can be done with either HTML5 based buttons or Flash buttons.</div>
-            </div>
             <div class="card-body">
                 <table class="table table-striped my-4 w-100" id="datatable2">
                     <thead>
@@ -43,12 +34,12 @@
                             <td>@item.skillDesc</td>
                             <td>
                                 @{ long skillId = @item.skillId;}
-                                <a href="@Url.Action("Edit", "Skill",new {id=@item.skillId})" class="btn btn-danger">Edit</a>
+                                <a href="@Url.Action("Edit", "Skill",new {id=@item.skillId})" class="btn btn-success">Edit</a>
                             </td>
-                            @*<td>
-                                @{ long skillId = @item.skillId;}
+                            <td>
+                                @{ long skillIdd = @item.skillId;}
                                 <a href="@Url.Action("Delete", "Skill",new {id=@item.skillId})" class="btn btn-danger">Delete</a>
-                            </td>*@
+                            </td>
                         </tr>
                     }
                 </table>
