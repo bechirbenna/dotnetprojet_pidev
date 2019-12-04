@@ -11,7 +11,7 @@ namespace data
         public PidevContext()
             : base("name=PidevContext")
         {
-        }
+        }   
         public virtual DbSet<calendar> calendar { get; set; }
         public virtual DbSet<eval360> eval360 { get; set; }
         public virtual DbSet<evaluation> evaluations { get; set; }
@@ -155,7 +155,7 @@ namespace data
                 .IsUnicode(false);
 
             modelBuilder.Entity<team>()
-                .Property(e => e.teamName)
+                .Property(e => e.nameTeam)
                 .IsUnicode(false);
 
             modelBuilder.Entity<team>()
@@ -248,7 +248,7 @@ namespace data
 
             modelBuilder.Entity<user>()
                 .HasMany(e => e.tickets)
-                .WithOptional(e => e.user)
+                .WithOptional(e => e.employesTicket)
                 .HasForeignKey(e => e.employesTicket_id);
         }
     }

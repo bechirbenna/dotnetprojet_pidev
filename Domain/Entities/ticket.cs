@@ -55,6 +55,6 @@ namespace data
 
         public virtual projet projet { get; set; }
 
-        public virtual user user { get; set; }
+        public virtual user employesTicket { get; set; }
     }
 }

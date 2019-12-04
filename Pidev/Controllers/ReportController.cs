@@ -3,6 +3,7 @@ using Pidev.Models;
 using Service;
 using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -15,66 +16,8 @@ namespace Pidev.Controllers
     {
         public ServiceTicket ticketService = new ServiceTicket();
         static UserService userService = new UserService();
+        public static int mounthNumber = 0;
 
-        public static int nbr(int id)
-        {
-            HttpClient Client = new HttpClient();
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
-
-            int nbr;
-            HttpResponseMessage responceUsers = Client.GetAsync("api/login").Result;
-            if (responceUsers.IsSuccessStatusCode)
-            {
-                var users = responceUsers.Content.ReadAsAsync<IEnumerable<userModel>>().Result;
-                nbr = users.Where(user => user.team.id.Equals(id)).Count();
-            }
-            else { nbr = 0; }
-            return (nbr + 1);
-        }
-        public static int numberEmployeByTeam(int id)
-        {
-            return getNameEmployeByTeam(id).Count;
-        }
-
-        public String Month(String mounth)
-        {
-            //String mounth = System.Web.HttpContext.Current.Request["mounth"];
-            return mounth;
-        }
-
-
-
-        public static List<String> getNameEmployeByTeam(int id)
-        {
-            HttpClient Client = new HttpClient();
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
-            HttpResponseMessage response = Client.GetAsync("api/teams/team-ticket-name/" + id).Result;
-            var stringList = response.Content.ReadAsAsync<List<String>>().Result;
-            return stringList;
-        }
-
-        public static List<userModel> getEmployeesByTeamID(int id)
-        {
-            HttpClient Client = new HttpClient();
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
-            HttpResponseMessage responceUsers = Client.GetAsync("api/login").Result;
-
-            if (responceUsers.IsSuccessStatusCode)
-            {
-                var users = responceUsers.Content.ReadAsAsync<IEnumerable<userModel>>().Result;
-                return users.Where(user => user.team.id == id).ToList();
-            }
-            else return null;
-        }
-
-
-
-        // GET: Report
         public ActionResult Index()
         {
 
@@ -107,6 +50,7 @@ namespace Pidev.Controllers
             HttpResponseMessage responceUsers = Client.GetAsync("api/login").Result;
             if (responceTicket.IsSuccessStatusCode && responceTeam.IsSuccessStatusCode && responceUsers.IsSuccessStatusCode)
             {
+                ViewBag.monthNumber = mounthNumber;
                 ViewBag.tickets = responceTicket.Content.ReadAsAsync<IEnumerable<ticketModel>>().Result;
                 var teams = responceTeam.Content.ReadAsAsync<IEnumerable<TeamModel>>().Result;
                 ViewBag.teams = teams;
@@ -117,9 +61,82 @@ namespace Pidev.Controllers
             return View();
         }
 
+     
+
+
+
+
+
+
+
+        public static int nbr(int id)
+        {
+            HttpClient Client = new HttpClient();
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+
+            int nbr;
+            HttpResponseMessage responceUsers = Client.GetAsync("api/login").Result;
+            if (responceUsers.IsSuccessStatusCode)
+            {
+                var users = responceUsers.Content.ReadAsAsync<IEnumerable<userModel>>().Result;
+                nbr = users.Where(user => user.team.id.Equals(id)).Count();
+            }
+            else { nbr = 0; }
+            return (nbr + 1);
+        }
+        public static int numberEmployeByTeam(int id)
+        {
+            return getNameEmployeByTeam(id).Count;
+        }
+        
+        public ActionResult Month(String mounth)
+        {
+             mounthNumber = System.DateTime.ParseExact(mounth, "MMMM", System.Globalization.CultureInfo.CurrentCulture).Month;
+            //String mounth = System.Web.HttpContext.Current.Request["mounth"];
+            return RedirectToAction("Index");
+        }
+
+       
+
+
+
+        public static List<String> getNameEmployeByTeam(int id)
+        {
+            HttpClient Client = new HttpClient();
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+            HttpResponseMessage response = Client.GetAsync("api/teams/team-ticket-name/" + id).Result;
+            var stringList = response.Content.ReadAsAsync<List<String>>().Result;
+            return stringList;
+        }
+
+        public static List<userModel> getEmployeesByTeamID(int id)
+        {
+            HttpClient Client = new HttpClient();
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+            HttpResponseMessage responceUsers = Client.GetAsync("api/login").Result;
+
+            if (responceUsers.IsSuccessStatusCode)
+            {
+                var users = responceUsers.Content.ReadAsAsync<IEnumerable<userModel>>().Result;
+                return users.Where(user => user.team.id == id).ToList();
+            }
+            else return null;
+        }
+
+
+
+        // GET: Report
+     
+
         /////////////////////////////ticket Report
         public static double getNumberOfRealizedTicketHoursInFirstWeek(long id)
         {
+           
             ServiceTicket serviceTicket = new ServiceTicket();
             var dateNow = (30 - DateTime.Now.Day);
             IList<ticket> ticket = serviceTicket.GetMany()
@@ -128,7 +145,8 @@ namespace Pidev.Controllers
             {
                 var numberOfFirstWeek =
                               ticket.Where(n =>
-                              (30 - n.dateEnd.Value.Day) > 23)
+                              (30 - n.dateEnd.Value.Day) > 23 && n.archive == true 
+                              && (n.dateEnd.Value.Month == mounthNumber))
                               .Select(x => x.duration).Average();
 
                 return numberOfFirstWeek;
@@ -150,7 +168,8 @@ namespace Pidev.Controllers
             {
                 var EstimatedHoursFirstWeek =
                              ticket.Where(n =>
-                            (30 - n.dateEnd.Value.Day) > 23)
+                            (30 - n.dateEnd.Value.Day) > 23 && (n.archive == true)
+                             && (n.dateEnd.Value.Month == mounthNumber) )
                              .Select(x => x.estimatedHours).Average();
                 return EstimatedHoursFirstWeek ;
             }
@@ -198,7 +217,8 @@ namespace Pidev.Controllers
                                      ticket.Where(n => (
                               ((30 - n.dateEnd.Value.Day) > 16)
                               &&
-                              ((30 - n.dateEnd.Value.Day) < 23)))
+                              ((30 - n.dateEnd.Value.Day) < 23)) && (n.archive == true)
+                               && (n.dateEnd.Value.Month == mounthNumber))
                          .Select(x => x.estimatedHours).Average();
 
 
@@ -224,7 +244,7 @@ namespace Pidev.Controllers
                               ticket.Where(n => (
                               ((30 - n.dateEnd.Value.Day) > 16)
                               &&
-                              ((30 - n.dateEnd.Value.Day) < 23)))
+                              ((30 - n.dateEnd.Value.Day) < 23)) && (n.archive == true) && (n.dateEnd.Value.Month == mounthNumber))
                               .Select(x => x.duration).Average();
 
 
@@ -285,7 +305,8 @@ namespace Pidev.Controllers
                         ticket.Where(n =>(
                           ((30 - n.dateEnd.Value.Day) > 9)
                               &&
-                              ((30 - n.dateEnd.Value.Day) < 16)))
+                              ((30 - n.dateEnd.Value.Day) < 16)) && (n.archive == true)
+                              && (n.dateEnd.Value.Month == mounthNumber))
                         .Select(x => x.estimatedHours).Average();
                 return EstimatedHoursThirdWeek  ;
             }
@@ -308,7 +329,8 @@ namespace Pidev.Controllers
                               ticket.Where(n => (
                                 ((30 - n.dateEnd.Value.Day) > 9)
                               &&
-                              ((30 - n.dateEnd.Value.Day) < 16)))
+                              ((30 - n.dateEnd.Value.Day) < 16)) && (n.archive == true)
+                              && (n.dateEnd.Value.Month == mounthNumber))
                               .Select(x => x.duration).Average();
 
                 return  numberOfthirdWeek;
@@ -355,7 +377,8 @@ namespace Pidev.Controllers
                        ticket.Where(n =>(
                       ((30 - n.dateEnd.Value.Day) > 0)
                               &&
-                              ((30 - n.dateEnd.Value.Day) < 9)))
+                              ((30 - n.dateEnd.Value.Day) < 9)) && (n.archive == true)
+                              && (n.dateEnd.Value.Month == mounthNumber))
                        .Select(x => x.estimatedHours).Average();
                 return EstimatedHoursFourthWeek ;
             }
@@ -376,7 +399,8 @@ namespace Pidev.Controllers
                               ticket.Where(n => (
                                ((30 - n.dateEnd.Value.Day) > 0)
                               &&
-                              ((30 - n.dateEnd.Value.Day) < 9)))
+                              ((30 - n.dateEnd.Value.Day) < 9)) && (n.archive == true)
+                              && (n.dateEnd.Value.Month == mounthNumber))
                               .Select(x => x.duration).Average();
 
                 return numberOfthirdWeek;
@@ -417,7 +441,8 @@ namespace Pidev.Controllers
             try
             {
                 var EstimatedHoursFirstWeek =
-                            ticket
+                            ticket.Where(n => (n.archive == true)
+                            && (n.dateEnd.Value.Month == mounthNumber))
                             .Select(x => x.duration).Sum();
                 return EstimatedHoursFirstWeek;
             }
@@ -439,7 +464,8 @@ namespace Pidev.Controllers
             try
             {
                 var EstimatedHoursFirstWeek =
-                            ticket
+                            ticket.Where(n=>(n.archive == true)
+                            && (n.dateEnd.Value.Month == mounthNumber))
                             .Select(x => x.estimatedHours).Sum();
                 return EstimatedHoursFirstWeek;
             }

@@ -66,7 +66,7 @@ namespace Pidev.Controllers
         // GET: Ticket/Create
         public ActionResult Create()
         {
-            string token = Request.Cookies.Get("token").Value;
+           string token = Request.Cookies.Get("token").Value;
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
@@ -79,7 +79,7 @@ namespace Pidev.Controllers
             if (responce.IsSuccessStatusCode)
             {
                 
-                ViewBag.teams = responce.Content.ReadAsAsync<IList<team>>().Result;
+                ViewBag.teams = responce.Content.ReadAsAsync<IList<TeamModel>>().Result;
              
             }
             else

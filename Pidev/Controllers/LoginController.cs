@@ -34,13 +34,13 @@ namespace Pidev.Controllers
             if (cookie != null)
             {
                 Response.Cookies.Add(cookie);
-              
+                string token = Request.Cookies.Get("token").Value;
 
-                
+
                 HttpClient Client = new HttpClient();
                 Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 //var t = JsonConvert.DeserializeObject<Token>(token);
-                string token = Request.Cookies.Get("token").Value;
+               
                 //Client.DefaultRequestHeaders.Clear();
                 //Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
                 //Client.DefaultRequestHeaders.Add("Content-Type", "application/json");
@@ -48,7 +48,7 @@ namespace Pidev.Controllers
                 var jwtToken = new JwtSecurityToken(token);
                 var subject = jwtToken.Subject;
 
-                HttpResponseMessage responce = Client.GetAsync("api/login/"+ subject).Result;
+                HttpResponseMessage responce = Client.GetAsync("api/login/" + subject).Result;
                 if (responce.IsSuccessStatusCode)
                 {
                     userModel user = responce.Content.ReadAsAsync<userModel>().Result;

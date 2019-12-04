@@ -16,16 +16,26 @@ namespace Pidev.Controllers
         public ActionResult Index()
         {
 
-
             string token = Request.Cookies.Get("token").Value;
+
             HttpClient Client = new HttpClient();
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
+            var jwtToken = new JwtSecurityToken(token);
+            var subject = jwtToken.Subject;
+
+            HttpResponseMessage current = Client.GetAsync("api/login/" + subject).Result;
+            if (current.IsSuccessStatusCode)
+            {
+                ViewBag.current_user = current.Content.ReadAsAsync<userModel>().Result;
+            }
+
+
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage responce = Client.GetAsync("api/tickets").Result;
             if (responce.IsSuccessStatusCode) 
-            {
+            {              
                 ViewBag.result = responce.Content.ReadAsAsync<IEnumerable<ticket>>().Result;
             } 
             else
@@ -34,7 +44,7 @@ namespace Pidev.Controllers
             }
             return View();
         }
-        
+            
         public  ActionResult afficterTicket(int idTicket)
         {
 
@@ -52,7 +62,6 @@ namespace Pidev.Controllers
             if (responce.IsSuccessStatusCode)
             {
                 userModel user = responce.Content.ReadAsAsync<userModel>().Result;
-            
                 var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-affect/" + idTicket+"/"+ user.id, null).Result;
             }
             return RedirectToAction("Index"); 

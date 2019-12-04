@@ -23,7 +23,7 @@ namespace data
         public string departement { get; set; }
 
         [StringLength(255)]
-        public string teamName { get; set; }
+        public string nameTeam { get; set; }
 
         public long? manager_id { get; set; }
 

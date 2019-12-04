@@ -28,8 +28,12 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">Event name:</label>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.NomEvent, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.NomEvent, "", new { @class = "text-danger" })
+                                <div class="col-xl-6 col-10">
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.NomEvent, new { htmlAttributes = new { @class = "form-control" } })
+                                        <span class="input-group-append input-group-addon"><span class="input-group-text fa fa-tasks"></span></span>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -38,35 +42,25 @@
                     <fieldset></fieldset>
 
                     <fieldset>
-                        <legend>Begin Date:</legend>
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label">Begin Date:</label>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.DateDebut, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DateDebut, "", new { @class = "text-danger" })
+                        <div class="form-group row mb-2">
+                            <label class="col-md-2 col-form-label mb-2">Begin at :</label>
+                            <div class="col-xl-6 col-10">
+                                <div class="input-group date" id="datetimepicker1">
+                                    @Html.EditorFor(model => model.DateDebut, new { htmlAttributes = new { @class = "form-control" } })
+                                    <span class="input-group-append input-group-addon"><span class="input-group-text fas fa-calendar-alt"></span></span>
+                                </div>
                             </div>
                         </div>
-
-                    </fieldset>
-                    <fieldset></fieldset>
-                    <fieldset>
-                        <legend>End Date:</legend>
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label">End Date:</label>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.DateFin, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DateFin, "", new { @class = "text-danger" })
-                            </div>
-
-                        </div>
-
                     </fieldset>
                     <fieldset></fieldset>
                     <fieldset>
                         <div class="form-group row mb-2">
-                            <label class="col-md-2 col-form-label mb-2">DateTimePicker</label>
+                            <label class="col-md-2 col-form-label mb-2">Ends at : </label>
                             <div class="col-xl-6 col-10">
-                                <div class="input-group date" id="datetimepicker1"><input class="form-control" type="text"><span class="input-group-append input-group-addon"><span class="input-group-text fas fa-calendar-alt"></span></span></div>
+                                <div class="input-group date" id="datetimepicker1">
+                                    @Html.EditorFor(model => model.DateFin, new { htmlAttributes = new { @class = "form-control" } })
+                                    <span class="input-group-append input-group-addon"><span class="input-group-text fas fa-calendar-alt"></span></span>
+                                </div>
                             </div>
                         </div>
                     </fieldset>

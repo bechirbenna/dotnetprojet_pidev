@@ -27,9 +27,11 @@
                         <legend>Ticket name</legend>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">Ticket name:</label>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+                                    <span class="input-group-append input-group-addon"><span class="input-group-text fa fa-ticket-alt"></span></span>
+                                </div>
                             </div>
                         </div>
 
@@ -41,9 +43,11 @@
                         <legend>Ticket description</legend>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">Ticket description:</label>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                                    <span class="input-group-append input-group-addon"><span class="input-group-text fa fa-pencil-alt"></span></span>
+                                </div>
                             </div>
                         </div>
 
@@ -96,7 +100,7 @@
                                     {
                                         <option>
                                             @item.nameTeam
-                                    </option>
+                                        </option>
                                     }
                                 </select>
 
