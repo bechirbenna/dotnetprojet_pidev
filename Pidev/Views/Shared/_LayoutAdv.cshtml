@@ -224,10 +224,22 @@
     <script src="~/Content/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script><!-- COLORPICKER-->
     <script src="~/Content/vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script><!-- SELECT2-->
     <script src="~/Content/vendor/select2/dist/js/select2.full.js"></script><!-- =============== APP SCRIPTS ===============-->
-    <script src="~/Content/js/app.js"></script>
+    <script src="~/Content/vendor/chart.js/dist/Chart.js"></script>
 
+
+
+    @Scripts.Render("~/Content/vendor/flot/jquery.flot.js")
+    @Scripts.Render("~/Content/vendor/jquery.flot.tooltip/js/jquery.flot.tooltip.js")
+    @Scripts.Render("~/Content/vendor/flot/jquery.flot.resize.js")
+    @Scripts.Render("~/Content/vendor/flot/jquery.flot.pie.js")
+    @Scripts.Render("~/Content/vendor/flot/jquery.flot.time.js")
+    @Scripts.Render("~/Content/vendor/flot/jquery.flot.categories.js")
+    @Scripts.Render("~/Content/vendor/jquery.flot.spline/jquery.flot.spline.js")
 
     <script src="~/Scripts/alertify.min.js"></script>
+
+    <script src="~/Content/js/app.js"></script>
+
 </body>
 
 

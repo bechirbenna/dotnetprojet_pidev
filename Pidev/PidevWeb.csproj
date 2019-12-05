@@ -303,6 +303,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\PointModel.cs" />
     <Compile Include="Models\TeamModel.cs" />
     <Compile Include="Models\ticketModel.cs" />
     <Compile Include="Models\Token.cs" />
@@ -605,6 +606,7 @@
     <Content Include="Views\Shared\_LayoutEmploye.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Report\Details.cshtml" />
+    <Content Include="Views\Calendar\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

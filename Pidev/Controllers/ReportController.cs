@@ -1,4 +1,5 @@
 ﻿using data;
+using Newtonsoft.Json;
 using Pidev.Models;
 using Service;
 using System;
@@ -504,13 +505,82 @@ namespace Pidev.Controllers
         // GET: Report/Details/5
         public ActionResult Details(int id, int Mounthnumber)
         {
+
+
             ServiceTicket serviceTicket = new ServiceTicket();
             UserService userService = new UserService();
-            IList<ticket> ticket = serviceTicket.GetMany(t => t.employesTicket.id == id && t.dateEnd.Value.Month == Mounthnumber).ToList();
+            IEnumerable<ticket> ticket = serviceTicket.GetMany(t => t.employesTicket.id == id && t.dateEnd.Value.Month == Mounthnumber).ToList();
             data.user user = userService.GetById(id);
             ViewBag.userTicket = user.username;
             ViewBag.tickets = ticket;
+            var data1 = JsonConvert.SerializeObject(getDataEstimatedHours(ticket));
+            var data2 = JsonConvert.SerializeObject(getDataRealizedHours(ticket));
+            
+            ViewBag.DataPoints1 = data1;
+            ViewBag.DataPoints2 = data2;
+            //ViewBag.DataPoints3 = data3;
+
+
+
             return View();
+        }
+
+
+        public static int countToDoProjects(IEnumerable<ticket> tickets)
+        {
+            int nbr = tickets.Select(t => t.status).Where(s => s.Equals("ToDo")).Count();
+            return nbr;
+        }
+
+        public static int countInProgressProjects(IEnumerable<ticket> tickets)
+        {
+            int nbr = tickets.Select(t => t.status).Where(s => s.Equals("Doing")).Count();
+            return nbr;
+        }
+
+        public static int countDoneProjects(IEnumerable<ticket> tickets)
+        {
+            int nbr = tickets.Select(t => t.status).Where(s => s.Equals("Donne")).Count();
+            return nbr;
+        }
+
+
+
+        /// <summary>
+        /// Chart Js
+        /// </summary>
+        /// <returns></returns>
+        /// 
+
+        public List<PointModel> getDataEstimatedHours(IEnumerable<ticket> tickets)
+        {
+            List<PointModel> dataPoints = new List<PointModel>();
+
+            List<ticket> ticketts = tickets.Where(s => s.status.Equals("Donne")).ToList();
+            foreach (ticket ticket in ticketts)
+            {
+                double y = (double)ticket.estimatedHours;
+                string label = ticket.title;
+                var point = new PointModel(y, label);
+                dataPoints.Add(point);
+            }
+            return dataPoints;
+        }
+
+
+        public List<PointModel> getDataRealizedHours(IEnumerable<ticket> tickets)
+        {
+            List<PointModel> dataPoints = new List<PointModel>();
+
+            List<ticket> ticketts = tickets.Where(s => s.status.Equals("Donne")).ToList();
+            foreach (ticket ticket in ticketts)
+            {
+                double y = (double)ticket.duration;
+                string label = ticket.title;
+                var point = new PointModel(y, label);
+                dataPoints.Add(point);
+            }
+            return dataPoints;
         }
 
         // GET: Report/Create

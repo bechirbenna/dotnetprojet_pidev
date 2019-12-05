@@ -50,7 +50,7 @@
                         <ul class="list-inline m-2">
                             <li class="list-inline-item">
                                 <div class="badge bg-gray">
-                                    <a href=@Url.Action("Delete", "Calendar", new { id = @item.CalendarId }) class="btn btn-success">Delete</a>
+                                   <button onclick="deleteEvent(@item.CalendarId)" class="btn btn-danger" > Delete</button>
                                 </div>
                             </li>
                             <li class="list-inline-item">
@@ -65,3 +65,13 @@
     </div>
 
 </div>
+<script>
+
+    function deleteEvent(id) {
+        alertify.confirm('Delete Event', 'are you sure to delete It ?', function () {
+            window.location.href = '@Url.Action("Delete", "Calendar")?id=' + id ;
+
+        }, null);
+    }
+
+</script>
