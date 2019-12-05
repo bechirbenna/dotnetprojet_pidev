@@ -55,6 +55,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
@@ -65,11 +66,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="employe.cs" />
+    <Compile Include="Entities\conge.cs" />
     <Compile Include="Entities\eval360.cs" />
     <Compile Include="Entities\evaluation.cs" />
     <Compile Include="Entities\facture.cs" />
     <Compile Include="Entities\feedback.cs" />
     <Compile Include="Entities\mission.cs" />
+    <Compile Include="Entities\Model1.cs" />
     <Compile Include="Entities\notification.cs" />
     <Compile Include="Entities\objective.cs" />
     <Compile Include="Entities\partenariat.cs" />
@@ -78,6 +82,7 @@
     <Compile Include="Entities\test.cs" />
     <Compile Include="Entities\ticket.cs" />
     <Compile Include="Entities\user.cs" />
+    <Compile Include="Model1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

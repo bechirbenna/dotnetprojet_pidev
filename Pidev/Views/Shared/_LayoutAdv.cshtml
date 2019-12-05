@@ -3,17 +3,19 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/brands.css")
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/regular.css")
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/solid.css")
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/fontawesome.css")
-     @Styles.Render("~/Content/vendor/simple-line-icons/css/simple-line-icons.css")
-     @Styles.Render("~/Content/vendor/animate.css/animate.css")
-     @Styles.Render("~/Content/vendor/whirl/dist/whirl.css")
-    
-     @Styles.Render("~/Content/css/bootstrap.css" )
-     @Styles.Render("~/Content/css/app.css" )
+
+    @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/brands.css")
+    @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/regular.css")
+    @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/solid.css")
+    @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/fontawesome.css")
+    @Styles.Render("~/Content/vendor/simple-line-icons/css/simple-line-icons.css")
+    @Styles.Render("~/Content/vendor/animate.css/animate.css")
+    @Styles.Render("~/Content/vendor/whirl/dist/whirl.css")
+
+    @Styles.Render("~/Content/css/bootstrap.css")
+    @Styles.Render("~/Content/css/app.css")
+    @RenderSection("scripts", required: false)
+
 </head>
 <body>
     
@@ -119,14 +121,14 @@
                         </li><!-- END user info-->
                         <!-- Iterates over all sidebar items-->
                         <li class="nav-heading "><span data-localize="sidebar.heading.HEADER">Main Navigation</span></li>
-                        <li class=" "><a href="#dashboard" title="Dashboard" data-toggle="collapse">
-                            <div class="float-right badge badge-success">3</div><em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+                        <li class=" "><a href="#conge" title="Dashboard" data-toggle="collapse">
+                            <div class="float-right badge badge-success">3</div><em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">Conges</span>
                             </a>
-                            <ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
+                            <ul class="sidebar-nav sidebar-subnav collapse" id="conge">
                                 <li class="sidebar-subnav-header">Dashboard</li>
-                                <li class=" "><a href="~/Evaluation/Objectives" title="Objectives"><span>Objectives</span></a></li>
-                                <li class=" "><a href="dashboard_v2.html" title="Dashboard v2"><span>Dashboard v2</span></a></li>
-                                <li class=" "><a href="dashboard_v3.html" title="Dashboard v3"><span>Dashboard v3</span></a></li>
+                                <li class=" "><a href="/Conges/Create" title="Create"><span>Create</span></a></li>
+                                <li class=" "><a href="/Conges" title="List"><span>List</span></a></li>
+                             
                             </ul>
                         </li>
                     </ul><!-- END sidebar nav-->

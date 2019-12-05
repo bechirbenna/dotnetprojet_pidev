@@ -1,0 +1,43 @@
+﻿@model Domain.Entities.conge
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>conge</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nbrjrs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nbrjrs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.startdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.startdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.enddate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.enddate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
