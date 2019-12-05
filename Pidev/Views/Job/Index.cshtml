@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Pidev.Models.JobModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+<div class="content-wrapper">
+    <div class="content-heading">
+        <div>
+            Job<small></small>
+        </div>
+    </div>
+    <p><div class="btn btn-light">
+    @Html.ActionLink("Create new job", "Create")
+</div>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- DATATABLE DEMO 1-->
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-striped my-4 w-100" id="datatable2">
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in ViewBag.result)
+                    {
+                        <tr>
+                            <td>
+                                @item.jobId
+                            </td>
+                            <td>
+                                @item.jobName
+                            </td>
+                            <td>
+                                @item.jobDesc
+                            </td>
+                            <td>
+                                @item.jobDate
+                            </td>
+                            <td>
+                                @{ long jobId = @item.jobId;}
+                                <a href="@Url.Action("Edit", "Job",new {id=@item.jobId})" class="btn btn-success">Edit</a>
+                            </td>
+                            <td>
+                                @{ long jobIdd = @item.jobId;}
+                                <a href="@Url.Action("Delete", "Job",new {id=@item.jobId})" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
