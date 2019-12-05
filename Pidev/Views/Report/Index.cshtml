@@ -4,28 +4,41 @@
     Layout = "~/Views/Shared/_LayoutAdv.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Report", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    @Html.AntiForgeryToken()
+
 
 
     <div class="content-wrapper">
 
         <div class="content-heading">
-            <h2>Ticket Report</h2>
+            <h2>Ticket Report
+            
+            @*<a href="@Url.Action("Export","Report")"> Export PDF</a>*@
+            </h2>
         </div>
         <div>
             <ul style="height: 100%; width: 100%; overflow: hidden; overflow-x: scroll; display: flex;">
                 @foreach (var mounth in ViewBag.mounth)
                 {
-                    <a href=@Url.Action("Month", "Report", new { mounth = mounth}) class="mb-1 btn btn-outline-secondary">
-                        <li style="display: inline-block; margin-left: 4px;">
+                    var number = DateTime.ParseExact(mounth, "MMMM", System.Globalization.CultureInfo.CurrentCulture).Month;
+                    var color = "none";
+                    if(number == ViewBag.monthNumber) { color = "#89ebf0"; }
+
+                    <a href=@Url.Action("Month", "Report", new { mounth = mounth}) class="mb-1 btn btn-outline-secondary" style="background-color:@color">
+                        <li style="display: inline-block; margin-left: 4px">
                             <div>
                                 <!-- Team Card-->
                                 <div class="card-body">
                                     <ul class="list-inline m-0">
-                                        <li class="list-inline-item">
-                                            @mounth
-                                        </li>
+                                        
+                                            <li class="list-inline-item" >
+                                                @mounth
+                                            </li>
+                                        
+                                       
+
                                     </ul>
 
                                 </div>
@@ -75,7 +88,7 @@
                                     foreach (var emp in Pidev.Controllers.ReportController.getEmployeesByTeamID(item.id))
                                     {
 
-                                        <tr onclick="window.location.href = '/Report/Details?id='+@emp.id;" style="">
+                                        <tr onclick="goToDetails(@emp.id,@ViewBag.monthNumber)" style="">
                                             @* First Column *@
                                             @{double NumberOfRealizedTicketHoursInFirstWeek = @Pidev.Controllers.ReportController.getNumberOfRealizedTicketHoursInFirstWeek(@emp.id); }
                                             @{double NumberOfEstimatedTicketHoursInFirstWeek = @Pidev.Controllers.ReportController.getNumberOfEstimatedTicketHoursInFirstWeek(@emp.id); }
@@ -111,9 +124,9 @@
                                             </td>
                                             @if (NumberOfEstimatedTicketHoursInFirstWeek != 0)
                                             {
-                                                <td style='background-color:@(estimatedDreal > 100 ? "#dffab4" : estimatedDreal <100 && estimatedDreal >70 ? "#a6dff5" : estimatedDreal <70 ? "#ffc9c9" : "")'>
+                                                <td style='background-color:@(estimatedDreal > 100 ? "#ebfff0" : estimatedDreal <100 && estimatedDreal >70 ? "#bdebfc" : estimatedDreal <70 ? "#ffebeb" : "")'>
                                                     <small>
-                                                        <p>Realized Hours : @NumberOfRealizedTicketHoursInFirstWeek</p>
+                                                        <p>Realized in @NumberOfRealizedTicketHoursInFirstWeek Hours  </p>
                                                     </small>
                                                     <div data-toggle="tooltip"
                                                          data-title="Progress of asigned tasks">
@@ -151,9 +164,9 @@
                                             {
 
 
-                                                <td style='background-color:@(estimatedDreal > 100 ? "#dffab4" : estimatedDreal <100 && estimatedDreal >70 ? "#a6dff5" : estimatedDreal <70 && estimatedDreal > 0 ? "#ffc9c9" : "")'>
+                                                <td style='background-color:@(estimatedDreal > 100 ? "#ebfff0" : estimatedDreal <100 && estimatedDreal >70 ? "#bdebfc" : estimatedDreal <70 ? "#ffebeb" : "")'>
                                                     <small>
-                                                        <p>Realized Hours : @NumberOfTicketHoursRealizedInSecondWeek</p>
+                                                        <p>Realized  in  @NumberOfTicketHoursRealizedInSecondWeek Hours  </p>
                                                     </small>
                                                     <div data-toggle="tooltip"
                                                          data-title="Progress of asigned tasks">
@@ -186,9 +199,9 @@
                                             @if (NumberOfTicketHoursRealizedInThirdWeek != 0)
                                             {
 
-                                                <td style='background-color:@(estimatedDreal > 100 ? "#dffab4" : estimatedDreal <100 && estimatedDreal >70 ? "#a6dff5" : estimatedDreal <70 && estimatedDreal > 0 ? "#ffc9c9" : "")'>
+                                                <td style='background-color:@(estimatedDreal > 100 ? "#ebfff0" : estimatedDreal <100 && estimatedDreal >70 ? "#bdebfc" : estimatedDreal <70 ? "#ffebeb" : "")'>
                                                     <small>
-                                                        <p>Realized Hours : @NumberOfTicketHoursRealizedInSecondWeek</p>
+                                                        <p>Realized in @NumberOfTicketHoursRealizedInSecondWeek Hours  </p>
                                                     </small>
                                                     <div data-toggle="tooltip"
                                                          data-title="Progress of asigned tasks">
@@ -220,9 +233,9 @@
                                             }
                                             @if (NumberOfTicketHoursRealizedInFourthWeek != 0)
                                             {
-                                                <td style='background-color:@(estimatedDreal > 100 ? "#dffab4" : estimatedDreal <100 && estimatedDreal >70 ? "#a6dff5" : estimatedDreal <70 && estimatedDreal > 0 ? "#ffc9c9" : "")'>
+                                                <td style='background-color:@(estimatedDreal > 100 ? "#ebfff0" : estimatedDreal <100 && estimatedDreal >70 ? "#bdebfc" : estimatedDreal <70 ? "#ffebeb" : "")'>
                                                     <small>
-                                                        <p>Realized Hours : @NumberOfTicketHoursRealizedInFourthWeek</p>
+                                                        <p>Realized in @NumberOfTicketHoursRealizedInFourthWeek Hours  </p>
                                                     </small>
 
                                                     <div data-toggle="tooltip"
@@ -253,11 +266,11 @@
                                             {
                                                 <td>.</td>
                                             }
-                                            <td style='background-color:@(estimatedDreal > 100 ? "#dffab4" : estimatedDreal <100 && estimatedDreal >70 ? "#a6dff5" : estimatedDreal <70 && estimatedDreal > 0 ? "#ffc9c9" : "")'>
+                                            <td style='background-color:@(estimatedDreal > 100 ? "#ebfff0" : estimatedDreal <100 && estimatedDreal >70 ? "#bdebfc" : estimatedDreal <70 ? "#ffebeb" : "")'>
 
                                                 <p> Estimated Hours :<small> @avrageEstimatedHours</small></p>
                                                 <br />
-                                                <p> Realized Hours : <small>@avrage</small></p>
+                                                <p> Realized  in <small>@avrage</small> Hours  </p>
 
 
                                             </td>
@@ -288,3 +301,15 @@
     </div>
 
                                                     }
+
+
+<script>
+
+    function goToDetails(id,Mounthnumber) {
+        alertify.confirm('Report operation', 'are you sure to go Details ?', function () {
+            window.location.href = '@Url.Action("Details", "Report")?id=' + id + '&Mounthnumber=' + Mounthnumber;
+
+        }, null);
+    }
+
+</script>

@@ -16,7 +16,7 @@ namespace Pidev.Controllers
     {
         public ServiceTicket ticketService = new ServiceTicket();
         static UserService userService = new UserService();
-        public static int mounthNumber = 0;
+        public static int mounthNumber = DateTime.Now.Month;
 
         public ActionResult Index()
         {
@@ -61,7 +61,7 @@ namespace Pidev.Controllers
             return View();
         }
 
-     
+
 
 
 
@@ -90,15 +90,19 @@ namespace Pidev.Controllers
         {
             return getNameEmployeByTeam(id).Count;
         }
-        
+
         public ActionResult Month(String mounth)
         {
-             mounthNumber = System.DateTime.ParseExact(mounth, "MMMM", System.Globalization.CultureInfo.CurrentCulture).Month;
+            mounthNumber = System.DateTime.ParseExact(mounth, "MMMM", System.Globalization.CultureInfo.CurrentCulture).Month;
             //String mounth = System.Web.HttpContext.Current.Request["mounth"];
             return RedirectToAction("Index");
         }
 
-       
+
+
+
+
+
 
 
 
@@ -131,12 +135,12 @@ namespace Pidev.Controllers
 
 
         // GET: Report
-     
+
 
         /////////////////////////////ticket Report
         public static double getNumberOfRealizedTicketHoursInFirstWeek(long id)
         {
-           
+
             ServiceTicket serviceTicket = new ServiceTicket();
             var dateNow = (30 - DateTime.Now.Day);
             IList<ticket> ticket = serviceTicket.GetMany()
@@ -145,13 +149,13 @@ namespace Pidev.Controllers
             {
                 var numberOfFirstWeek =
                               ticket.Where(n =>
-                              (30 - n.dateEnd.Value.Day) > 23 && n.archive == true 
+                              (30 - n.dateEnd.Value.Day) > 23 && n.archive == true
                               && (n.dateEnd.Value.Month == mounthNumber))
                               .Select(x => x.duration).Average();
 
                 return numberOfFirstWeek;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -169,11 +173,11 @@ namespace Pidev.Controllers
                 var EstimatedHoursFirstWeek =
                              ticket.Where(n =>
                             (30 - n.dateEnd.Value.Day) > 23 && (n.archive == true)
-                             && (n.dateEnd.Value.Month == mounthNumber) )
+                             && (n.dateEnd.Value.Month == mounthNumber))
                              .Select(x => x.estimatedHours).Average();
-                return EstimatedHoursFirstWeek ;
+                return EstimatedHoursFirstWeek;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -182,12 +186,12 @@ namespace Pidev.Controllers
 
         public static double getNumberOfTicketHoursInFirstWeek(long id)
         {
-            
+
             try
             {
-               return (getNumberOfEstimatedTicketHoursInFirstWeek(id)/ getNumberOfRealizedTicketHoursInFirstWeek(id))*100;
+                return (getNumberOfEstimatedTicketHoursInFirstWeek(id) / getNumberOfRealizedTicketHoursInFirstWeek(id)) * 100;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -223,10 +227,10 @@ namespace Pidev.Controllers
 
 
 
-                return EstimatedHoursSecondWeek ;
+                return EstimatedHoursSecondWeek;
 
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -252,7 +256,7 @@ namespace Pidev.Controllers
                 return numberOfSecondtWeek;
 
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -266,7 +270,7 @@ namespace Pidev.Controllers
             {
                 return (getNumberOfTicketHoursEstimatedInSecondWeek(id) / getNumberOfTicketHoursRealizedInSecondWeek(id)) * 100;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -300,17 +304,17 @@ namespace Pidev.Controllers
             .Where(t => (t.employesTicket_id == id)).ToList();
             try
             {
-        
+
                 var EstimatedHoursThirdWeek =
-                        ticket.Where(n =>(
+                        ticket.Where(n => (
                           ((30 - n.dateEnd.Value.Day) > 9)
                               &&
                               ((30 - n.dateEnd.Value.Day) < 16)) && (n.archive == true)
                               && (n.dateEnd.Value.Month == mounthNumber))
                         .Select(x => x.estimatedHours).Average();
-                return EstimatedHoursThirdWeek  ;
+                return EstimatedHoursThirdWeek;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -333,9 +337,9 @@ namespace Pidev.Controllers
                               && (n.dateEnd.Value.Month == mounthNumber))
                               .Select(x => x.duration).Average();
 
-                return  numberOfthirdWeek;
+                return numberOfthirdWeek;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -349,7 +353,7 @@ namespace Pidev.Controllers
             {
                 return (getNumberOfTicketHoursEstimatedInThirdWeek(id) / getNumberOfTicketHoursRealizedInThirdWeek(id)) * 100;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -374,15 +378,15 @@ namespace Pidev.Controllers
             try
             {
                 var EstimatedHoursFourthWeek =
-                       ticket.Where(n =>(
+                       ticket.Where(n => (
                       ((30 - n.dateEnd.Value.Day) > 0)
                               &&
                               ((30 - n.dateEnd.Value.Day) < 9)) && (n.archive == true)
                               && (n.dateEnd.Value.Month == mounthNumber))
                        .Select(x => x.estimatedHours).Average();
-                return EstimatedHoursFourthWeek ;
+                return EstimatedHoursFourthWeek;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -405,7 +409,7 @@ namespace Pidev.Controllers
 
                 return numberOfthirdWeek;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -419,7 +423,7 @@ namespace Pidev.Controllers
             {
                 return (getNumberOfTicketHoursEstimatedInFourthWeek(id) / getNumberOfTicketHoursRealizedInFourthWeek(id)) * 100;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -446,7 +450,7 @@ namespace Pidev.Controllers
                             .Select(x => x.duration).Sum();
                 return EstimatedHoursFirstWeek;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -464,12 +468,12 @@ namespace Pidev.Controllers
             try
             {
                 var EstimatedHoursFirstWeek =
-                            ticket.Where(n=>(n.archive == true)
+                            ticket.Where(n => (n.archive == true)
                             && (n.dateEnd.Value.Month == mounthNumber))
                             .Select(x => x.estimatedHours).Sum();
                 return EstimatedHoursFirstWeek;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -478,14 +482,14 @@ namespace Pidev.Controllers
 
         public static double getestimatedDreal(long id)
         {
-           
+
 
             try
             {
-               
-                return (getAvrageofTicketEstimatedHoursByEmploye(id)/ getAvrageofTicketDurationByEmploye(id))*100;
+
+                return (getAvrageofTicketEstimatedHoursByEmploye(id) / getAvrageofTicketDurationByEmploye(id)) * 100;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -498,8 +502,14 @@ namespace Pidev.Controllers
 
 
         // GET: Report/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, int Mounthnumber)
         {
+            ServiceTicket serviceTicket = new ServiceTicket();
+            UserService userService = new UserService();
+            IList<ticket> ticket = serviceTicket.GetMany(t => t.employesTicket.id == id && t.dateEnd.Value.Month == Mounthnumber).ToList();
+            data.user user = userService.GetById(id);
+            ViewBag.userTicket = user.username;
+            ViewBag.tickets = ticket;
             return View();
         }
 
@@ -552,6 +562,15 @@ namespace Pidev.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// PDF Section
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+
+        
+
 
         // POST: Report/Delete/5
         [HttpPost]
@@ -568,5 +587,9 @@ namespace Pidev.Controllers
                 return View();
             }
         }
-    }
+
+    }   ////Add body  
+
 }
+
+

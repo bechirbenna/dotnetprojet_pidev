@@ -1,5 +1,6 @@
 ﻿using data;
 using Pidev.Models;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,11 +14,14 @@ namespace Pidev.Controllers
 {
     public class ScrumBoardController : Controller
     {
+         
+        ServiceCalendar serviceCalendar = new ServiceCalendar(); 
         public ActionResult Index()
         {
 
             string token = Request.Cookies.Get("token").Value;
-
+          
+           
             HttpClient Client = new HttpClient();
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
@@ -27,6 +31,7 @@ namespace Pidev.Controllers
             HttpResponseMessage current = Client.GetAsync("api/login/" + subject).Result;
             if (current.IsSuccessStatusCode)
             {
+
                 ViewBag.current_user = current.Content.ReadAsAsync<userModel>().Result;
             }
 
@@ -36,7 +41,12 @@ namespace Pidev.Controllers
             HttpResponseMessage responce = Client.GetAsync("api/tickets").Result;
             if (responce.IsSuccessStatusCode) 
             {              
-                ViewBag.result = responce.Content.ReadAsAsync<IEnumerable<ticket>>().Result;
+                 List<ticket> tickets = (List<ticket>) responce.Content.ReadAsAsync<IEnumerable<ticket>>().Result;
+                var ticketts = tickets.Where(t => t.dateEnd != null && t.dateBegin != null).ToList();
+                // var tick = ticketts.Where(ta => ta.dateBegin.Value.Day < Event.Select(x => x.DateDebut.Day) && ta.dateEnd.Value.Day > Event.Select(xa => xa.DateFin.Day));
+
+                //ViewBag.result = ticketts.Where(t => ((notIn(t.dateBegin)) && (notIn(t.dateEnd)) )) ;
+                ViewBag.result = tickets;
             } 
             else
             {
@@ -44,7 +54,25 @@ namespace Pidev.Controllers
             }
             return View();
         }
-            
+
+
+        //public static Boolean notIn(DateTime? date)
+        //{
+        //    Boolean boolean;
+        //    ServiceCalendar serviceCalendar = new ServiceCalendar();
+        //    IEnumerable<calendar> calendars = serviceCalendar.GetMany().ToList();
+        //    foreach (calendar c in calendars)
+        //    {
+        //        boolean = !IsBewteenTwoDates(date, c.DateDebut, c.DateFin);
+        //    }
+
+        //    return boolean;
+        //}
+        public static Boolean IsBewteenTwoDates(DateTime? dt, DateTime start, DateTime end)
+        {
+            return ((dt >= start) && (dt <= end));
+        }
+
         public  ActionResult afficterTicket(int idTicket)
         {
 
@@ -62,7 +90,7 @@ namespace Pidev.Controllers
             if (responce.IsSuccessStatusCode)
             {
                 userModel user = responce.Content.ReadAsAsync<userModel>().Result;
-                var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-affect/" + idTicket+"/"+ user.id, null).Result;
+                var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/" + idTicket+"/"+ user.id+ "/affecter", null).Result;
             }
             return RedirectToAction("Index"); 
         }
@@ -84,7 +112,7 @@ namespace Pidev.Controllers
             if (responce.IsSuccessStatusCode)
             {
                 userModel user = responce.Content.ReadAsAsync<userModel>().Result;
-                var result = Client.PutAsJsonAsync<ticket>("api/tickets/employe-ticket-begin/" + idTicket + "/" + user.id, null).Result;
+                var result = Client.PutAsJsonAsync<ticket>("api/tickets/" + idTicket + "/" + user.id+ "/begin", null).Result;
             }
             return RedirectToAction("Index");
         }
@@ -107,7 +135,7 @@ namespace Pidev.Controllers
             if (responce.IsSuccessStatusCode)
             {
                 userModel user = responce.Content.ReadAsAsync<userModel>().Result;
-                var result = Client.PutAsJsonAsync<ticket>("api/tickets/employe-ticket-end/" + idTicket + "/"+user.id, null).Result;
+                var result = Client.PutAsJsonAsync<ticket>("api/tickets/" + idTicket + "/"+user.id+ "/End", null).Result;
             }
             return RedirectToAction("Index");
         }
@@ -129,7 +157,7 @@ namespace Pidev.Controllers
             if (responce.IsSuccessStatusCode)
             {
                 userModel user = responce.Content.ReadAsAsync<userModel>().Result;
-                var result = Client.PutAsJsonAsync<ticket>("api/tickets/employe-ticket-archive/" + idTicket + "/"+user.id, null).Result;
+                var result = Client.PutAsJsonAsync<ticket>("api/tickets/" + idTicket + "/"+user.id+ "/archive", null).Result;
             }
             return RedirectToAction("Index");
         }
@@ -157,7 +185,7 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
-            HttpResponseMessage responce = Client.GetAsync("api/tickets/ticket-validator/"+id).Result;
+            HttpResponseMessage responce = Client.GetAsync("api/tickets/"+id+ "/validate").Result;
             if (responce.StatusCode.Equals(System.Net.HttpStatusCode.Accepted))
                 {
                 return true;
@@ -175,7 +203,7 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
-            HttpResponseMessage responce = Client.GetAsync("api/tickets/ticket-color/" + id).Result;
+            HttpResponseMessage responce = Client.GetAsync("api/tickets/" + id+ "/avancement").Result;
             if (responce.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return 1;
@@ -199,7 +227,7 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage responce = Client.GetAsync("api/tickets/ticket-achievement/" + id).Result;
+            HttpResponseMessage responce = Client.GetAsync("api/tickets/" + id+ "/achievement-part-one").Result;
             if (responce.IsSuccessStatusCode)
             {
                 String number = responce.Content.ReadAsStringAsync().Result;
@@ -220,7 +248,7 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
-            HttpResponseMessage responce = Client.GetAsync("api/tickets/ticket-achievement-second-part/" + id).Result;
+            HttpResponseMessage responce = Client.GetAsync("api/tickets/" + id+ "/achievement-second-part").Result;
             if (responce.IsSuccessStatusCode)
             {
                 String number = responce.Content.ReadAsStringAsync().Result;
@@ -240,7 +268,7 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
-            HttpResponseMessage responce = Client.GetAsync("api/tickets/ticket-achievement-third-part/" + id).Result;
+            HttpResponseMessage responce = Client.GetAsync("api/tickets/" + id+ "/achievement-third-part").Result;
             if (responce.IsSuccessStatusCode)
             {
                 String number = responce.Content.ReadAsStringAsync().Result;

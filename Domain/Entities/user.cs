@@ -48,8 +48,6 @@ namespace data
         [StringLength(255)]
         public string cvDetails { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? dateOfBirth { get; set; }
 
         [StringLength(255)]
         public string gitLink { get; set; }
@@ -62,8 +60,6 @@ namespace data
         [StringLength(255)]
         public string statusEval360 { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? birthday { get; set; }
 
         public long? team_id { get; set; }
 

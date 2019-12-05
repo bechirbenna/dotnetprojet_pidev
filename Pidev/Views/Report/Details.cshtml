@@ -4,5 +4,45 @@
     Layout = "~/Views/Shared/_LayoutAdv.cshtml";
 }
 
-<h2>Details</h2>
 
+
+<div class="content-wrapper">
+
+
+
+
+    <div class="content-heading">
+        <h2>Ticket Report</h2>
+    </div>
+    <!-- Team messages-->
+    <div class="card card-default">
+        <div class="card-header">
+            <div class="px-2 float-right badge badge-danger">5</div>
+            <div class="px-2 mr-2 float-right badge badge-success">12</div>
+            <div class="card-title">@ViewBag.userTicket</div>
+        </div><!-- START list group-->
+        <div class="list-group" data-height="180" data-scrollable="">
+            <!-- START list group item-->
+            @foreach (var item in ViewBag.tickets)
+            {
+                <div class="list-group-item list-group-item-action">
+                    <div class="media">
+
+                        <div class="media-body text-truncate">
+                            <p class="mb-1"><strong class="text-primary"><span class="circle bg-success circle-lg text-left"></span><span>@item.title</span></strong></p>
+                            <p class="mb-1 text-sm">@item.description ...</p>
+                        </div>
+                        <div class="ml-auto"><small class="text-muted ml-2">Realized in @item.duration hours</small></div>
+                    </div>
+                </div><!-- END list group item-->
+            <!-- START list group item-->
+            }
+
+        </div><!-- END list group-->
+        <!-- START card footer-->
+        <div class="card-footer">
+            <div class="input-group"><input class="form-control form-control-sm" type="text" placeholder="Search message .."><span class="input-group-btn"><button class="btn btn-secondary btn-sm" type="submit"><i class="fa fa-search"></i></button></span></div>
+        </div><!-- END card-footer-->
+    </div><!-- End Team messages-->
+
+</div>
