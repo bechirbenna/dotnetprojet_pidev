@@ -21,9 +21,6 @@
     @Styles.Render("~/Content/css/bootstrap.css")
     @Styles.Render("~/Content/css/app.css")
 
-
-
-
 </head>
 <body>
     
@@ -130,13 +127,19 @@
                         <!-- Iterates over all sidebar items-->
                         <li class="nav-heading "><span data-localize="sidebar.heading.HEADER">Main Navigation</span></li>
                         <li class=" "><a href="#dashboard" title="Dashboard" data-toggle="collapse">
-                            <div class="float-right badge badge-success">3</div><em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+                            <div class="float-right badge badge-success">3</div><em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">Skill Management</span>
                             </a>
                             <ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
-                                <li class="sidebar-subnav-header">Dashboard</li>
-                                <li class=" "><a href="~/Evaluation/Objectives" title="Objectives"><span>Objectives</span></a></li>
-                                <li class=" "><a href="~/Ticket/Index.cshtml" title="Ticket List"><span>Dashboard v2</span></a></li>
-                                <li class=" "><a href="dashboard_v3.html" title="Dashboard v3"><span>Dashboard v3</span></a></li>
+                                <li class="sidebar-subnav-header">Skills Management</li>
+                                <li class=" active">
+                                    <a href="~/Skill/Index" title="Skill"><span>Skill</span></a>
+                                </li>
+                                <li class=" active">
+                                    <a href="~/Job/Index" title="Job"><span>Job</span></a>
+                                </li>
+                                <li class=" active">
+                                    <a href="~/Recommendation/Index" title="Recommendation"><span>Recommendation</span></a>
+                                </li>
                             </ul>
                         </li>
                     </ul><!-- END sidebar nav-->
