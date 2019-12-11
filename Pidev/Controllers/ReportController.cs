@@ -13,14 +13,14 @@ namespace Pidev.Controllers
 {
     public class ReportController : Controller
     {
-
+        public ServiceTicket ticketService = new ServiceTicket();
         static UserService userService = new UserService();
-     
-        public   static int nbr(int id)
+
+        public static int nbr(int id)
         {
             HttpClient Client = new HttpClient();
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-         
+
             Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
 
             int nbr;
@@ -31,12 +31,20 @@ namespace Pidev.Controllers
                 nbr = users.Where(user => user.team.id.Equals(id)).Count();
             }
             else { nbr = 0; }
-            return (nbr+1);
+            return (nbr + 1);
         }
         public static int numberEmployeByTeam(int id)
         {
             return getNameEmployeByTeam(id).Count;
         }
+
+        public  String Month(String mounth)
+        {
+            //String mounth = System.Web.HttpContext.Current.Request["mounth"];
+            return mounth;
+        }
+
+
 
         public static List<String> getNameEmployeByTeam(int id)
         {
@@ -54,8 +62,6 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
-
-
             HttpResponseMessage responceUsers = Client.GetAsync("api/login").Result;
 
             if (responceUsers.IsSuccessStatusCode)
@@ -71,6 +77,21 @@ namespace Pidev.Controllers
         // GET: Report
         public ActionResult Index()
         {
+
+            List<String> mounths = new List<string>();
+            mounths.Add("January");
+            mounths.Add("February");
+            mounths.Add("March");
+            mounths.Add("April");
+            mounths.Add("May");
+            mounths.Add("June");
+            mounths.Add("July");
+            mounths.Add("August");
+            mounths.Add("September");
+            mounths.Add("October");
+            mounths.Add("November");
+            mounths.Add("December");
+
             //HttpCookieCollection result = Request.Cookies;
             string token = Request.Cookies.Get("token").Value;
             HttpClient Client = new HttpClient();
@@ -91,26 +112,138 @@ namespace Pidev.Controllers
                 ViewBag.teams = teams;
                 ViewBag.teamNumber = teams.Count();
                 ViewBag.users = responceUsers.Content.ReadAsAsync<IEnumerable<userModel>>().Result;
+                ViewBag.mounth = mounths;
             }
             return View();
         }
 
         /////////////////////////////ticket Report
-        public static int getNumberOfTicketHoursInFirstWeek(int id)
+        public static double getNumberOfTicketHoursInFirstWeek(long id)
         {
-            return 2;
+
+           
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+            try
+            {
+                var numberOfFirstWeek =
+                              ticket.Where(n =>
+                              (DateTime.Now - n.dateEnd.Value).TotalDays < 7)
+                              .Select(x => x.duration).Average();
+                var EstimatedHoursFirstWeek =
+                             ticket.Where(n =>
+                             (DateTime.Now - n.dateEnd.Value).TotalDays < 7)
+                             .Select(x => x.estimatedHours).Average();
+                return (EstimatedHoursFirstWeek/numberOfFirstWeek)*100;
+            }
+            catch (InvalidOperationException e)
+            {
+                return 0;
+            }
+
         }
-        public static int getNumberOfTicketHoursInSecondWeek(int id)
+        public static double getAvrageofTicketDurationByEmploye(long id)
         {
-            return 2;
+            
+            try
+            {
+                var avrage = (getNumberOfTicketHoursInFirstWeek(id)
+                              + getNumberOfTicketHoursInSecondWeek(id)
+                              + getNumberOfTicketHoursInThirdWeek(id)
+                              + getNumberOfTicketHoursInFourthWeek(id)) / 400;
+                return avrage;
+            }
+             catch (InvalidOperationException e)
+            {
+                return 0;
+            }
+           
         }
-        public static int getNumberOfTicketHoursInThirdWeek(int id)
+        public static double getNumberOfTicketHoursInSecondWeek(long id)
         {
-            return 2;
+         
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+            try
+            {
+                var numberOfSecondtWeek =
+                              ticket.Where(n =>(
+                              ((DateTime.Now - n.dateEnd.Value).TotalDays > 7)
+                              && 
+                              (DateTime.Now - n.dateEnd.Value).TotalDays < 14))    
+                              .Select(x => x.duration).Average();
+                var EstimatedHoursSecondWeek =
+                         ticket.Where(n =>
+                         (DateTime.Now - n.dateEnd.Value).TotalDays < 7)
+                         .Select(x => x.estimatedHours).Average();
+                return (EstimatedHoursSecondWeek / numberOfSecondtWeek) * 100;
+
+
+
+
+
+            }
+            catch (InvalidOperationException e)
+            {
+                return 0;
+            }
         }
-        public static int getNumberOfTicketHoursInFourthWeek(int id)
+        public static double getNumberOfTicketHoursInThirdWeek(long id)
         {
-            return 2;
+           
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+            try
+            {
+                var numberOfthirdWeek =
+                              ticket.Where(n => (
+                              ((DateTime.Now - n.dateEnd.Value).TotalDays > 14)
+                              &&
+                              (DateTime.Now - n.dateEnd.Value).TotalDays < 21))
+                              .Select(x => x.duration).Average();
+                var EstimatedHoursThirdWeek =
+                        ticket.Where(n =>
+                        (DateTime.Now - n.dateEnd.Value).TotalDays < 7)
+                        .Select(x => x.estimatedHours).Average();
+                return (EstimatedHoursThirdWeek / numberOfthirdWeek) * 100;
+            }
+            catch (InvalidOperationException e)
+            {
+                return 0;
+            }
+
+        }
+        public static double getNumberOfTicketHoursInFourthWeek(long id)
+        {
+         
+            ServiceTicket serviceTicket = new ServiceTicket();
+            var dateNow = (DateTime.Now - DateTime.Now.AddDays(-25)).TotalDays;
+            IList<ticket> ticket = serviceTicket.GetMany()
+            .Where(t => (t.employesTicket_id == id)).ToList();
+            try
+            {
+                var numberOfthirdWeek =
+                              ticket.Where(n => (
+                              ((DateTime.Now - n.dateEnd.Value).TotalDays > 21)
+                              &&
+                              (DateTime.Now - n.dateEnd.Value).TotalDays < 28))
+                              .Select(x => x.duration).Average();
+                var EstimatedHoursFourthWeek =
+                       ticket.Where(n =>
+                       (DateTime.Now - n.dateEnd.Value).TotalDays < 7)
+                       .Select(x => x.estimatedHours).Average();
+                return (EstimatedHoursFourthWeek / numberOfthirdWeek) * 100;
+            }
+            catch (InvalidOperationException e)
+            {
+                return 0;
+            }
         }
 
 

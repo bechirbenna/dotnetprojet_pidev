@@ -55,7 +55,7 @@ namespace Pidev.Controllers
                     if (user.role.Equals("Admin"))
                     {
                         return RedirectToAction("Index", "Ticket", new { area = "" });
-                    }else if (user.role.Equals("Employee"))
+                    }if (user.role.Equals("Employee"))
                     {
                         return RedirectToAction("Index", "ScrumBoard", new { area = "" });
                     }
@@ -68,7 +68,11 @@ namespace Pidev.Controllers
         }
 
 
-
+        public ActionResult LogOut()
+        {
+             Response.Cookies["token"].Expires = DateTime.Now.AddDays(-1);
+            return RedirectToAction("Index");
+        }
 
 
 

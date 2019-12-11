@@ -1,4 +1,4 @@
- namespace data
+namespace data
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("pidevrh.user")]
+    [Table("pidev.user")]
     public partial class user
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

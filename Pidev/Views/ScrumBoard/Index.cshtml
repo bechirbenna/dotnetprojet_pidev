@@ -7,9 +7,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <div class="content-wrapper">
     <div class="content-heading">Scrum Board</div>
 
@@ -95,19 +92,19 @@
                         </div>
                         <div class="card-footer text-center">
                             @{Boolean n1 = Pidev.Controllers.ScrumBoardController.disabled(@ticket.idTicket);}
-                            @if (n1 == true)
+                            @if (n1 == false)
                             {
 
                                 <button type="button" disabled class="btn btn-success btn-sm">DoIt</button>
                             }
 
-                            @if (n1 == false)
+                            @if (n1 == true)
                             {
-                                <button type="button" class="btn btn-success btn-sm">DoIt</button>
-
+                               
+                                <a href=@Url.Action("DoIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-success">DoIt</a>
                             }
 
-                            <a href=@Url.Action("DoIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-success">DoIt</a>
+                           
 
                         </div>
 
@@ -179,11 +176,11 @@
                                 </div>
 
                             </div>
-                            <p>@somme</p>
+                            <p>@somme %</p>
 
                         </div>
                         <div class="card-footer text-center">
-                            <a href=@Url.Action("finishIt", "ScrumBoard", new { id = @ticket.id }) class="btn btn-danger">finishIt</a>
+                            <a href=@Url.Action("finishIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-danger">finishIt</a>
 
                         </div>
 
@@ -243,7 +240,7 @@
                                     </ul>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <a href=@Url.Action("archiveIt", "ScrumBoard", new { id = @ticket.id }) class="btn btn-danger">archiveIt</a>
+                                    <a href=@Url.Action("archiveIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-danger">archiveIt</a>
                                 </div>
 
                             </div>
@@ -275,7 +272,7 @@
                         </div>
                         <div class="card-footer text-center">
 
-                            <a href=@Url.Action("archiveIt", "ScrumBoard", new { id = @ticket.id }) class="btn btn-danger">archiveIt</a>
+                            <a href=@Url.Action("archiveIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-danger">archiveIt</a>
 
                         </div>
 
@@ -306,7 +303,7 @@
                             </ul>
                         </div>
                         <div class="card-footer text-center">
-                            <a href=@Url.Action("archiveIt", "ScrumBoard", new { id = @ticket.id }) class="btn btn-danger">archiveIt</a>
+                            <a href=@Url.Action("archiveIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-danger">archiveIt</a>
 
                         </div>
                     </div>

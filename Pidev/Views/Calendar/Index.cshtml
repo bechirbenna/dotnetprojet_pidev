@@ -10,37 +10,58 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NomEvent)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateDebut)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateFin)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomEvent)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateDebut)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateFin)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CalendarId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CalendarId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CalendarId })
-        </td>
-    </tr>
-}
 
-</table>
+<!-- Page content-->
+<div class="content-wrapper">
+    <div class="content-heading">
+        Team viewer<div class="ml-auto"><em class="fas fa-exclamation-triangle text-warning"></em></div>
+    </div>
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+
+            <div class="col-xl-4 col-lg-6">
+                <!-- Team Card-->
+                <div class="card card-default">
+                    <div class="card-header">
+                        <div class="float-right">
+                            <div class="badge badge-success">free</div>
+                        </div>
+                        <div class="card-title">@Html.DisplayFor(modelItem => item.NomEvent)</div>
+                    </div>
+                    <div class="card-body bb text-center">
+
+                    </div>
+                    <div class="card-body bb">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <p class="text-bold">Date Begin</p>
+                                <div class="h3 m-0">@Html.DisplayFor(modelItem => item.DateDebut)</div>
+                            </div>
+                            <div class="col-6">
+                                <p class="text-bold">Date End</p>
+                                <div class="h3 m-0">@Html.DisplayFor(modelItem => item.DateFin)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-inline m-2">
+                            <li class="list-inline-item">
+                                <div class="badge bg-gray">
+                                    <a href=@Url.Action("Delete", "Calendar", new { id = @item.CalendarId }) class="btn btn-success">Delete</a>
+                                </div>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href=@Url.Action("Edit", "Calendar", new { id = @item.CalendarId }) class="btn btn-success">Update</a>
+                            </li>                         
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center"></div>
+                </div><!-- end Team Card-->
+            </div>
+        }
+    </div>
+
+</div>

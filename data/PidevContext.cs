@@ -4,6 +4,7 @@ namespace data
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using Domain.Entities;
 
     public partial class PidevContext : DbContext
     {
@@ -11,7 +12,6 @@ namespace data
             : base("name=PidevContext")
         {
         }
-
         public virtual DbSet<calendar> calendar { get; set; }
         public virtual DbSet<eval360> eval360 { get; set; }
         public virtual DbSet<evaluation> evaluations { get; set; }
@@ -25,7 +25,9 @@ namespace data
         public virtual DbSet<team> teams { get; set; }
         public virtual DbSet<ticket> tickets { get; set; }
         public virtual DbSet<user> users { get; set; }
-            
+
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<eval360>()
@@ -153,18 +155,21 @@ namespace data
                 .IsUnicode(false);
 
             modelBuilder.Entity<team>()
-                .Property(e => e.nameTeam)
+                .Property(e => e.teamName)
                 .IsUnicode(false);
 
-            //modelBuilder.Entity<team>()
-            //    .HasMany(e => e.users)
-            //    .WithOptional(e => e.team)
-            //    .HasForeignKey(e => e.id);
+            modelBuilder.Entity<team>()
+                .HasMany(e => e.users)
+                .WithOptional(e => e.team)
+                .HasForeignKey(e => e.team_id);
 
             modelBuilder.Entity<ticket>()
                 .Property(e => e.description)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<ticket>()
+                .Property(e => e.difficulty)
+                .IsUnicode(false);
 
             modelBuilder.Entity<ticket>()
                 .Property(e => e.status)
@@ -236,10 +241,10 @@ namespace data
                 .WithOptional(e => e.user)
                 .HasForeignKey(e => e.emp_id);
 
-            //modelBuilder.Entity<user>()
-            //    .HasMany(e => e.teams)
-            //    .WithOptional(e => e.user)
-            //    .HasForeignKey(e => e.manager_id);
+            modelBuilder.Entity<user>()
+                .HasMany(e => e.teams)
+                .WithOptional(e => e.user)
+                .HasForeignKey(e => e.manager_id);
 
             modelBuilder.Entity<user>()
                 .HasMany(e => e.tickets)

@@ -16,6 +16,7 @@ namespace Pidev.Controllers
     public class TicketController : Controller
     {
 
+        public ServiceTicket service = new ServiceTicket();
         private PidevContext db = new PidevContext();
         // GET: Ticket
         public ActionResult Index()
@@ -36,9 +37,24 @@ namespace Pidev.Controllers
             
             if (responce.IsSuccessStatusCode)
             {
-                ViewBag.result = responce.Content.ReadAsAsync<IEnumerable<ticket>>().Result;
+                var tickets = responce.Content.ReadAsAsync<IEnumerable<ticket>>().Result;
+                return View(tickets);
             }
-                return View();
+            return View();
+               
+        }
+
+        [HttpPost]
+        public ActionResult Index(String SearchString)
+        {
+            var tickets = service.GetMany(e => 
+                                            (e.title.Contains(SearchString))
+                                            || (e.difficulty.Contains(SearchString))
+                                            || (e.estimatedHours.ToString().Contains(SearchString))
+                                            || (e.status.Contains(SearchString))
+                                            || (e.description.Contains(SearchString))
+                                            );
+            return View(tickets);
         }
 
         // GET: Ticket/Details/5
@@ -105,6 +121,8 @@ namespace Pidev.Controllers
             // ticket.team = responce;
 
             // TODO: Add insert logic here
+
+            ticket.employesTicket = null;
 
             var result = client.PostAsJsonAsync<ticketModel>("api/tickets", ticket).Result;
             

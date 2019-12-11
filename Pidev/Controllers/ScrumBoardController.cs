@@ -75,7 +75,7 @@ namespace Pidev.Controllers
             if (responce.IsSuccessStatusCode)
             {
                 userModel user = responce.Content.ReadAsAsync<userModel>().Result;
-                var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-begin/" + idTicket + "/" + user.id, null).Result;
+                var result = Client.PutAsJsonAsync<ticket>("api/tickets/employe-ticket-begin/" + idTicket + "/" + user.id, null).Result;
             }
             return RedirectToAction("Index");
         }
@@ -98,7 +98,7 @@ namespace Pidev.Controllers
             if (responce.IsSuccessStatusCode)
             {
                 userModel user = responce.Content.ReadAsAsync<userModel>().Result;
-                var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-end/" + idTicket + "/"+user.id, null).Result;
+                var result = Client.PutAsJsonAsync<ticket>("api/tickets/employe-ticket-end/" + idTicket + "/"+user.id, null).Result;
             }
             return RedirectToAction("Index");
         }
@@ -120,7 +120,7 @@ namespace Pidev.Controllers
             if (responce.IsSuccessStatusCode)
             {
                 userModel user = responce.Content.ReadAsAsync<userModel>().Result;
-                var result = Client.PutAsJsonAsync<ticketModel>("api/tickets/employe-ticket-archive/" + idTicket + "/"+user.id, null).Result;
+                var result = Client.PutAsJsonAsync<ticket>("api/tickets/employe-ticket-archive/" + idTicket + "/"+user.id, null).Result;
             }
             return RedirectToAction("Index");
         }
@@ -136,10 +136,11 @@ namespace Pidev.Controllers
         }
 
 
-        public   Boolean disabled(int id)
+        public   static Boolean disabled(int id)
         {
-           
-            string token = Request.Cookies.Get("token").Value;
+
+            string token = System.Web.HttpContext.Current.Request.Cookies.Get("token").Value;
+             
 
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
@@ -147,7 +148,7 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
-            HttpResponseMessage responce = Client.GetAsync("api/tickets/ticket-validator"+id).Result;
+            HttpResponseMessage responce = Client.GetAsync("api/tickets/ticket-validator/"+id).Result;
             if (responce.StatusCode.Equals(System.Net.HttpStatusCode.Accepted))
                 {
                 return true;
@@ -157,9 +158,8 @@ namespace Pidev.Controllers
 
         public static int ticketColor(int id)
         {
-
-            ScrumBoardController scr = new ScrumBoardController();
-            string token = scr.Request.Cookies.Get("token").Value;
+            
+            string token = System.Web.HttpContext.Current.Request.Cookies.Get("token").Value;
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -167,11 +167,11 @@ namespace Pidev.Controllers
             Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
             HttpResponseMessage responce = Client.GetAsync("api/tickets/ticket-color/" + id).Result;
-            if (responce.ReasonPhrase.Equals("Ticket  en avance"))
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return 1;
             }
-            else if (responce.ReasonPhrase.Equals("Ticket ni en avance ni en retard"))
+            else if (responce.StatusCode == System.Net.HttpStatusCode.Accepted)
                 return 2;
             else
             {
@@ -183,8 +183,7 @@ namespace Pidev.Controllers
         public static double compareDate(int id)
         {
 
-            ScrumBoardController scr = new ScrumBoardController();
-            string token = scr.Request.Cookies.Get("token").Value;
+            string token = System.Web.HttpContext.Current.Request.Cookies.Get("token").Value;
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
             Client.DefaultRequestHeaders.Clear();
@@ -205,8 +204,7 @@ namespace Pidev.Controllers
         public static double compareDate1(int id)
         {
 
-            ScrumBoardController scr = new ScrumBoardController();
-            string token = scr.Request.Cookies.Get("token").Value;
+            string token = System.Web.HttpContext.Current.Request.Cookies.Get("token").Value;
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -226,8 +224,7 @@ namespace Pidev.Controllers
         public static double compareDate2(int id)
         {
 
-            ScrumBoardController scr = new ScrumBoardController();
-            string token = scr.Request.Cookies.Get("token").Value;
+            string token = System.Web.HttpContext.Current.Request.Cookies.Get("token").Value;
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:9080/pidev-web/");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

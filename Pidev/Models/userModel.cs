@@ -8,7 +8,7 @@ namespace Pidev.Models
     public class userModel
     {
 
-        public int id { get; set; }
+        public long id { get; set; }
         public String lastName { get; set; }
         public String firstName { get; set; }
         public String email { get; set; }
@@ -17,5 +17,6 @@ namespace Pidev.Models
         public String password { get; set; }
         public TeamModel team { get; set; }
         public String role { get; set; }
+        public String gitLink { get; set; }
     }
 }

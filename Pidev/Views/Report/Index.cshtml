@@ -4,48 +4,194 @@
     Layout = "~/Views/Shared/_LayoutAdv.cshtml";
 }
 
+@using (Html.BeginForm())
+{
 
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>Team</th>
-            <th>Employes</th>
-            <th>Week 1</th>
-            <th>Week 2</th>
-            <th>Week 3</th>
-            <th>Week 4</th>
-        </tr>
-    </thead>
-    <tbody>
+    <div class="content-wrapper">
 
-        @foreach (var item in ViewBag.teams)
-        {
+        <div class="content-heading">
+            <h2>Ticket Report</h2>
+        </div>
+        <div>
+            <ul style="height: 100%; width: 100%; overflow: hidden; overflow-x: scroll; display: flex;">
+                @foreach (var mounth in ViewBag.mounth)
+                {
+                    <a href=@Url.Action("Month", "Report", new { mounth = mounth}) class="mb-1 btn btn-outline-secondary">
+                        <li style="display: inline-block; margin-left: 4px;">
+                            <div>
+                                <!-- Team Card-->
+                                <div class="card-body">
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item">
+                                            @mounth
+                                        </li>
+                                    </ul>
 
+                                </div>
+                                <!-- end Team Card-->
+                            </div>
+                        </li>
+                    </a>
 
+                }
 
-            <tr>
-                <td rowspan="@Pidev.Controllers.ReportController.nbr(item.id)">@item.nameTeam</td>
-            </tr>
-
-            foreach (var emp in Pidev.Controllers.ReportController.getEmployeesByTeamID(item.id))
-            {
-                <tr>
-                    <td>@emp.userName</td>
-                    <td>@Pidev.Controllers.ReportController.getNumberOfTicketHoursInFirstWeek(@emp.id)</td>
-                    <td>@Pidev.Controllers.ReportController.getNumberOfTicketHoursInSecondWeek(@emp.id)</td>
-                    <td>@Pidev.Controllers.ReportController.getNumberOfTicketHoursInThirdWeek(@emp.id)</td>
-                    <td>@Pidev.Controllers.ReportController.getNumberOfTicketHoursInFourthWeek(@emp.id)</td>
-                </tr>
-            }
-
-
-
-        }
-
-        
+            </ul>
+        </div>
 
 
 
-    </tbody>
-</table>
+
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table  my-4 w-100 table-hover" id="datatable1">
+                        <thead>
+
+                            <tr>
+                                <th>Team</th>
+                                <th>Employes</th>
+                                <th>Week 1</th>
+                                <th>Week 2</th>
+                                <th>Week 3</th>
+                                <th>Week 4</th>
+                                <th>Avrage per Mounth</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in ViewBag.teams)
+                            {
+
+
+
+                                <tr>
+
+                                    <td rowspan="@Pidev.Controllers.ReportController.nbr(item.id)">@item.nameTeam</td>
+                                </tr>
+
+                                foreach (var emp in Pidev.Controllers.ReportController.getEmployeesByTeamID(item.id))
+                                {
+
+                                    <tr onclick="window.location.href = '/Report/Details?id='+@emp.id;" style="">
+                                       
+
+                                        @{ double ligneOne = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInFirstWeek(@emp.id);}
+                                        @{ double ligneTwo = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInSecondWeek(@emp.id);}
+                                        @{ double ligneThird = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInThirdWeek(@emp.id);}
+                                        @{ double ligneFourth = @Pidev.Controllers.ReportController.getNumberOfTicketHoursInFourthWeek(@emp.id);}
+                                        <td>
+                                        @{ string path = "~/Content/iamges/" + @emp.gitLink;}
+
+                                        <img src="@Url.Content(path)" width="50" height="50" class="round" />
+                                        
+                                        
+                                        @emp.userName
+                                        
+                                        </td>
+
+
+
+
+
+
+                                        @if (ligneOne != 0)
+                                        {
+                                            <td>
+                                                <div data-toggle="tooltip"
+                                                     data-title="Progress of asigned tasks">
+                                                    <div class="progress progress-xs m-0">
+                                                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"
+                                                             style="width:@ligneOne%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <small>
+                                                    <p>@ligneOne %</p>
+                                                </small>
+                                            </td>
+                                        }@if(ligneOne == 0)
+                                        {
+                                            <td>.</td>
+                                        }
+
+                                        @if (ligneTwo != 0)
+                                        {
+                                            <td>
+                                                <div data-toggle="tooltip"
+                                                     data-title="Progress of asigned tasks">
+                                                    <div class="progress progress-xs m-0  ">
+                                                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"
+                                                             style="width:@ligneTwo%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <small>
+                                                    <p>@ligneTwo %</p>
+                                                </small>
+                                            </td>
+                                        }@if (ligneTwo == 0)
+                                        {
+                                            <td>.</td>
+                                        }
+                                        @if (ligneThird != 0)
+                                        {
+                                            <td>
+                                                <div data-toggle="tooltip"
+                                                     data-title="Progress of asigned tasks">
+                                                    <div class="progress progress-xs m-0">
+                                                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"
+                                                             style="width:@ligneThird%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <small>
+                                                    <p>@ligneThird %</p>
+                                                </small>
+                                            </td>
+                                        }@if (ligneThird == 0)
+                                        {
+                                            <td>.</td>
+                                        }
+                                        @if (ligneFourth != 0)
+                                        {
+                                            <td>
+                                                <div data-toggle="tooltip"
+                                                     data-title="Progress of asigned tasks">
+                                                    <div class="progress progress-xs m-0">
+                                                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"
+                                                             style="width:@ligneFourth%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <small>
+                                                    <p>@ligneFourth %</p>
+                                                </small>
+                                            </td>
+                                        }@if (ligneFourth == 0)
+                                        {
+                                            <td>.</td>
+                                        }
+                                        <td>@Pidev.Controllers.ReportController.getAvrageofTicketDurationByEmploye(@emp.id)</td>
+
+                                        @*</a>*@
+
+                                    </tr>
+                                }
+
+
+
+                            }
+
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

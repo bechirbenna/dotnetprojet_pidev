@@ -9,23 +9,37 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "mb-1 btn btn-outline-primary" })
 </p>
+@using (Html.BeginForm())
+{
 <div class="content-wrapper">
-
     <div class="content-heading">
-        <h2>Ticket</h2>
+        <div>Sale mobile point<small> </small></div>
     </div>
-
-    @*<button class="btn btn-default" onclick="PopupForm('@Url.Action("Create", "evaluation")');"><i class="fa fa-plus"></i> add new evlauation </button>*@
     <div class="container-fluid">
+        <!-- DATATABLE DEMO 1-->
         <div class="card">
+            <div class="card-header">
+                <div class="card-title"></div>
+                <div class="text-sm"></div>
+            </div>
             <div class="card-body">
+                <table>
+                    <tr>
+                        <td>
+                            <div> Serach by name : @Html.TextBox("SearchString")  </div>
+                        </td>
+
+                        <td>
+                            <input type="submit" value="Search" id="submit" />
+                        </td>
+                    </tr>
+                </table>
                 <table class="table table-striped my-4 w-100" id="datatable2">
+
                     <thead>
                         <tr>
-
-
                             <th>
                                 description
                             </th>
@@ -45,10 +59,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in ViewBag.result)
-            {
+                        @foreach (var item in Model)
+                        {
                             <tr>
-
                                 <td>@item.description</td>
 
                                 <td>@item.difficulty</td>
@@ -58,9 +71,6 @@
                                 <td>@item.status</td>
 
                                 <td>@item.title</td>
-
-
-
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.idTicket }) |
                                     @Html.ActionLink("Details", "Details", new { id = item.idTicket }) |
@@ -75,3 +85,4 @@
         </div>
     </div>
 </div>
+}

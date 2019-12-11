@@ -57,7 +57,7 @@
                 <!-- START Right Navbar-->
                 <ul class="navbar-nav flex-row">
                     <!-- Search icon-->
-                    <li class="nav-item"><a class="nav-link" href="#" data-search-open=""><em class="icon-magnifier"></em></a></li><!-- Fullscreen (only desktops)-->
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("LogOut", "Login", null)"><em class="fa fa-sign-out-alt"></em>LogOut</a></li><!-- Fullscreen (only desktops)-->
                     <li class="nav-item d-none d-md-block"><a class="nav-link" href="#" data-toggle-fullscreen=""><em class="fas fa-expand"></em></a></li><!-- START Alert menu-->
                     <li class="nav-item dropdown dropdown-list">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-toggle="dropdown"><em class="icon-bell"></em><span class="badge badge-danger">2</span></a><!-- START Dropdown menu-->
@@ -66,28 +66,28 @@
                                 <!-- START list group-->
                                 <div class="list-group">
                                     @*@foreach (var p in listNotif)
-                                    {
-                                    <!-- list item-->
-                                        <div class="list-group-item list-group-item-action">
-                                            <div class="media">
-                                                <div class="align-self-start mr-2"><i class="fa fa-fw fa-edit fa-2x text-danger"></i></div>
-                                                <div class="media-body">
-                                                    <p class="m-0">@p.Title</p>
-                                                    <p class="m-0 text-muted text-sm">@p.description</p>
+                                        {
+                                        <!-- list item-->
+                                            <div class="list-group-item list-group-item-action">
+                                                <div class="media">
+                                                    <div class="align-self-start mr-2"><i class="fa fa-fw fa-edit fa-2x text-danger"></i></div>
+                                                    <div class="media-body">
+                                                        <p class="m-0">@p.Title</p>
+                                                        <p class="m-0 text-muted text-sm">@p.description</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div><!-- list item-->
-                                    }*@
+                                            </div><!-- list item-->
+                                        }*@
                                 </div>
                             </div>
-                                </div><!-- END list group-->
-                                <!--Search form-->
-                                <form class="navbar-form" role="search" action="search.html">
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Type and hit enter ...">
-                                        <div class="fas fa-times navbar-form-close" data-search-dismiss=""></div>
-                                    </div><button class="d-none" type="submit">Submit</button>
-                                </form><!-- END Search form-->
+                        </div><!-- END list group-->
+                        <!--Search form-->
+                        <form class="navbar-form" role="search" action="search.html">
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Type and hit enter ...">
+                                <div class="fas fa-times navbar-form-close" data-search-dismiss=""></div>
+                            </div><button class="d-none" type="submit">Submit</button>
+                        </form><!-- END Search form-->
             </nav><!-- END Top Navbar-->
         </header><!-- sidebar-->
         <aside class="aside-container">
@@ -123,10 +123,15 @@
                                 <li class=" "><a href="~/evaluation/Index" title="Dashboard v3"><span>Evaluation</span></a></li>
                             </ul>
 
-                            <ul class="sidebar-nav sidebar-subnav collapse" id="ticket">
-                                <li class="sidebar-subnav-header">Dashboard</li>
-                                <li class=" "><a href="~/ScrumBoard/Index" title="Objectives"><span>ScrumBoard</span></a></li>
 
+                        </li>
+
+                        <li class=" "><a href="#scrum" title="ScrumBoard" data-toggle="collapse">
+                            <div class="float-right badge badge-success">3</div><em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">ScrumBoard</span>
+                            </a>
+                            <ul class="sidebar-nav sidebar-subnav collapse" id="scrum">
+                                <li class="sidebar-subnav-header">Dashboard</li>
+                                <li class=""><a href="~/ScrumBoard/Index" title="ScrumBoard"><span>ScrumBoard</span></a></li>
                             </ul>
                         </li>
                     </ul><!-- END sidebar nav-->
