@@ -1,0 +1,336 @@
+﻿@model IEnumerable<data.ticket>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutEmploye.cshtml";
+}
+
+<h2>Index</h2>
+
+
+<div class="content-wrapper">
+    <div class="content-heading">Scrum Board</div>
+
+
+
+    <div>
+        <ul style="height: 100%; width: 100%; overflow: hidden; overflow-x: scroll; display: flex;">
+            @foreach (var ticket in ViewBag.result)
+            {
+                if (ticket.toDoList == true)
+                {
+                    <li style="display: inline-block; margin-left: 4px;">
+                        <div>
+                            <!-- Team Card-->
+                            <div class="card card-default">
+                                <div class="card-header">
+                                    <div class="float-right">
+                                        <div class="badge badge-success">free</div>
+                                    </div>
+                                    <div class="card-title">@ticket.title</div>
+                                </div>
+                                <div class="card-body bt">
+                                    <h4>Description</h4>
+                                    @ticket.description
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item">
+                                            <div class="badge bg-gray">@ticket.difficulty</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-center">
+
+
+                                    <a href=@Url.Action("afficterTicket", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-success">affecter</a>
+                                </div>
+                            </div>
+                            <!-- end Team Card-->
+                        </div>
+                    </li>
+
+                }
+            }
+
+
+            @{var user = ViewBag.current_user;}
+        </ul>
+
+    </div>
+    @*     Part 2 of Scrum board               *@
+    <div class="row">
+        @foreach (var ticket in ViewBag.result)
+        {
+            if (ticket.toDo == true && ticket.employesTicket != null)
+            {
+                if (ticket.employesTicket.id == user.id)
+                {
+
+
+                    @*<c:if test="#{ticket.employesTicket.id == loginBean.current_employe.id}">*@
+
+
+                    <!-- ToDo list  -->
+                    <div class="col-xl-4 col-lg-4">
+                        <h5>TO DO list</h5>
+                        <!-- Team Card-->
+                        <div class="card card-default">
+                            <div class="card-header">
+                                <div class="float-right">
+                                    <div class="badge badge-success">@*#{loginBean.current_user.firstName}*@</div>
+                                </div>
+                                <div class="card-title">@ticket.title</div>
+                            </div>
+                            <div class="card-body bt">
+                                <h4>Description</h4>
+                                @ticket.description
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-inline m-0">
+                                    <li class="list-inline-item">
+                                        <div class="badge bg-gray">@ticket.difficulty</div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="card-footer text-center">
+                                @{Boolean n1 = Pidev.Controllers.ScrumBoardController.disabled(@ticket.idTicket);}
+                                @if (n1 == false)
+                                {
+
+                                    <button type="button" disabled class="btn btn-success btn-sm">DoIt</button>
+                                }
+
+                                @if (n1 == true)
+                                {
+
+                                    <a href=@Url.Action("DoIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-success">DoIt</a>
+                                }
+
+
+
+                            </div>
+
+                        </div>
+                        <!-- end Team Card-->
+
+
+                    </div>
+                    <div class="col-xl-4 col-lg-4"></div>
+                    <div class="col-xl-4 col-lg-4"></div>
+                                            }
+                                        }
+                                    }
+
+
+
+        <!-- doing List -->
+
+        @foreach (var ticket in ViewBag.result)
+        {
+            if (ticket.doing == true && ticket.employesTicket != null)
+            {
+                if (ticket.employesTicket.id == user.id)
+                {
+
+                    @*<c:if test="#{ticket.employesTicket.id == loginBean.current_employe.id}">*@
+                    <div class="col-xl-4 col-lg-4"></div>
+                    <div class="col-xl-4 col-lg-4">
+                        <h5>Doing list</h5>
+                        <!-- Team Card-->
+                        <div class="card   mb-3">
+                            <div class="card-header bg-primary">
+                                <div class="float-right">
+                                    @*<div class="badge badge-success">#{loginBean.current_user.firstName}</div>*@
+                                </div>
+
+                                <div class="card-title">@ticket.title</div>
+                            </div>
+                            <div class="card-body bt">
+
+                                <h4>Description</h4>
+                                @ticket.description
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-inline m-0">
+                                    <li class="list-inline-item">
+                                        <div class="badge bg-gray">@ticket.difficulty</div>
+                                    </li>
+
+                                </ul>
+                                @{double date1 = Pidev.Controllers.ScrumBoardController.compareDate(@ticket.idTicket);}
+                                @{double date2 = Pidev.Controllers.ScrumBoardController.compareDate1(@ticket.idTicket);}
+
+
+                                @{double date3 = Pidev.Controllers.ScrumBoardController.compareDate2(@ticket.idTicket);}
+
+
+                                @{ double somme = date1 + date2 + date3;}
+
+                                <div class="progress">
+
+                                    <div class="progress-bar bg-success"
+                                         style="width: @date1%"></div>
+                                    <div class="progress-bar bg-warning progress-bar-striped"
+                                         style="width: @date2%">
+                                        <span class="sr-only">20% Complete (warning)</span>
+                                    </div>
+
+                                    <div class="progress-bar bg-danger"
+                                         style="width: @date3%">
+                                        <span class="sr-only">10% Complete (danger)</span>
+                                    </div>
+
+                                </div>
+                                <p>@somme %</p>
+
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href=@Url.Action("finishIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-danger">finishIt</a>
+
+                            </div>
+
+                        </div>
+                        <!-- end Team Card-->
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4"></div>
+                                            }
+                                        }
+                                    }
+
+        <!-- end doing List -->
+        <!--         done listttt and color play-->
+
+
+        @foreach (var ticket in ViewBag.result)
+        {
+
+
+            if (ticket.done == true && ticket.employesTicket != null)
+            {
+                if (ticket.employesTicket.id == user.id)
+                {
+
+                    @*<c:if test="#{ticket.employesTicket.id == loginBean.current_employe.id}">*@
+                    <div class="col-xl-4 col-lg-4"></div>
+
+                    <div class="col-xl-4 col-lg-4"></div>
+                    <div class="col-xl-4 col-lg-4">
+                        <h5>DONE list</h5>
+                        @{int color = Pidev.Controllers.ScrumBoardController.ticketColor(@ticket.idTicket);}
+
+
+                        <!-- Team Card Red-->
+                        @if (@color == 3)
+                        {
+                            if (@ticket.archive == false)
+                            {
+                                @*<c:if test="#{ticketBean.changeColor(ticket)==3}">*@
+                                @*<c:if test="#{ticketBean.archive==false}">*@
+                                <div class="card   mb-3">
+                                    <div class="card-header bg-danger">
+                                        <div class="float-right">
+                                            @*<div class="badge badge-danger">#{loginBean.current_user.firstName}</div>*@
+                                        </div>
+                                        <div class="card-title ">@ticket.title</div>
+                                    </div>
+                                    <div class="card-body bt">
+                                        <h4>Description</h4>
+                                        @ticket.description
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-inline m-0">
+                                            <li class="list-inline-item">
+                                                <div class="badge bg-gray">@ticket.difficulty</div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a href=@Url.Action("archiveIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-danger">archiveIt</a>
+                                    </div>
+
+                                </div>
+                            }
+                        }
+                        <!-- end Team Card primary-->
+                        <!-- Team Card-->
+                        @if (@color == 2)
+                        {
+                            if (@ticket.archive == false)
+                            {          <div class="card   mb-3">
+                        <div class="card-header bg-primary">
+                            <div class="float-right">
+                                @*<div class="badge badge-primary">#{loginBean.current_user.firstName}</div>*@
+                            </div>
+                            <div class="card-title ">@ticket.title</div>
+                        </div>
+                        <div class="card-body bt">
+                            <h4>Description</h4>
+                            @ticket.description
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item">
+                                    <div class="badge bg-gray">@ticket.difficulty</div>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+
+                            <a href=@Url.Action("archiveIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-danger">archiveIt</a>
+
+                        </div>
+
+                    </div>
+                            }
+                        }
+                        <!-- end Team Card primary-->
+                        <!-- Team Card success-->
+                        @if (@color == 1)
+                        {
+                            if (@ticket.archive == false)
+                            {    <div class="card   mb-3">
+                        <div class="card-header bg-success">
+                            <div class="float-right">
+                                @*<div class="badge badge-success">#{loginBean.current_user.firstName}</div>*@
+                            </div>
+                            <div class="card-title ">@ticket.title</div>
+                        </div>
+                        <div class="card-body bt">
+                            <h4>Description</h4>
+                            @ticket.description
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item">
+                                    <div class="badge bg-gray">@ticket.difficulty</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href=@Url.Action("archiveIt", "ScrumBoard", new { idTicket = @ticket.idTicket }) class="btn btn-danger">archiveIt</a>
+
+                        </div>
+                    </div>
+                            }
+                        }
+                        <!-- end Team Card success-->
+                    </div>
+                                    }
+                                }
+                            }
+
+
+
+        <!-----end --->
+
+
+
+    </div>
+
+</div>

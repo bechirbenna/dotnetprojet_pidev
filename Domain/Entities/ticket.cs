@@ -6,7 +6,7 @@ namespace data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("pidevrh.ticket")]
+    [Table("pidev.ticket")]
     public partial class ticket
     {
         [Key]
@@ -55,6 +55,6 @@ namespace data
 
         public virtual projet projet { get; set; }
 
-        public virtual user user { get; set; }
+        public virtual user employesTicket { get; set; }
     }
 }

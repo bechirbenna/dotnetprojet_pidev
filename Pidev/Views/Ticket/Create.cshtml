@@ -1,0 +1,151 @@
+﻿@model Pidev.Models.ticketModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-wrapper">
+        <div class="content-heading">
+            <div>
+                Add Ticket<small>..</small>
+            </div>
+        </div>
+
+        <!-- START card-->
+        <div class="card card-default">
+
+            <div class="card-body">
+                <form styleClass="form-horizontal">
+
+                    <fieldset>
+                        <legend>Ticket name</legend>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Ticket name:</label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+                                    <span class="input-group-append input-group-addon"><span class="input-group-text fa fa-ticket-alt"></span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <fieldset></fieldset>
+
+
+                    <fieldset>
+                        <legend>Ticket description</legend>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Ticket description:</label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                                    <span class="input-group-append input-group-addon"><span class="input-group-text fa fa-pencil-alt"></span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <fieldset></fieldset>
+
+                    <fieldset>
+                        <legend>Ticket difficulty</legend>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Ticket difficulty:</label>
+                            <div class="col-md-10">
+                                <select onchange="assignHoursTo(this.value)" name="difficulity">
+                                    <option name="facile">facile</option>
+                                    <option name="difficile">difficile</option>
+                                    <option name="complexe">complexe</option>
+
+                                </select>
+
+
+                            </div>
+                        </div>
+
+
+
+
+                    </fieldset>
+                    <fieldset></fieldset>
+
+                    <fieldset>
+                        <legend>estimated Hours</legend>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">estimated Hours:</label>
+                            <div class="col-md-10">
+
+                                <input type="number" step="0.1" min="2" max="5"
+                                       value="0" id="estimation" name="estimatedHour" />
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <fieldset></fieldset>
+
+                    <fieldset>
+                        <legend>Ticket team</legend>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Ticket team:</label>
+                            <div class="col-md-10">
+                                <select id="teamName" name="teamName">
+                                    @foreach (var item in ViewBag.teams)
+                                    {
+                                        <option>
+                                            @item.nameTeam
+                                        </option>
+                                    }
+                                </select>
+
+
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <fieldset></fieldset>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                            <i class="fa fa-fw fa-plus"></i>
+                        </div>
+                    </div>
+                </form>
+                <script type="application/javascript">
+
+                    function assignHoursTo(dif){
+                        if (dif=="facile"){
+
+                            var est = document.getElementById("estimation");
+                            est.min=0;
+                            est.max=2;
+                        }
+                        else if(dif=="difficile"){
+                            var est = document.getElementById("estimation");
+                            est.min=2;
+                            est.max=5;
+                        }else{
+                            var est = document.getElementById("estimation");
+                            est.min=5;
+                            est.max=8;
+                        }
+                    }
+
+
+                </script>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

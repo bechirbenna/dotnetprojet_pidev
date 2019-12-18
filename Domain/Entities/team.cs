@@ -6,7 +6,7 @@ namespace data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("pidevrh.team")]
+    [Table("pidev.team")]
     public partial class team
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,7 +23,7 @@ namespace data
         public string departement { get; set; }
 
         [StringLength(255)]
-        public string teamName { get; set; }
+        public string nameTeam { get; set; }
 
         public long? manager_id { get; set; }
 

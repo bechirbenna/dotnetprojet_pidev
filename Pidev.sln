@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePattern", "ServicePattern\ServicePattern.csproj", "{EA1A899B-E31C-4559-9137-C6470BCFD163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{5C965CF4-3F9D-4081-B8F7-EE2C8F449188}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{BF35FE1C-82DA-4552-9C83-673015957C31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{EA1A899B-E31C-4559-9137-C6470BCFD163}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA1A899B-E31C-4559-9137-C6470BCFD163}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA1A899B-E31C-4559-9137-C6470BCFD163}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C965CF4-3F9D-4081-B8F7-EE2C8F449188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C965CF4-3F9D-4081-B8F7-EE2C8F449188}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C965CF4-3F9D-4081-B8F7-EE2C8F449188}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C965CF4-3F9D-4081-B8F7-EE2C8F449188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF35FE1C-82DA-4552-9C83-673015957C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF35FE1C-82DA-4552-9C83-673015957C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF35FE1C-82DA-4552-9C83-673015957C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF35FE1C-82DA-4552-9C83-673015957C31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

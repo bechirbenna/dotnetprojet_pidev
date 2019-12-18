@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+@{
+    var nbToDo = Pidev.Controllers.ReportController.countToDoProjects(ViewBag.tickets);
+    var nbIn_Progress = Pidev.Controllers.ReportController.countInProgressProjects(ViewBag.tickets);
+    var nbDone = Pidev.Controllers.ReportController.countDoneProjects(ViewBag.tickets);
+
+  
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+
+<!-- Page content-->
+<div class="content-wrapper">
+    <div class="content-heading">
+        <div>
+            Project List
+            <small data-localize="dashboard.WELCOME">
+               
+            </small>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row" style="margin-bottom:20px">
+            <div class="col-md-3">
+
+                <!-- START List group-->
+                <div class="list-group mb-3">
+                    <div class="list-group-item">
+                        <div class="d-flex align-items-center py-3">
+                            <div class="w-50 px-3">
+                                <p class="m-0 lead">
+                                    @nbToDo
+                                </p>
+                                <p class="m-0 text-sm"> Tickets </p>
+                            </div>
+                            <div class="w-50 px-4 text-center">
+                                <em class="fa fa-list-alt fa-3x"></em>
+                            </div>
+                            <div class="w-50 px-5 text-center ">
+                                <div class="d-flex align-items-center flex-wrap justify-content-center text-danger">
+                                    <h3> TO DO </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex align-items-center py-3">
+                            <div class="w-50 px-3">
+                                <p class="m-0 lead  progress-bar-striped progress-bar-animated">
+                                    @nbIn_Progress
+                                </p>
+                                <p class="m-0 text-sm"> Tickets </p>
+                            </div>
+                            <div class="w-50 px-4 text-center">
+                                <em class="fa fa-spinner fa-3x"></em>
+                            </div>
+                            <div class="w-50 px-5 text-center">
+                                <div class="d-flex align-items-center flex-wrap justify-content-center text-warning">
+                                    <h3>  IN PROGRESS </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex align-items-center py-3">
+                            <div class="w-50 px-3">
+                                <p class="m-0 lead">
+                                    @nbDone
+                                </p>
+                                <p class="m-0 text-sm"> Tickets </p>
+                            </div>
+                            <div class="w-50 px-4 text-center">
+                                <em class="fa fa-check-square fa-3x"></em>
+                            </div>
+                            <div class="w-50 px-5 text-center">
+                                <div class="d-flex align-items-center flex-wrap justify-content-center text-success">
+                                    <h3> DONE </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- END List group-->
+                <!-- End card toDo doing done projects-->
+            </div>
+
+
+            <div class="col-md-9">
+                <div class="card">
+                    <div style="position: relative; inset: 0px; font-size: smaller; color: rgb(84, 84, 84);" id="chartContainer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+            $(document).ready(function () {
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    title: {
+                        text: "Project In Progrees"
+                    },
+                    axisY: {
+                        title: "Hours",
+                        valueFormatString: "##",
+                    },
+                    data: [
+                    {
+                        type: "bar",
+                        legendText: "Estimated Duration",
+                        yValueFormatString: "##",
+                        showInLegend: "true",
+
+
+                       dataPoints: @Html.Raw(ViewBag.DataPoints1),
+                    }, {
+                        type: "bar",
+                        legendText: "Finished In",
+                        showInLegend: "true",
+                       // indexLabel: "#bn",
+                        yValueFormatString: "##",
+                        indexLabelFormatString: "##",
+                        indexLabelPlacement: "outside",
+
+
+                        dataPoints: @Html.Raw(ViewBag.DataPoints2),
+                    }
+                 
+                    ]
+                });
+                chart.render();
+            });
+</script>

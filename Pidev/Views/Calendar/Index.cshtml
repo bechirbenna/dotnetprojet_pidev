@@ -1,0 +1,77 @@
+﻿@model IEnumerable<data.calendar>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<!-- Page content-->
+<div class="content-wrapper">
+    <div class="content-heading">
+        Team viewer<div class="ml-auto"><em class="fas fa-exclamation-triangle text-warning"></em></div>
+    </div>
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+
+            <div class="col-xl-4 col-lg-6">
+                <!-- Team Card-->
+                <div class="card card-default">
+                    <div class="card-header">
+                        <div class="float-right">
+                            <div class="badge badge-success">free</div>
+                        </div>
+                        <div class="card-title">@Html.DisplayFor(modelItem => item.NomEvent)</div>
+                    </div>
+                    <div class="card-body bb text-center">
+
+                    </div>
+                    <div class="card-body bb">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <p class="text-bold">Date Begin</p>
+                                <div class="h3 m-0">@Html.DisplayFor(modelItem => item.DateDebut)</div>
+                            </div>
+                            <div class="col-6">
+                                <p class="text-bold">Date End</p>
+                                <div class="h3 m-0">@Html.DisplayFor(modelItem => item.DateFin)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-inline m-2">
+                            <li class="list-inline-item">
+                                <div class="badge bg-gray">
+                                   <button onclick="deleteEvent(@item.CalendarId)" class="btn btn-danger" > Delete</button>
+                                </div>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href=@Url.Action("Edit", "Calendar", new { id = @item.CalendarId }) class="btn btn-success">Update</a>
+                            </li>                         
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center"></div>
+                </div><!-- end Team Card-->
+            </div>
+        }
+    </div>
+
+</div>
+<script>
+
+    function deleteEvent(id) {
+        alertify.confirm('Delete Event', 'are you sure to delete It ?', function () {
+            window.location.href = '@Url.Action("Delete", "Calendar")?id=' + id ;
+
+        }, null);
+    }
+
+</script>

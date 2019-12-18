@@ -1,0 +1,142 @@
+﻿@model data.ticket
+
+@{
+    ViewBag.Title = "Details";
+
+    Layout = "~/Views/Shared/_LayoutAdv.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ticket</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.archive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.archive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateBegin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateBegin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.difficulty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.difficulty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.doing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.doing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.done)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.done)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estimatedHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estimatedHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.toDo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.toDo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.toDoList)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.toDoList)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employesTicket_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employesTicket_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projet_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projet_id)
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idTicket }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

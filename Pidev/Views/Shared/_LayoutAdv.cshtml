@@ -1,22 +1,53 @@
 ﻿<!DOCTYPE html>
 
 <html>
+
 <head>
-    <meta name="viewport" content="width=device-width" />
-    
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/brands.css")
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/regular.css")
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/solid.css")
-     @Styles.Render("~/Content/vendor/@fortawesome/fontawesome-free/css/fontawesome.css")
-     @Styles.Render("~/Content/vendor/simple-line-icons/css/simple-line-icons.css")
-     @Styles.Render("~/Content/vendor/animate.css/animate.css")
-     @Styles.Render("~/Content/vendor/whirl/dist/whirl.css")
-    
-     @Styles.Render("~/Content/css/bootstrap.css" )
-     @Styles.Render("~/Content/css/app.css" )
+    <meta charset="utf-8">
+    <meta name="viewport" Content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" Content="Bootstrap Admin App">
+    <meta name="keywords" Content="app, responsive, jquery, bootstrap, dashboard, admin">
+    <link rel="icon" type="image/x-icon" href="~/Content/favicon.ico">
+    <title>Angle - Bootstrap Admin Template</title><!-- =============== VENDOR STYLES ===============-->
+    <!-- FONT AWESOME-->
+    <link rel="stylesheet" href="~/Content/vendor/fortawesome/fontawesome-free/css/brands.css">
+    <link rel="stylesheet" href="~/Content/vendor/fortawesome/fontawesome-free/css/regular.css">
+    <link rel="stylesheet" href="~/Content/vendor/fortawesome/fontawesome-free/css/solid.css">
+    <link rel="stylesheet" href="~/Content/vendor/fortawesome/fontawesome-free/css/fontawesome.css"><!-- SIMPLE LINE ICONS-->
+    <link rel="stylesheet" href="~/Content/vendor/simple-line-icons/css/simple-line-icons.css"><!-- ANIMATE.CSS-->
+    <link rel="stylesheet" href="~/Content/vendor/animate.css/animate.css"><!-- WHIRL (spinners)-->
+    <link rel="stylesheet" href="~/Content/vendor/whirl/dist/whirl.css"><!-- =============== PAGE VENDOR STYLES ===============-->
+    <!-- WEATHER ICONS-->
+    <link rel="stylesheet" href="~/Content/vendor/weather-icons/css/weather-icons.css">
+    <!-- =============== BOOTSTRAP STYLES ===============-->
+    <link rel="stylesheet" href="~/Content/css/bootstrap.css" id="bscss"><!-- =============== APP STYLES ===============-->
+    <link rel="stylesheet" href="~/Content/css/app.css" id="maincss">
+
+    <!-- Datatables-->
+    <link rel="stylesheet" href="~/Content/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="~/Content/vendor/datatables.net-keytable-bs/css/keyTable.bootstrap.css">
+    <link rel="stylesheet" href="~/Content/vendor/datatables.net-responsive-bs/css/responsive.bootstrap.css"><!-- =============== BOOTSTRAP STYLES ===============-->
+    <link rel="stylesheet" href="~/Content/css/bootstrap.css" id="bscss"><!-- =============== APP STYLES ===============-->
+    <link rel="stylesheet" href="~/Content/css/app.css" id="maincss">
+
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
+
+
+    <!-- TAGS INPUT-->
+    <link rel="stylesheet" href="~/Content/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"><!-- SLIDER CTRL-->
+    <link rel="stylesheet" href="~/Content/vendor/bootstrap-slider/dist/css/bootstrap-slider.css"><!-- CHOSEN-->
+    <link rel="stylesheet" href="~/Content/vendor/chosen-js/chosen.css"><!-- DATETIMEPICKER-->
+    <link rel="stylesheet" href="~/Content/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.css"><!-- COLORPICKER-->
+    <link rel="stylesheet" href="~/Content/vendor/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css"><!-- SELECT2-->
+    <link rel="stylesheet" href="~/Content/vendor/select2/dist/css/select2.css">
+    <link rel="stylesheet" href="~/Content/vendor/ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.css"><!-- WYSIWYG-->
+    <link rel="stylesheet" href="~/Content/vendor/bootstrap-wysiwyg/css/style.css"><!-- =============== BOOTSTRAP STYLES ===============-->
+    <link rel="stylesheet" href="~/Content/css/bootstrap.css" id="bscss"><!-- =============== APP STYLES ===============-->
+    <link rel="stylesheet" href="~/Content/css/app.css" id="maincss">
 </head>
 <body>
-    
+
     <div class="wrapper">
         <!-- top navbar-->
         <header class="topnavbar-wrapper">
@@ -43,57 +74,38 @@
                 <!-- START Right Navbar-->
                 <ul class="navbar-nav flex-row">
                     <!-- Search icon-->
-                    <li class="nav-item"><a class="nav-link" href="#" data-search-open=""><em class="icon-magnifier"></em></a></li><!-- Fullscreen (only desktops)-->
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("LogOut", "Login", null)" ><em class="fa fa-sign-out-alt"></em>LogOut</a></li><!-- Fullscreen (only desktops)-->
                     <li class="nav-item d-none d-md-block"><a class="nav-link" href="#" data-toggle-fullscreen=""><em class="fas fa-expand"></em></a></li><!-- START Alert menu-->
                     <li class="nav-item dropdown dropdown-list">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-toggle="dropdown"><em class="icon-bell"></em><span class="badge badge-danger">11</span></a><!-- START Dropdown menu-->
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-toggle="dropdown"><em class="icon-bell"></em><span class="badge badge-danger">2</span></a><!-- START Dropdown menu-->
                         <div class="dropdown-menu dropdown-menu-right animated flipInX">
                             <div class="dropdown-item">
                                 <!-- START list group-->
                                 <div class="list-group">
+                                    @*@foreach (var p in listNotif)
+                                    {
                                     <!-- list item-->
-                                    <div class="list-group-item list-group-item-action">
-                                        <div class="media">
-                                            <div class="align-self-start mr-2"><em class="fab fa-twitter fa-2x text-info"></em></div>
-                                            <div class="media-body">
-                                                <p class="m-0">New followers</p>
-                                                <p class="m-0 text-muted text-sm">1 new follower</p>
+                                        <div class="list-group-item list-group-item-action">
+                                            <div class="media">
+                                                <div class="align-self-start mr-2"><i class="fa fa-fw fa-edit fa-2x text-danger"></i></div>
+                                                <div class="media-body">
+                                                    <p class="m-0">@p.Title</p>
+                                                    <p class="m-0 text-muted text-sm">@p.description</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div><!-- list item-->
-                                    <div class="list-group-item list-group-item-action">
-                                        <div class="media">
-                                            <div class="align-self-start mr-2"><em class="fas fa-envelope fa-2x text-warning"></em></div>
-                                            <div class="media-body">
-                                                <p class="m-0">New e-mails</p>
-                                                <p class="m-0 text-muted text-sm">You have 10 new emails</p>
-                                            </div>
-                                        </div>
-                                    </div><!-- list item-->
-                                    <div class="list-group-item list-group-item-action">
-                                        <div class="media">
-                                            <div class="align-self-start mr-2"><em class="fas fa-tasks fa-2x text-success"></em></div>
-                                            <div class="media-body">
-                                                <p class="m-0">Pending Tasks</p>
-                                                <p class="m-0 text-muted text-sm">11 pending task</p>
-                                            </div>
-                                        </div>
-                                    </div><!-- last list item-->
-                                    <div class="list-group-item list-group-item-action"><span class="d-flex align-items-center"><span class="text-sm">More notifications</span><span class="badge badge-danger ml-auto">14</span></span></div>
-                                </div><!-- END list group-->
+                                        </div><!-- list item-->
+                                    }*@
+                                </div>
                             </div>
-                        </div><!-- END Dropdown menu-->
-                    </li><!-- END Alert menu-->
-                    <!-- START Offsidebar button-->
-                    <li class="nav-item"><a class="nav-link" href="#" data-toggle-state="offsidebar-open" data-no-persist="true"><em class="icon-notebook"></em></a></li><!-- END Offsidebar menu-->
-                </ul><!-- END Right Navbar-->
-                <!-- START Search form-->
-                <form class="navbar-form" role="search" action="search.html">
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Type and hit enter ...">
-                        <div class="fas fa-times navbar-form-close" data-search-dismiss=""></div>
-                    </div><button class="d-none" type="submit">Submit</button>
-                </form><!-- END Search form-->
+                                </div><!-- END list group-->
+                                <!--Search form-->
+                                <form class="navbar-form" role="search" action="search.html">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" placeholder="Type and hit enter ...">
+                                        <div class="fas fa-times navbar-form-close" data-search-dismiss=""></div>
+                                    </div><button class="d-none" type="submit">Submit</button>
+                                </form><!-- END Search form-->
+                        </ul>
             </nav><!-- END Top Navbar-->
         </header><!-- sidebar-->
         <aside class="aside-container">
@@ -109,7 +121,7 @@
                                     <!-- User picture-->
                                     <div class="user-block-picture">
                                         <div class="user-block-status">
-                                            <img class="img-thumbnail rounded-circle" src="img/user/02.jpg" alt="Avatar" width="60" height="60">
+                                            <img class="img-thumbnail rounded-circle" src="" alt="Avatar" width="60" height="60">
                                             <div class="circle bg-success circle-lg"></div>
                                         </div>
                                     </div><!-- Name and Job-->
@@ -119,17 +131,36 @@
                         </li><!-- END user info-->
                         <!-- Iterates over all sidebar items-->
                         <li class="nav-heading "><span data-localize="sidebar.heading.HEADER">Main Navigation</span></li>
-                        <li class=" "><a href="#dashboard" title="Dashboard" data-toggle="collapse">
+                        <li class=""><a href="#dashboard" title="Dashboard" data-toggle="collapse">
                             <div class="float-right badge badge-success">3</div><em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
                             </a>
                             <ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
                                 <li class="sidebar-subnav-header">Dashboard</li>
-                                <li class=" "><a href="~/Evaluation/Objectives" title="Objectives"><span>Objectives</span></a></li>
-                                <li class=" "><a href="dashboard_v2.html" title="Dashboard v2"><span>Dashboard v2</span></a></li>
-                                <li class=" "><a href="dashboard_v3.html" title="Dashboard v3"><span>Dashboard v3</span></a></li>
+                                <li class=""><a href="~/Objectives/Index" title="Objectives"><span>Objectives</span></a></li>
+                                <li class=""><a href="~/eval360/Index" title="Dashboard v2"><span>List Eval360</span></a></li>
+                                <li class=""><a href="~/evaluation/Index" title="Dashboard v3"><span>Evaluation</span></a></li>
+                            </ul>
+                        </li>
+                        <li class=" "><a href="#ticket" title="Ticket" data-toggle="collapse">
+                            <div class="float-right badge badge-success">3</div><em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">Ticket</span>
+                            </a>
+                            <ul class="sidebar-nav sidebar-subnav collapse" id="ticket">
+                                <li class="sidebar-subnav-header">Dashboard</li>
+                                <li class=""><a href="~/Ticket/Index" title="Ticket"><span>Ticket List</span></a></li>
+                                <li class=""><a href="~/Report/Index" title="Report"><span>Report</span></a></li>
+                                <li class=""><a href="~/Calendar/Index" title="Calendar"><span>Calendar</span></a></li>  
+                                <li class=""><a href="http://localhost:9080/pidev-web/timesheet/TeamList.xhtml" title="Team"><span>Team</span></a></li>                      
                             </ul>
                         </li>
                     </ul><!-- END sidebar nav-->
+                    </nav>
+            </div><!-- END Dropdown menu-->
+           
+            <ul>
+            <!-- START Offsidebar button-->
+            <li class="nav-item"><a class="nav-link" href="#" data-toggle-state="offsidebar-open" data-no-persist="true"><em class="icon-notebook"></em></a></li><!-- END Offsidebar menu-->
+            </ul><!-- END Right Navbar-->
+            <!-- S
                 </nav>
             </div><!-- END Sidebar (left)-->
         </aside>
@@ -137,19 +168,79 @@
             @RenderBody()
         </section>
 
-        </div>
-            @Scripts.Render("~/Content/vendor/modernizr/modernizr.custom.js" )<!-- STORAGE API-->
-            @Scripts.Render("~/Content/vendor/js-storage/js.storage.js")<!-- SCREENFULL-->
-            @Scripts.Render("~/Content/vendor/screenfull/dist/screenfull.js")<!-- i18next-->
-            @Scripts.Render("~/Content/vendor/i18next/i18next.js")
-            @Scripts.Render("~/Content/vendor/i18next-xhr-backend/i18nextXHRBackend.js")
-            @Scripts.Render("~/Content/vendor/jquery/dist/jquery.js")
-            @Scripts.Render("~/Content/vendor/popper.js/dist/umd/popper.js")
-            @Scripts.Render("~/Content/vendor/bootstrap/dist/js/bootstrap.js")<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-            <!-- =============== APP SCRIPTS ===============-->
-            @Scripts.Render("~/Content/js/app.js")
+    </div>
+
+    <!-- MODERNIZR-->
+    <script src="~/Content/vendor/modernizr/modernizr.custom.js"></script><!-- STORAGE API-->
+    <script src="~/Content/vendor/js-storage/js.storage.js"></script><!-- SCREENFULL-->
+    <script src="~/Content/vendor/screenfull/dist/screenfull.js"></script><!-- i18next-->
+    <script src="~/Content/vendor/i18next/i18next.js"></script>
+    <script src="~/Content/vendor/i18next-xhr-backend/i18nextXHRBackend.js"></script>
+    <script src="~/Content/vendor/jquery/dist/jquery.js"></script>
+    <script src="~/Content/vendor/popper.js/dist/umd/popper.js"></script>
+    <script src="~/Content/vendor/bootstrap/dist/js/bootstrap.js"></script><!-- =============== PAGE ~/Content/vendor SCRIPTS ===============-->
+    <!-- Datatables-->
+    <script src="~/Content/vendor/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/Content/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/Content/vendor/datatables.net-buttons/js/dataTables.buttons.js"></script>
+    <script src="~/Content/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.js"></script>
+    <script src="~/Content/vendor/datatables.net-buttons/js/buttons.colVis.js"></script>
+    <script src="~/Content/vendor/datatables.net-buttons/js/buttons.flash.js"></script>
+    <script src="~/Content/vendor/datatables.net-buttons/js/buttons.html5.js"></script>
+    <script src="~/Content/vendor/datatables.net-buttons/js/buttons.print.js"></script>
+    <script src="~/Content/vendor/datatables.net-keytable/js/dataTables.keyTable.js"></script>
+    <script src="~/Content/vendor/datatables.net-responsive/js/dataTables.responsive.js"></script>
+    <script src="~/Content/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/Content/vendor/jszip/dist/jszip.js"></script>
+    <script src="~/Content/vendor/pdfmake/build/pdfmake.js"></script>
+    <script src="~/Content/vendor/pdfmake/build/vfs_fonts.js"></script><!-- =============== APP SCRIPTS ===============-->
+    <script src="~/Content/vendor/jquery-sparkline/jquery.sparkline.js"></script>
+
+    <!--Jqueryy validate-->
+    <script src="~/Content/vendor/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/Content/vendor/jquery-validation/dist/additional-methods.js"></script><!-- JQUERY STEPS-->
+    <script src="~/Content/vendor/jquery-steps/build/jquery.steps.js"></script><!-- =============== APP SCRIPTS ===============-->
+    <!--    Budget -->
+    <!-- SLIMSCROLL-->
+    <script src="~/Content/vendor/jquery-slimscroll/jquery.slimscroll.js"></script><!-- SPARKLINE-->
+    <script src="~/Content/vendor/jquery-sparkline/jquery.sparkline.js"></script><!-- FLOT CHART-->
+    <script src="~/Content/vendor/flot/jquery.flot.js"></script>
+    <script src="~/Content/vendor/jquery.flot.tooltip/js/jquery.flot.tooltip.js"></script>
+    <script src="~/Content/vendor/flot/jquery.flot.resize.js"></script>
+    <script src="~/Content/vendor/flot/jquery.flot.pie.js"></script>
+    <script src="~/Content/vendor/flot/jquery.flot.time.js"></script>
+    <script src="~/Content/vendor/flot/jquery.flot.categories.js"></script>
+    <script src="~/Content/vendor/jquery.flot.spline/jquery.flot.spline.js"></script><!-- EASY PIE CHART-->
+    <script src="~/Content/vendor/easy-pie-chart/dist/jquery.easypiechart.js"></script><!-- MOMENT JS-->
+    <script src="~/Content/vendor/moment/min/moment-with-locales.js"></script><!-- =============== APP SCRIPTS ===============-->
+    <!-- FILESTYLE-->
+    <script src="~/Content/vendor/bootstrap-filestyle/src/bootstrap-filestyle.js"></script><!-- TAGS INPUT-->
+    <script src="~/Content/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script><!-- CHOSEN-->
+    <script src="~/Content/vendor/chosen-js/chosen.jquery.js"></script><!-- SLIDER CTRL-->
+    <script src="~/Content/vendor/bootstrap-slider/dist/bootstrap-slider.js"></script><!-- INPUT MASK-->
+    <script src="~/Content/vendor/inputmask/dist/jquery.inputmask.bundle.js"></script><!-- WYSIWYG-->
+    <script src="~/Content/vendor/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script><!-- MOMENT JS-->
+    <script src="~/Content/vendor/moment/min/moment-with-locales.js"></script><!-- DATETIMEPICKER-->
+    <script src="~/Content/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script><!-- COLORPICKER-->
+    <script src="~/Content/vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script><!-- SELECT2-->
+    <script src="~/Content/vendor/select2/dist/js/select2.full.js"></script><!-- =============== APP SCRIPTS ===============-->
+    <script src="~/Content/vendor/chart.js/dist/Chart.js"></script>
+
+
+
+    @Scripts.Render("~/Content/vendor/flot/jquery.flot.js")
+    @Scripts.Render("~/Content/vendor/jquery.flot.tooltip/js/jquery.flot.tooltip.js")
+    @Scripts.Render("~/Content/vendor/flot/jquery.flot.resize.js")
+    @Scripts.Render("~/Content/vendor/flot/jquery.flot.pie.js")
+    @Scripts.Render("~/Content/vendor/flot/jquery.flot.time.js")
+    @Scripts.Render("~/Content/vendor/flot/jquery.flot.categories.js")
+    @Scripts.Render("~/Content/vendor/jquery.flot.spline/jquery.flot.spline.js")
+
+    <script src="~/Scripts/alertify.min.js"></script>
+
+    <script src="~/Content/js/app.js"></script>
+
 </body>
-<footer class="footer-container">
-    <span>&copy; 2019 - advyTeam</span>
-    </footer>
+
+
 </html>

@@ -4,14 +4,17 @@ namespace data
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using Domain.Entities;
 
     public partial class PidevContext : DbContext
     {
         public PidevContext()
             : base("name=PidevContext")
         {
-        }
+        }   
+        public virtual DbSet<calendar> calendar { get; set; }
 
+        public virtual DbSet<TicketOcr> ticketOcr { get; set; }
         public virtual DbSet<eval360> eval360 { get; set; }
         public virtual DbSet<evaluation> evaluations { get; set; }
         public virtual DbSet<facture> factures { get; set; }
@@ -24,6 +27,8 @@ namespace data
         public virtual DbSet<team> teams { get; set; }
         public virtual DbSet<ticket> tickets { get; set; }
         public virtual DbSet<user> users { get; set; }
+
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -152,7 +157,7 @@ namespace data
                 .IsUnicode(false);
 
             modelBuilder.Entity<team>()
-                .Property(e => e.teamName)
+                .Property(e => e.nameTeam)
                 .IsUnicode(false);
 
             modelBuilder.Entity<team>()
@@ -245,7 +250,7 @@ namespace data
 
             modelBuilder.Entity<user>()
                 .HasMany(e => e.tickets)
-                .WithOptional(e => e.user)
+                .WithOptional(e => e.employesTicket)
                 .HasForeignKey(e => e.employesTicket_id);
         }
     }
