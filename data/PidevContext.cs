@@ -13,6 +13,8 @@ namespace data
         {
         }   
         public virtual DbSet<calendar> calendar { get; set; }
+
+        public virtual DbSet<TicketOcr> ticketOcr { get; set; }
         public virtual DbSet<eval360> eval360 { get; set; }
         public virtual DbSet<evaluation> evaluations { get; set; }
         public virtual DbSet<facture> factures { get; set; }

@@ -98,6 +98,7 @@
     <Compile Include="Entities\team.cs" />
     <Compile Include="Entities\test.cs" />
     <Compile Include="Entities\ticket.cs" />
+    <Compile Include="Entities\ticketOcr.cs" />
     <Compile Include="Entities\user.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
